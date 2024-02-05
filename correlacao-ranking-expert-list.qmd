@@ -197,3 +197,42 @@ df %>%
 
 :::
 
+
+## Posições novamente
+
+```{r}
+lista_com_pos <- tibble(player = lista) %>% 
+  left_join(df, by = 'player') %>% 
+  select(player, pos)
+
+lista_com_pos
+```
+
+```{r}
+time1 <- lista_com_pos %>% slice(1:5)
+time1
+```
+
+```{r}
+time2 <- lista_com_pos %>% slice(6:10)
+time2
+```
+
+```{r}
+time3 <- lista_com_pos %>% slice(11:17) %>% distinct()
+time3
+```
+
+::: {.callout-note title="Posições desconsideradas"}
+
+A única constante nesta temporada é que cada time da expert list tem um center.
+
+O primeiro time tem 2 PGs.
+
+O segundo time tem 2 SFs.
+
+O terceiro time tem 2 PGs e 2 PFs, e nenhum S!
+
+Realmente, não dá para considerar as posições, aparentemente.
+
+:::
