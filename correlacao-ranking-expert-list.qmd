@@ -1,0 +1,199 @@
+---
+title: "Medindo a concordância entre o *ranking* e a *expert list*"
+author: "Fernando Náufel"
+date: now
+date-format: "DD/MM/YYYY HH:mm"
+lang: pt
+
+bibliography: bibliography.bib
+
+Português:
+csl: universidade-do-porto-faculdade-de-engenharia-chicago-pt-crono.csl
+
+format:
+  html:
+    toc: true  
+    toc-depth: 3
+    number-depth: 3
+    theme: 
+      - journal
+      - _custom.scss
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: ^(?:http:|https:)\/\/fnaufel\.github\.io
+    df-print: paged
+    code-link: true
+    code-copy: true
+    code-tools: true
+    self-contained: true
+---
+
+{{< include _math.qmd >}}
+
+# Setup
+
+```{r setup}
+source('_setup.R')
+```
+
+
+# O problema
+
+???
+
+
+# Temporada 2022
+
+## Leitura e limpeza
+
+```{r}
+df <- readxl::read_xlsx('planilhas/2022 BB DWARFF.xlsx') %>% 
+  clean_names() %>% 
+  select(player:dwarff_bb, -x0_0) %>% 
+  mutate(
+    across(
+      vorp_g:dwarff_bb,
+      ~ as.numeric(str_replace(.x, ',', '.'))
+    )
+  ) %>% 
+  rename(
+    time = tm,
+    jogos = g,
+    minutos_jogados = mp,
+    vorp_j = vorp_g,
+    cestas_j = fg_g,
+    bpm_j = bpm_g,
+    assist_pct_j = ast_percent_g,
+    rebote_def_j = drb_g,
+    lances_livres_j = ft_g,
+    bloqueios_j = blk_g
+  )
+```
+
+```{r}
+glimpse(df)
+```
+
+## Resumo
+
+```{r}
+df %>% dfSummary() %>% print(method = 'render')
+```
+
+## Jogadores repetidos
+
+Alguns jogadores aparecem mais de uma vez, porque jogaram em mais de um time na temporada.
+
+```{r}
+df %>% 
+  add_count(player) %>% 
+  filter(n > 1) %>% 
+  select(player, time) %>% 
+  group_by(player) %>% 
+  summarize(
+    times = paste0(time, collapse = ' ')
+  )
+```
+
+::: {.callout-caution title="O que fazer com as estatísticas?"}
+
+O que fazer com as estatísticas destes jogadores?
+
+Agregar? Como?
+
+:::
+
+
+## Posições
+
+* PG = point guard, armador
+* SG = shooting guard, ala-armador
+* SF = small forward, ala
+* PF = power forward, ala de força
+* C = center, pivô
+
+(de <https://pt.wikipedia.org/wiki/Posi%C3%A7%C3%B5es_no_basquetebol>)
+
+![](images/posicoes.png){ fig-align="center" width="50%" }
+
+::: {.callout-note title="Jogadores multiposição"}
+
+Alguns pouquíssimos jogadores jogam em mais de uma posição:
+
+```{r}
+df %>% 
+  filter(str_detect(pos, '-')) %>% 
+  select(player, pos) %>% 
+  arrange(pos)
+```
+
+O ideal seria criar um registro para cada posição, todos os registros com o mesmo *score*.
+
+O [único risco]{.hl} disto seria um jogador ser previsto para aparecer duas vezes na *expert list* (uma vez para cada posição).
+
+[Vou considerar este risco desprezível.]{.hl}
+
+:::
+
+
+## *Expert list*
+
+```{r}
+lista <- c(
+  'Joel Embiid',
+  'Giannis Antetokounmpo',
+  'Jayson Tatum',
+  'Luka Dončić',
+  'Shai Gilgeous-Alexander',
+  'Nikola Jokić',
+  'Jimmy Butler',
+  'Jaylen Brown',
+  'Donovan Mitchell',
+  'Stephen Curry',
+  'Domantas Sabonis',
+  'LeBron James',
+  'Julius Randle',
+  'De\'Aaron Fox',
+  'Damian Lillard'
+)
+```
+
+São `r length(lista)` jogadores no total.
+
+```{r}
+df %>% 
+  filter(player %in% lista) %>% 
+  arrange(player) %>% 
+  select(player)
+```
+
+Um deles jogou em mais de um time.
+
+```{r}
+sabonis <- df %>% 
+  filter(player == 'Domantas Sabonis') %>% 
+  select(dwarff_bb)
+
+sabonis
+```
+
+E ganhou um score por time.
+
+::: {.callout-caution title="Score do Sabonis?"}
+
+Como você calculou o DWARFF dele?
+
+Se somarmos os três valores, ele fica com um DWARFF mais alto do que o do Nikola Jokić!
+
+```{r}
+sabonis$dwarff_bb %>% sum()
+```
+
+```{r}
+df %>% 
+  filter(player == 'Nikola Jokić') %>% 
+  pull(dwarff_bb)
+```
+
+:::
+

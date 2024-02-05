@@ -1,0 +1,45 @@
+---
+title: ???
+subtitle: ???
+author: "Fernando Náufel"
+date: now
+date-format: "DD/MM/YYYY HH:mm"
+lang: pt
+
+# bibliography: bibliography.bib
+
+# Português:
+# csl: universidade-do-porto-faculdade-de-engenharia-chicago-pt-crono.csl
+
+# English:
+# csl: |
+#   `r if(knitr::is_html_output())
+#    'html_files/chicago-fullnote-bibliography.csl' else
+#    'pdf_files/chicago-author-date.csl'`
+
+format:
+  html:
+    toc: true  
+    toc-depth: 3
+    number-depth: 3
+    theme: 
+      - journal
+      - _custom.scss
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: ^(?:http:|https:)\/\/fnaufel\.github\.io
+    df-print: paged
+    code-link: true
+    code-copy: true
+    code-tools: true
+    self-contained: true
+---
+
+{{< include _math.qmd >}}
+
+# Setup
+
+```{r setup}
+source('_setup.R')
+```
+
