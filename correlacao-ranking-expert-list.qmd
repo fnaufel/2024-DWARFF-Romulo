@@ -171,15 +171,12 @@ Um deles jogou em mais de um time.
 
 ```{r}
 sabonis <- df %>% 
-  filter(player == 'Domantas Sabonis') %>% 
-  select(dwarff_bb)
+  filter(player == 'Domantas Sabonis')
 
-sabonis
+sabonis$dwarff_bb
 ```
 
 E ganhou um score por time.
-
-::: {.callout-caution title="Score do Sabonis?"}
 
 Como você calculou o DWARFF dele?
 
@@ -195,15 +192,31 @@ df %>%
   pull(dwarff_bb)
 ```
 
-:::
+As outras estatísticas são as mesmas?
+
+```{r}
+sabonis %>% glimpse()
+```
+
+Não!
+
+Como foi calculado o DWARFF dele?
 
 
 ## Posições novamente
 
+Vamos eliminar as repetições da lista:
+
+```{r}
+lista <- lista %>% unique()
+lista
+```
+
 ```{r}
 lista_com_pos <- tibble(player = lista) %>% 
   left_join(df, by = 'player') %>% 
-  select(player, pos)
+  select(player, pos) %>% 
+  distinct()
 
 lista_com_pos
 ```
@@ -219,7 +232,7 @@ time2
 ```
 
 ```{r}
-time3 <- lista_com_pos %>% slice(11:17) %>% distinct()
+time3 <- lista_com_pos %>% slice(11:15)
 time3
 ```
 
@@ -236,3 +249,49 @@ O terceiro time tem 2 PGs e 2 PFs, e nenhum S!
 Realmente, não dá para considerar as posições, aparentemente.
 
 :::
+
+
+## Topo do *ranking*
+
+O *ranking* com todos:
+
+```{r}
+df_ranking <- df %>% 
+  group_by(player) %>% 
+  slice_max(dwarff_bb, n = 1) %>% 
+  ungroup() %>% 
+  arrange(desc(dwarff_bb)) %>% 
+  select(player, time, dwarff_bb) %>% 
+  mutate(expert_list = player %in% lista)
+
+df_ranking
+```
+
+::: {.callout-note title="Desempate"}
+
+Quando um jogador aparecia mais de uma vez, considerei o registro de maior DWARFF.
+
+:::
+
+Qual a pior posição no *ranking* de um jogador da lista?
+
+```{r}
+contando_do_fim <- which.max(rev(df_ranking$expert_list))
+contando_do_inicio <- nrow(df_ranking) - contando_do_fim + 1
+contando_do_inicio
+df_ranking %>% slice(contando_do_inicio)
+```
+
+Alguma coisa errada aqui.
+
+
+# Decisões
+
+## Jogadores repetidos
+
+* Romulo disse que usou o *team wins* do time onde o jogador jogou por último.
+
+
+## Posições
+
+* [Ignorar as posições totalmente]{.hl}, já que os próprios *experts* não respeitam as posições na hora de definir a lista.
