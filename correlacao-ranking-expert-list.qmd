@@ -140,21 +140,21 @@ O [único risco]{.hl} disto seria um jogador ser previsto para aparecer duas vez
 
 ```{r}
 lista <- c(
-  'Joel Embiid',
+  'Nikola Jokić',
   'Giannis Antetokounmpo',
   'Jayson Tatum',
   'Luka Dončić',
-  'Shai Gilgeous-Alexander',
-  'Nikola Jokić',
-  'Jimmy Butler',
-  'Jaylen Brown',
-  'Donovan Mitchell',
+  'Devin Booker',
+  'Joel Embiid',
+  'Kevin Durant',
+  'DeMar DeRozan',
+  'Ja Morant',
   'Stephen Curry',
-  'Domantas Sabonis',
+  'Karl-Anthony Towns',
   'LeBron James',
-  'Julius Randle',
-  'De\'Aaron Fox',
-  'Damian Lillard'
+  'Pascal Siakam',
+  'Chris Paul',
+  'Trae Young'
 )
 ```
 
@@ -167,50 +167,11 @@ df %>%
   select(player)
 ```
 
-Um deles jogou em mais de um time.
-
-```{r}
-sabonis <- df %>% 
-  filter(player == 'Domantas Sabonis')
-
-sabonis$dwarff_bb
-```
-
-E ganhou um score por time.
-
-Como você calculou o DWARFF dele?
-
-Se somarmos os três valores, ele fica com um DWARFF mais alto do que o do Nikola Jokić!
-
-```{r}
-sabonis$dwarff_bb %>% sum()
-```
-
-```{r}
-df %>% 
-  filter(player == 'Nikola Jokić') %>% 
-  pull(dwarff_bb)
-```
-
-As outras estatísticas são as mesmas?
-
-```{r}
-sabonis %>% glimpse()
-```
-
-Não!
-
-Como foi calculado o DWARFF dele?
 
 
 ## Posições novamente
 
-Vamos eliminar as repetições da lista:
-
-```{r}
-lista <- lista %>% unique()
-lista
-```
+Vamos adicionar as posições à lista e eliminar as repetições (se houver):
 
 ```{r}
 lista_com_pos <- tibble(player = lista) %>% 
@@ -238,15 +199,7 @@ time3
 
 ::: {.callout-note title="Posições desconsideradas"}
 
-A única constante nesta temporada é que cada time da expert list tem um center.
-
-O primeiro time tem 2 PGs.
-
-O segundo time tem 2 SFs.
-
-O terceiro time tem 2 PGs e 2 PFs, e nenhum S!
-
-Realmente, não dá para considerar as posições, aparentemente.
+Realmente, não dá para considerar as posições. Aqui, só o primeiro time foi "padrão".
 
 :::
 
@@ -282,7 +235,6 @@ contando_do_inicio
 df_ranking %>% slice(contando_do_inicio)
 ```
 
-Alguma coisa errada aqui.
 
 
 # Decisões
@@ -290,6 +242,8 @@ Alguma coisa errada aqui.
 ## Jogadores repetidos
 
 * Romulo disse que usou o *team wins* do time onde o jogador jogou por último.
+
+* [O mesmo vale para as outras estatísticas?]{.hl}
 
 
 ## Posições
