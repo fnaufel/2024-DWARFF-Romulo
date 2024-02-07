@@ -1,0 +1,7 @@
+
+    geom_abline(linetype = 'dashed', alpha = .3) +
+
+
+A linha tracejada indica onde todos os pontos deveriam estar para que a concordância entre as duas ordenações fosse perfeita (i.e., $\rho = 1$).
+
+Nããão. Depende dos desvios-padrão.
