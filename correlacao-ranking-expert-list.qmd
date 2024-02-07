@@ -39,6 +39,7 @@ format:
 
 ```{r setup, include=FALSE}
 source('_setup.R')
+
 set.seed(5432)
 
 # Montar df usando as colunas
@@ -62,62 +63,12 @@ montar_df <- function(
 
 # Montar df usando lista e ranking (mais prático)
 montar_df_lista_ranking <- function(
-  k = 6,
-  p = 10,
-  lista = NULL,
-  ranking = NULL
+  lista = sample(LETTERS, 6),
+  ranking = c(lista, sample(LETTERS[!(LETTERS %in% lista)], 4))
 ) {
   
-  # Escolher nomes dos jogadores, se não passado
-  if (is.null(lista)) {
-    lista <- sample(LETTERS, k)
-  }
-  
-  # Letras que sobraram
-  resto <- LETTERS[!(LETTERS %in% lista)]
-  
-  # Escolher outros jogadores para o ranking
-  outros <- sample(resto, p - k)
-  
-  # Escolher um jogador da lista para ser o último
-  # Se o último do ranking não for da lista, este não seria o menor prefixo!
-  ultimo <- sample(lista, 1)
-  
-  # Retirar o último da lista
-  lista_menos_um <- lista[lista != ultimo]
-  
-  jogadores <- c(sample(c(lista_menos_um, outros)), ultimo)
-
-  # Montar tibble e adicionar posições
-  if (is.null(ranking)) {
-    df_ranking <- tibble(jogador = jogadores, rank = 1:p)
-  } else {
-    # Caso o ranking tenha sido passado, mas com problema
-    stopifnot(
-      'Última posição do ranking deve ser de alguém da lista.' =
-      ranking[k] == p
-    )
-    df_ranking <- tibble(jogador = jogadores, rank = ranking)
-  }
-  
-  # Montar outra tibble, juntar com ranking e completar empates
-  df_lista_ext <- 
-    # Só as linhas da lista (sempre as primeiras)
-    tibble(jogador = lista) %>% 
-    # Adicionar posições
-    left_join(df_ranking, by = 'jogador') %>% 
-    mutate(
-      rank = rank(rank)
-    ) %>% 
-    arrange(rank) %>% 
-    bind_rows(
-      tibble(
-        jogador = outros,
-        rank = sum((k + 1):p) / (p - k)
-      )
-    )
-  
-  df_lista_ext
+  list(lista, ranking)
+  # TODO: continuar. Retornar df
 
 }
 
@@ -182,13 +133,13 @@ Na forma de tabela:
 ```{r}
 df_lista <- tibble(
   jogador = lista,
-  rank = sum(1:k)/k
+  pos = sum(1:k)/k
 )
 
 df_lista
 ```
 
-[A princípio]{.hl}, como não existe ordem na lista, todos os jogadores estão empatados, o que faria com que todos os *ranks* fossem iguais a
+[A princípio]{.hl}, como não existe ordem na lista, todos os jogadores estão empatados, o que faria com que todas as posições fossem iguais a
 
 $$
 \frac{\sum_{i = 1}^{`r k`} i}{`r k`} = `r sum(1:k)/k`
@@ -196,7 +147,7 @@ $$
 
 ::: {.callout-caution title="Atenção"}
 
-Mais adiante, vamos precisar rever estes *ranks*, para evitar que o desvio-padrão seja $0$.
+Mais adiante, vamos precisar rever estas posições, para evitar que o desvio-padrão seja $0$.
 
 :::
 
@@ -214,7 +165,7 @@ outros <- sample(resto, p - k)
 
 # Escolher um jogador da lista para ser o último
 # Se o último do ranking não for da lista, este não seria o menor prefixo!
-ultimo <- sample(lista, 1)
+ultimo <- lista[k]
 
 # Retirar o último da lista
 lista_menos_um <- lista[lista != ultimo]
@@ -230,13 +181,13 @@ Na forma de tabela:
 ```{r}
 df_ranking <- tibble(
   jogador = ranking,
-  rank = 1:p
+  pos = 1:p
 )
 
 df_ranking
 ```
 
-Para comparar a lista e o prefixo, precisamos que os dois tenham o mesmo tamanho. Vamos adicionar à lista os jogadores que só estão no prefixo, mas estes novos jogadores terão um *rank* pior do que os que já estavam na lista e, como a lista não "sabe" nada sobre eles, estes novos jogadores ficarão empatados entre si.
+Para comparar a lista e o prefixo, precisamos que os dois tenham o mesmo tamanho. Vamos adicionar à lista os jogadores que só estão no prefixo, mas estes novos jogadores terão uma posição pior do que os que já estavam na lista e, como a lista não "sabe" nada sobre eles, estes novos jogadores ficarão empatados entre si.
 
 ::: {.callout-caution title="Atenção" #obs1}
 
@@ -257,13 +208,13 @@ df_lista_ext <- df_lista %>%
   select(jogador) %>% 
   left_join(df_ranking, by = 'jogador') %>% 
   mutate(
-    rank = rank(rank)
+    pos = rank(pos)
   ) %>% 
-  arrange(rank) %>% 
+  arrange(pos) %>% 
   bind_rows(
     tibble(
       jogador = outros,
-      rank = sum((k + 1):p) / (p - k)
+      pos = sum((k + 1):p) / (p - k)
     )
   )
 
@@ -277,18 +228,24 @@ cat('lista   =', df_lista_ext$jogador, '\n')
 cat('ranking =', df_ranking$jogador, '\n')
 ```
 
+Observe que
+
+* A lista original consistia apenas dos $`r k`$ primeiros jogadores desta nova lista.
+
+* A ordem, no *ranking*, destes $`r k`$ primeiros jogadores da lista está preservada, embora eles possam não aparecer de forma consecutiva no *ranking*.
+
 Agora podemos reunir as informações em uma só tabela:
 
 ```{r}
 df_comparacao <- df_lista_ext %>% 
-  rename(pos_lista = rank) %>% 
+  rename(pos_lista = pos) %>% 
   left_join(df_ranking, by = 'jogador') %>% 
-  rename(pos_ranking = rank)
+  rename(pos_ranking = pos)
 
 df_comparacao
 ```
 
-O valor do coeficiente de correlação ordinal de Spearman ($\rho$) para estas duas ordenações é simplesmente igual ao coeficiente de correlação linear de Pearson ($r$) entre elas (já que os valores são *ranks*):
+O valor do coeficiente de correlação ordinal de Spearman ($\rho$) para estas duas ordenações é simplesmente igual ao coeficiente de correlação linear de Pearson ($r$) entre elas (já que os valores são posições):
 
 ```{r}
 ro <- with(
@@ -354,18 +311,11 @@ mostrar_cor(df)
 
 ### Total discordância
 
-Teoricamente, o valor mínimo de $\rho$ é $-1$, que acontece quando uma ordanação é o inverso da outra.
+Teoricamente, o valor mínimo de $\rho$ é $-1$, que acontece quando uma ordenação é o inverso da outra.
 
 Aqui, por causa das [observações sobre a não-ordenação da lista](#obs1), [esta situação não pode acontecer]{.hl}.
 
 Os casos desfavoráveis vão acontecer quando o *ranking* contiver, nas primeiras $p - k$ posições, [apenas jogadores que não estão na lista]{.hl}:
-
-```{r}
-montar_df_lista_ranking(
-  ranking = c(5:10, 1:4)
-)
-```
-
 
 ```{r}
 df <- montar_df(10, c(5:10, 1:4), c(1:6, rep(8.5, 4)))
@@ -389,33 +339,11 @@ Vamos continuar com estes valores, mas vamos fazer exemplos com valores diferent
 
 * Exemplo:
 
-  ```{r}
-  df <- montar_df(10, c(4:8, c(10, 1:3)), c(1:6, rep(8.5, 4)))
-  df
-  
-  mostrar_cor(df)
-  mostrar_grafico(df)
-  ```
 
 * Exemplo:
 
-  ```{r}
-  df <- montar_df(10, c(3:8, c(1:2, 9:10)), c(1:6, rep(8.5, 4)))
-  df
-  
-  mostrar_cor(df)
-  mostrar_grafico(df)
-  ```
 
 * Exemplo:
-
-  ```{r}
-  df <- montar_df(10, c(2:7, c(1, 8:10)), c(1:6, rep(8.5, 4)))
-  df
-  
-  mostrar_cor(df)
-  mostrar_grafico(df)
-  ```
 
 
 # *Expert list* como ordem parcial
