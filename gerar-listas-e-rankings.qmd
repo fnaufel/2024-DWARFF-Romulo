@@ -1,0 +1,134 @@
+---
+title: "Funções para gerar exemplos"
+author: "Fernando Náufel"
+date: now
+date-format: "DD/MM/YYYY HH:mm"
+lang: pt
+
+execute: 
+  echo: false
+  eval: true
+  warning: true
+  error: true
+  include: true
+
+bibliography: bibliography.bib
+
+Português:
+csl: universidade-do-porto-faculdade-de-engenharia-chicago-pt-crono.csl
+
+format:
+  html:
+    toc: true  
+    toc-depth: 3
+    number-depth: 3
+    theme: 
+      - journal
+      - _custom.scss
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: ^(?:http:|https:)\/\/fnaufel\.github\.io
+    df-print: paged
+    code-link: true
+    code-copy: true
+    code-tools: true
+    self-contained: true
+---
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+library(gt)
+```
+
+
+# Problema
+
+Condições:
+
+* A *expert list* (lista) tem $k$ elementos, $k > 0$, não necessariamente ordenados.
+
+* O *ranking* tem $p$ elementos, $p \geq k$, ordenados.
+
+* Todos os elementos da lista estão no *ranking*.
+
+* O último elemento do *ranking* é elemento da lista.
+
+Dadas estas condições, desenvolver funções para
+
+* Criar exemplos com pares de listas e *rankings*, cada par em uma *tibble*.
+
+* Construir tabelas coloridas mostrando as posições dos elementos da lista no *ranking*.
+
+* Calcular diferentes medidas de correlação entre lista e *ranking*.
+
+* Construir gráficos.
+
+
+# Criando exemplos
+
+## Quantidade de exemplos
+
+Dados $k > 0$ e $p \geq k$ fixos, quantos exemplos existem?
+
+A lista é $L = \{ a_1, \ldots, a_k \}$.
+
+Os elementos do *ranking* que não estão na lista são $R = \{b_1, \ldots, b_{p-k}\}$.
+
+Para montar um *ranking*:
+
+1. Escolher um elemento da lista para ser o último do *ranking*:
+
+   $k$ escolhas.
+   
+1. Escolher a ordenação dos $k - 1$ elementos restantes da lista:
+
+   $(k - 1)!$ escolhas.
+   
+1. Escolher as posições dos $k - 1$ elementos restantes da lista dentre as $p - 1$ posições restantes no *ranking*:
+
+   $\binom{p - 1}{k - 1}$ escolhas.
+   
+Quantidade total de *rankings*:
+
+$$
+k \cdot (k - 1)! \cdot \binom{p - 1}{k - 1} 
+\quad=\quad
+k! \cdot \binom{p - 1}{k - 1}
+$$
+
+Valores:
+
+```{r}
+df <- expand_grid(
+  k = 1:15,
+  p = 1:20
+) %>% 
+  filter(p >= k) %>% 
+  mutate(
+    exemplos = factorial(k) * choose(p - 1, k - 1)
+  )
+```
+
+```{r}
+df %>% 
+  pivot_wider(
+    names_from = k,
+    # names_prefix = 'k = ',
+    # names_sep = ' ',
+    names_sort = TRUE,
+    values_from = exemplos,
+    values_fill = NA
+  ) %>% 
+  gt(rowname_col = 'p') %>%
+    tab_stubhead(label = md('$p$')) %>% 
+    tab_spanner(label = md('$k$'), columns = everything()) %>% 
+    fmt_number(sep_mark = '.', dec_mark = ',', decimals = 0) %>% 
+    sub_missing(missing_text = '') %>% 
+    tab_style(
+      cell_text(align = 'left'),
+      cells_column_spanners()
+    )
+```
+
