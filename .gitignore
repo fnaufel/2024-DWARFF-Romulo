@@ -8,3 +8,10 @@
 /planilhas/
 /dfimg/
 gerar-listas-e-rankings_cache
+
+/.quarto/
+/gerar-listas-e-rankings_files/
+/index.aux
+/index.pdf
+/index.tex
+/index.toc

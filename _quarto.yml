@@ -3,13 +3,12 @@ project:
   output-dir: docs
 
 book:
-  title: ???
-  subtitle: ???
+  title: Comparando listas e rankings
   author: "Fernando Náufel"
   date: now
-  output-file: ???
+  output-file: comparando
   search: true
-  repo-url: https://github.com/fnaufel/???
+  repo-url: https://github.com/fnaufel/2024-DWARFF-Romulo
   repo-branch: master
   repo-actions: [edit, source, issue]
   downloads: [pdf]
@@ -20,24 +19,18 @@ book:
     - linkedin
   chapters:
     - index.qmd
-    - references.qmd
+    - gerar-listas-e-rankings.qmd
+#    - references.qmd
 
-# bibliography: bibliography.bib
+bibliography: bibliography.bib
 
-# Português:
-# csl: universidade-do-porto-faculdade-de-engenharia-chicago-pt-crono.csl
-
-# English:
-# csl: |
-#   `r if(knitr::is_html_output())
-#    'chicago-fullnote-bibliography.csl' else
-#    'chicago-author-date.csl'`
+csl: universidade-do-porto-faculdade-de-engenharia-chicago-pt-crono.csl
 
 comments:
   hypothesis: true
 
 execute: 
-  echo: true
+  echo: false
   eval: true
   warning: true
   error: true
@@ -56,7 +49,7 @@ format:
     code-tools: true
     link-external-icon: true
     link-external-newwindow: true
-    link-external-filter: ^(?:http:|https:)\/\/fnaufel\.github\.io
+    link-external-filter: ^(?:http:|https:)\/\/fnaufel\.github\.io/2024\-DWARFF\-Romulo
   pdf:
     documentclass: scrreprt
     toc-depth: 3
