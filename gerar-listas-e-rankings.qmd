@@ -262,13 +262,8 @@ criar_df <- function(ranking) {
 ```
 
 ```{r echo=TRUE}
-criar_df(
-  criar_ranking(
-    LETTERS[1:4],
-    c(2, 6, 1, 3),
-    6
-  )
-)
+r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3), 6)
+criar_df(r)
 ```
 
 
@@ -300,14 +295,83 @@ criar_tabela <- function(ranking) {
 ```
 
 ```{r echo=TRUE}
-criar_tabela(
-  criar_ranking(
-   LETTERS[1:4],
-    c(2, 6, 1, 3),
-    6
-  )
-)
+r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3), 6)
+criar_tabela(r)
 ```
+
+Aqui, fica claro quais são e em que posições estão os elementos da lista. 
 
 
 ## Como gráfico
+
+A função recebe um *ranking*, na forma de vetor ou de *tibble*.
+
+A função gera um gráfico de pontos, com um ponto para cada elemento. 
+
+No eixo $x$, a posição do elemento na lista.
+
+No eixo $y$, a posição do elemento no *ranking*.
+
+A função pode receber, além do *ranking*, uma função para calcular o *score* deste *ranking* (i.e., alguma forma de correlação entre o *ranking* e a lista). O *score* vai ser mostrado no título do gráfico.
+
+Opcionalmente, é incluída uma reta de regressão linear via mínimos quadrados.
+
+```{r echo=TRUE}
+criar_plot <- function(ranking, fun = NULL, reta = TRUE) {
+  
+  if (!is_tibble(ranking)) {
+    ranking <- criar_df(ranking)
+  }
+  
+  df <- ranking
+  p <- nrow(df)
+  
+  grafico <- df %>% 
+    ggplot(aes(pos_lista, pos_ranking)) +
+      geom_point() +
+      scale_x_continuous(breaks = 1:p, labels = 1:p, limits = c(1, p)) +
+      scale_y_continuous(breaks = 1:p, labels = 1:p, limits = c(1, p)) +
+      labs(
+        x = 'lista',
+        y = 'ranking'
+      )
+  
+  if (!is.null(fun)) {
+    score <- do.call(fun, list(df))
+    grafico <- grafico + labs(title = paste0('Score = ', score))
+  }
+  
+  if (reta) {
+    grafico <- grafico +
+      geom_smooth(
+        formula = y ~ x,
+        method = 'lm',
+        se = FALSE
+      )
+  }
+  
+  grafico
+
+}
+```
+
+```{r echo=TRUE}
+r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3), 6)
+```
+
+```{r echo=TRUE}
+criar_tabela(r)
+```
+
+```{r echo=TRUE}
+criar_plot(r)
+```
+
+```{r echo=TRUE}
+criar_plot(r, reta = FALSE)
+```
+
+```{r echo=TRUE}
+criar_plot(r, \(df) { cor(df$pos_lista, df$pos_ranking) %>% round(2) })
+```
+

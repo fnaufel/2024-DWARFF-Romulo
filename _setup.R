@@ -60,7 +60,7 @@ options(
   # Use a comma as decimal separator
   OutDec = ',',
   # Number of decimal digits for numbers produced by inline R code
-  fmdigits = 4,
+  fmdigits = 2,
   # Width of text output
   width = ifelse(is_html_output(), 72, 69),
   # Number of head elements to show in

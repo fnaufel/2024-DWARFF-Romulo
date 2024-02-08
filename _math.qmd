@@ -2,6 +2,6 @@
 ::: {.content-hidden}
 
 \providecommand{\reais}{\ensuremath{\mathbb{R}}}           % reais
-\providecommand{\vet}[1]{\ensuremath{\mathbf{#1}}}         % vetor em negrito
+\providecommand{\vet}[1]{\ensuremath{\mathbf{#1}}}         % vetor
 
 :::

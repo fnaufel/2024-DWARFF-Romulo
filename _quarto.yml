@@ -1,0 +1,73 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: ???
+  subtitle: ???
+  author: "Fernando Náufel"
+  date: now
+  output-file: ???
+  search: true
+  repo-url: https://github.com/fnaufel/???
+  repo-branch: master
+  repo-actions: [edit, source, issue]
+  downloads: [pdf]
+  date-format: "DD/MM/YYYY HH:mm"
+  sharing: 
+    - twitter
+    - facebook
+    - linkedin
+  chapters:
+    - index.qmd
+    - references.qmd
+
+# bibliography: bibliography.bib
+
+# Português:
+# csl: universidade-do-porto-faculdade-de-engenharia-chicago-pt-crono.csl
+
+# English:
+# csl: |
+#   `r if(knitr::is_html_output())
+#    'chicago-fullnote-bibliography.csl' else
+#    'chicago-author-date.csl'`
+
+comments:
+  hypothesis: true
+
+execute: 
+  echo: true
+  eval: true
+  warning: true
+  error: true
+  include: true
+
+format:
+  html:
+    toc-depth: 3
+    number-depth: 3
+    theme: 
+      - journal
+      - _custom.scss
+    df-print: paged
+    code-link: true
+    code-copy: true
+    code-tools: true
+    link-external-icon: true
+    link-external-newwindow: true
+    link-external-filter: ^(?:http:|https:)\/\/fnaufel\.github\.io
+  pdf:
+    documentclass: scrreprt
+    toc-depth: 3
+    number-depth: 3
+    fig-pos: htb
+    keep-tex: true
+    filters: 
+      - filters/dollar.lua
+      - filters/hl.lua
+    include-in-header: 
+      - _preamble.tex
+    include-before-body:  
+      - _before-body.tex
+
