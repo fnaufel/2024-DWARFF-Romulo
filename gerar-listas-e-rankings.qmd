@@ -196,23 +196,151 @@ criar_ranking <- function(lista, posicoes, p) {
 ```
 
 ```{r}
-criar_ranking(
+r <- criar_ranking(
   LETTERS[1:4],
   c(2, 6, 1, 3),
   6
 )
+
+r
 ```
 
 
-# Visualizando exemplos
+# Representando um exemplo
 
 ## Como *tibble*
 
-```{r}
+Para calcular a correlação entre a lista e o *ranking*, vamos precisar ordenar a lista de alguma forma, pois, se todos os elementos da lista estiverem empatados (i.e., se todos tiverem o mesmo valor de posição), podemos cair em um caso em que o desvio-padrão seja $0$.
 
+Dado um *ranking*, a maneira mais conveniente de ordenar a lista afetando a correlação de forma previsível é concordando com o *ranking*!
+
+É isto que esta função faz.
+
+Além disso, os elementos que não estavam na lista mas estão no *ranking*, se existirem, precisam entrar na *tibble*.
+
+Eles vão entrar como estando todos empatados no fim da lista, como no exemplo mais abaixo.
+
+A função retorna uma *tibble* com as colunas `nome`, `pos_lista` e `pos_ranking`.
+
+```{r echo=TRUE}
+criar_df <- function(ranking) {
+  
+  p <- length(ranking)
+  lista <- ranking[ranking != '?']
+  k <- length(lista)
+  pos_lista <- 1:k
+  pos_ranking <- which(ranking %in% lista)
+  
+  # Linhas com elementos da lista
+  df <- tibble(
+    nome = lista,
+    pos_lista = pos_lista,
+    pos_ranking = pos_ranking
+  )
+  
+  if (p > k) {
+    
+    # Linhas com outros elementos
+    nomes <- rep('?', p - k)
+    pos_lista <- rep((sum((k+1):p) / (p - k)) , p - k)
+    pos_ranking <- which(!(ranking %in% lista))
+    
+    df <- df %>% 
+      bind_rows(
+        tibble(
+          nome = nomes,
+          pos_lista = pos_lista,
+          pos_ranking = pos_ranking
+        )
+      )
+      
+  }
+  
+  df
+  
+}
+```
+
+```{r echo=TRUE}
+criar_df(
+  criar_ranking(
+    LETTERS[1:4],
+    c(2, 6, 1, 3),
+    6
+  )
+)
 ```
 
 
 ## Como tabela
+
+Uma maneira mais compacta ainda de representar um exemplo.
+
+```{r}
+criar_tabela <- function(ranking) {
+  
+  df <- criar_df(ranking) %>% arrange(pos_ranking)
+  
+  df %>%
+    select(pos_ranking, nome) %>% 
+    gt() %>% 
+      tab_style(
+        cell_fill('green'),
+        cells_body(
+          rows = nome != '?'
+        )
+      ) %>% 
+      tab_style(
+        cell_fill('red'),
+        cells_body(
+          rows = nome == '?'
+        )
+      ) %>% 
+      tab_style(
+        cell_text(weight = 'bolder'),
+        cells_body()
+      ) %>% 
+      cols_label_with(fn = ~'')
+  
+}
+```
+
+```{r}
+criar_tabela(
+  criar_ranking(
+   LETTERS[1:4],
+    c(2, 6, 1, 3),
+    6
+  )
+)
+```
+
+
+```{r}
+df <- criar_df(
+  criar_ranking(
+    LETTERS[1:4],
+    c(2, 6, 1, 3),
+    6
+  )
+)
+```
+
+```{r}
+df
+```
+
+
+```{r}
+df %>% 
+  select(-pos_lista) %>% 
+  arrange(pos_ranking) %>% 
+  pivot_wider(
+    names_from = pos_ranking,
+    values_from = nome
+  )
+```
+
+
 
 ## Como gráfico
