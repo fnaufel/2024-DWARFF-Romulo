@@ -1,39 +1,3 @@
----
-title: "Funções para gerar exemplos"
-author: "Fernando Náufel"
-date: now
-date-format: "DD/MM/YYYY HH:mm"
-lang: pt
-
-execute: 
-  echo: false
-  eval: true
-  warning: true
-  error: true
-  include: true
-
-bibliography: bibliography.bib
-
-Português:
-csl: universidade-do-porto-faculdade-de-engenharia-chicago-pt-crono.csl
-
-format:
-  html:
-    toc: true  
-    toc-depth: 3
-    number-depth: 3
-    theme: 
-      - journal
-      - _custom.scss
-    link-external-icon: true
-    link-external-newwindow: true
-    link-external-filter: ^(?:http:|https:)\/\/fnaufel\.github\.io
-    df-print: paged
-    code-link: true
-    code-copy: true
-    code-tools: true
-    self-contained: true
----
 
 {{< include _math.qmd >}}
 
@@ -42,8 +6,9 @@ source('_setup.R')
 library(gt)
 ```
 
+# Gerar e visualizar exemplos
 
-# Problema
+## Problema
 
 Condições:
 
@@ -66,9 +31,9 @@ Dadas estas condições, desenvolver funções para
 * Construir gráficos.
 
 
-# Criando exemplos
+## Criando exemplos
 
-## Quantidade de exemplos
+### Quantidade de exemplos
 
 Dados $k > 0$ e $p \geq k$ fixos, quantos exemplos existem?
 
@@ -152,7 +117,7 @@ df %>%
 ```
 
 
-## Criar uma lista com letras maiúsculas
+### Criar uma lista com letras maiúsculas
 
 ```{r echo=TRUE}
 criar_lista <- function(k) {
@@ -168,24 +133,23 @@ criar_lista(10)
 ```
 
 
-## Criar um *ranking* a partir de uma lista
+### Criar um *ranking* a partir de uma lista
 
-A função vai receber a lista, um vetor com as posições dos elementos da lista no *ranking*, e o tamanho $p$ do ranking.
+A função vai receber a lista, um vetor com as posições dos elementos da lista no *ranking*.
+
+O tamanho $p$ do *ranking* vai ser o maior valor do vetor de posições (já que o último elemento do *ranking* precisa ser da lista).
 
 A função retorna um vetor com o *ranking*, onde os elementos que não estavam na lista são escritos como "?".
 
 ```{r echo=TRUE}
-criar_ranking <- function(lista, posicoes, p) {
+criar_ranking <- function(lista, posicoes) {
+  
+  p <- max(posicoes)
   
   # Verificar se posicoes contêm só números entre 1 e p, sem repetições
   stopifnot(
     'Posições precisam estar entre 1 e p, sem repetições.' =
     all(between(posicoes, 1, p)) & identical(posicoes, unique(posicoes))
-  )
-  
-  # Verificar se posicoes contém p (o último do ranking tem q ser da lista)
-  stopifnot(
-    'O último do ranking precisa ser da lista' = p %in% posicoes
   )
   
   ranking <- rep('?', p)
@@ -195,22 +159,21 @@ criar_ranking <- function(lista, posicoes, p) {
 }
 ```
 
-```{r}
+```{r echo=TRUE}
 r <- criar_ranking(
   LETTERS[1:4],
-  c(2, 6, 1, 3),
-  6
+  c(2, 6, 1, 3)
 )
 
 r
 ```
 
 
-# Representando um exemplo
+## Representando um exemplo
 
-## Como *tibble*
+### Como *tibble*
 
-Para calcular a correlação entre a lista e o *ranking*, vamos precisar ordenar a lista de alguma forma, pois, se todos os elementos da lista estiverem empatados (i.e., se todos tiverem o mesmo valor de posição), podemos cair em um caso em que o desvio-padrão seja $0$.
+Para calcular a correlação entre a lista e o *ranking*, vamos precisar ordenar a lista de alguma forma, pois, se todos os elementos da lista estiverem empatados (i.e., se todos tiverem o mesmo valor de posição), vamos cair em um caso em que o desvio-padrão é $0$ (quando o *ranking* só contiver jogadores da lista).
 
 Dado um *ranking*, a maneira mais conveniente de ordenar a lista afetando a correlação de forma previsível é concordando com o *ranking*!
 
@@ -218,7 +181,7 @@ Dado um *ranking*, a maneira mais conveniente de ordenar a lista afetando a corr
 
 Além disso, os elementos que não estavam na lista mas estão no *ranking*, se existirem, precisam entrar na *tibble*.
 
-Eles vão entrar como estando todos empatados no fim da lista, como no exemplo mais abaixo.
+Eles vão entrar todos empatados no fim da lista, como no exemplo mais abaixo.
 
 A função retorna uma *tibble* com as colunas `nome`, `pos_lista` e `pos_ranking`.
 
@@ -262,12 +225,12 @@ criar_df <- function(ranking) {
 ```
 
 ```{r echo=TRUE}
-r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3), 6)
+r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3))
 criar_df(r)
 ```
 
 
-## Como tabela
+### Como tabela
 
 Uma maneira mais compacta ainda de representar um exemplo de *ranking*.
 
@@ -295,14 +258,14 @@ criar_tabela <- function(ranking) {
 ```
 
 ```{r echo=TRUE}
-r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3), 6)
+r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3))
 criar_tabela(r)
 ```
 
 Aqui, fica claro quais são e em que posições estão os elementos da lista. 
 
 
-## Como gráfico
+### Como gráfico
 
 A função recebe um *ranking*, na forma de vetor ou de *tibble*.
 
@@ -356,7 +319,7 @@ criar_plot <- function(ranking, fun = NULL, reta = TRUE) {
 ```
 
 ```{r echo=TRUE}
-r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3), 6)
+r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3))
 ```
 
 ```{r echo=TRUE}
