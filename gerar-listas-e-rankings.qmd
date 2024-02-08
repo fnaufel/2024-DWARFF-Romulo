@@ -274,38 +274,32 @@ criar_df(
 
 ## Como tabela
 
-Uma maneira mais compacta ainda de representar um exemplo.
+Uma maneira mais compacta ainda de representar um exemplo de *ranking*.
 
-```{r}
+```{r echo=TRUE}
 criar_tabela <- function(ranking) {
   
-  df <- criar_df(ranking) %>% arrange(pos_ranking)
-  
+  df <- criar_df(ranking) %>%
+    select(-pos_lista) %>% 
+    arrange(pos_ranking) %>% 
+    pivot_wider(
+      names_from = pos_ranking,
+      values_from = nome
+    )
+
   df %>%
-    select(pos_ranking, nome) %>% 
     gt() %>% 
-      tab_style(
-        cell_fill('green'),
-        cells_body(
-          rows = nome != '?'
-        )
-      ) %>% 
       tab_style(
         cell_fill('red'),
         cells_body(
-          rows = nome == '?'
+          columns = where(~ .x == '?')
         )
-      ) %>% 
-      tab_style(
-        cell_text(weight = 'bolder'),
-        cells_body()
-      ) %>% 
-      cols_label_with(fn = ~'')
+      )
   
 }
 ```
 
-```{r}
+```{r echo=TRUE}
 criar_tabela(
   criar_ranking(
    LETTERS[1:4],
@@ -314,33 +308,6 @@ criar_tabela(
   )
 )
 ```
-
-
-```{r}
-df <- criar_df(
-  criar_ranking(
-    LETTERS[1:4],
-    c(2, 6, 1, 3),
-    6
-  )
-)
-```
-
-```{r}
-df
-```
-
-
-```{r}
-df %>% 
-  select(-pos_lista) %>% 
-  arrange(pos_ranking) %>% 
-  pivot_wider(
-    names_from = pos_ranking,
-    values_from = nome
-  )
-```
-
 
 
 ## Como gráfico

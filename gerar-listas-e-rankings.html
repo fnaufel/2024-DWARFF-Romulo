@@ -4481,7 +4481,7 @@ window.Quarto = {
   </ul>
 </li>
   <li>
-<a href="#visualizando-um-exemplo" id="toc-visualizando-um-exemplo" class="nav-link" data-scroll-target="#visualizando-um-exemplo">Visualizando um exemplo</a>
+<a href="#representando-um-exemplo" id="toc-representando-um-exemplo" class="nav-link" data-scroll-target="#representando-um-exemplo">Representando um exemplo</a>
   <ul class="collapse">
 <li><a href="#como-tibble" id="toc-como-tibble" class="nav-link" data-scroll-target="#como-tibble">Como <em>tibble</em></a></li>
   <li><a href="#como-tabela" id="toc-como-tabela" class="nav-link" data-scroll-target="#como-tabela">Como tabela</a></li>
@@ -4508,7 +4508,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">08/02/2024 16:38</p>
+      <p class="date">08/02/2024 17:10</p>
     </div>
   </div>
   
@@ -5319,7 +5319,7 @@ text-indent: 25px;
 <pre><code>[1] &quot;C&quot; &quot;A&quot; &quot;D&quot; &quot;?&quot; &quot;?&quot; &quot;B&quot;</code></pre>
 </div>
 </div>
-</section></section><section id="visualizando-um-exemplo" class="level1"><h1>Visualizando um exemplo</h1>
+</section></section><section id="representando-um-exemplo" class="level1"><h1>Representando um exemplo</h1>
 <section id="como-tibble" class="level2"><h2 class="anchored" data-anchor-id="como-tibble">Como <em>tibble</em>
 </h2>
 <p>Para calcular a correlação entre a lista e o <em>ranking</em>, vamos precisar ordenar a lista de alguma forma, pois, se todos os elementos da lista estiverem empatados (i.e., se todos tiverem o mesmo valor de posição), podemos cair em um caso em que o desvio-padrão seja <span class="math inline">\(0\)</span>.</p>
@@ -5383,6 +5383,419 @@ text-indent: 25px;
 </div>
 </div>
 </section><section id="como-tabela" class="level2"><h2 class="anchored" data-anchor-id="como-tabela">Como tabela</h2>
+<p>Uma maneira mais compacta ainda de representar um exemplo de <em>ranking</em>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="mrifxhribd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mrifxhribd table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#mrifxhribd thead, #mrifxhribd tbody, #mrifxhribd tfoot, #mrifxhribd tr, #mrifxhribd td, #mrifxhribd th {
+border-style: none;
+}
+#mrifxhribd p {
+margin: 0;
+padding: 0;
+}
+#mrifxhribd .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#mrifxhribd .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#mrifxhribd .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#mrifxhribd .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#mrifxhribd .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#mrifxhribd .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#mrifxhribd .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#mrifxhribd .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#mrifxhribd .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#mrifxhribd .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#mrifxhribd .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#mrifxhribd .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#mrifxhribd .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#mrifxhribd .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#mrifxhribd .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#mrifxhribd .gt_from_md > :first-child {
+margin-top: 0;
+}
+#mrifxhribd .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#mrifxhribd .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#mrifxhribd .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#mrifxhribd .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#mrifxhribd .gt_row_group_first td {
+border-top-width: 2px;
+}
+#mrifxhribd .gt_row_group_first th {
+border-top-width: 2px;
+}
+#mrifxhribd .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#mrifxhribd .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#mrifxhribd .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#mrifxhribd .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#mrifxhribd .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#mrifxhribd .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#mrifxhribd .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#mrifxhribd .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#mrifxhribd .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#mrifxhribd .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#mrifxhribd .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#mrifxhribd .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#mrifxhribd .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#mrifxhribd .gt_left {
+text-align: left;
+}
+#mrifxhribd .gt_center {
+text-align: center;
+}
+#mrifxhribd .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#mrifxhribd .gt_font_normal {
+font-weight: normal;
+}
+#mrifxhribd .gt_font_bold {
+font-weight: bold;
+}
+#mrifxhribd .gt_font_italic {
+font-style: italic;
+}
+#mrifxhribd .gt_super {
+font-size: 65%;
+}
+#mrifxhribd .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#mrifxhribd .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#mrifxhribd .gt_indent_1 {
+text-indent: 5px;
+}
+#mrifxhribd .gt_indent_2 {
+text-indent: 10px;
+}
+#mrifxhribd .gt_indent_3 {
+text-indent: 15px;
+}
+#mrifxhribd .gt_indent_4 {
+text-indent: 20px;
+}
+#mrifxhribd .gt_indent_5 {
+text-indent: 25px;
+}
+</style>
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="1" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">1</th>
+<th id="2" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">2</th>
+<th id="3" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">3</th>
+<th id="4" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">4</th>
+<th id="5" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">5</th>
+<th id="6" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">6</th>
+</tr></thead>
+<tbody class="gt_table_body"><tr class="odd">
+<td class="gt_row gt_left" headers="1">C</td>
+<td class="gt_row gt_left" headers="2">A</td>
+<td class="gt_row gt_left" headers="3">D</td>
+<td class="gt_row gt_left" headers="4" style="background-color: #FF0000">?</td>
+<td class="gt_row gt_left" headers="5" style="background-color: #FF0000">?</td>
+<td class="gt_row gt_left" headers="6">B</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+</div>
 </section><section id="como-gráfico" class="level2"><h2 class="anchored" data-anchor-id="como-gráfico">Como gráfico</h2>
 <!-- -->
 
@@ -6052,7 +6465,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a><span class="fu"># Visualizando um exemplo</span></span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a><span class="fu"># Representando um exemplo</span></span>
 <span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como *tibble*</span></span>
 <span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a></span>
@@ -6118,10 +6531,51 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb8-274"><a href="#cb8-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb8-275"><a href="#cb8-275" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-276"><a href="#cb8-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como tabela</span></span>
-<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como gráfico</span></span>
+<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como tabela</span></span>
+<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a>Uma maneira mais compacta ainda de representar um exemplo de *ranking*.</span>
+<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a>criar_tabela <span class="ot">&lt;-</span> <span class="cf">function</span>(ranking) {</span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">criar_df</span>(ranking) <span class="sc">%&gt;%</span></span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>pos_lista) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(pos_ranking) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(</span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a>      <span class="at">names_from =</span> pos_ranking,</span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a>      <span class="at">values_from =</span> nome</span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb8-295"><a href="#cb8-295" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-296"><a href="#cb8-296" aria-hidden="true" tabindex="-1"></a>      <span class="co"># tab_style(</span></span>
+<span id="cb8-297"><a href="#cb8-297" aria-hidden="true" tabindex="-1"></a>      <span class="co">#   cell_fill(&#39;green&#39;),</span></span>
+<span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a>      <span class="co">#   cells_body(</span></span>
+<span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a>      <span class="co">#     columns = where(~ .x != &#39;?&#39;)</span></span>
+<span id="cb8-300"><a href="#cb8-300" aria-hidden="true" tabindex="-1"></a>      <span class="co">#   )</span></span>
+<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a>      <span class="co"># ) %&gt;% </span></span>
+<span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tab_style</span>(</span>
+<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cell_fill</span>(<span class="st">&#39;red&#39;</span>),</span>
+<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cells_body</span>(</span>
+<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a>          <span class="at">columns =</span> <span class="fu">where</span>(<span class="sc">~</span> .x <span class="sc">==</span> <span class="st">&#39;?&#39;</span>)</span>
+<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a><span class="fu">criar_tabela</span>(</span>
+<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a>  <span class="fu">criar_ranking</span>(</span>
+<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a>   LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>],</span>
+<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span></span>
+<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-324"><a href="#cb8-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-325"><a href="#cb8-325" aria-hidden="true" tabindex="-1"></a><span class="fu">## Como gráfico</span></span>
 </code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
