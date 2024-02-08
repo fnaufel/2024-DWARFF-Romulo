@@ -49,7 +49,7 @@ Condições:
 
 * A *expert list* (lista) tem $k$ elementos, $k > 0$, não necessariamente ordenados.
 
-* O *ranking* tem $p$ elementos, $p \geq k$, ordenados.
+* O *ranking* tem $p$ elementos, $p \geq k$, ordenados, sem empates.
 
 * Todos os elementos da lista estão no *ranking*.
 
@@ -74,8 +74,6 @@ Dados $k > 0$ e $p \geq k$ fixos, quantos exemplos existem?
 
 A lista é $L = \{ a_1, \ldots, a_k \}$.
 
-Os elementos do *ranking* que não estão na lista são $R = \{b_1, \ldots, b_{p-k}\}$.
-
 Para montar um *ranking*:
 
 1. Escolher um elemento da lista para ser o último do *ranking*:
@@ -98,11 +96,34 @@ k \cdot (k - 1)! \cdot \binom{p - 1}{k - 1}
 k! \cdot \binom{p - 1}{k - 1}
 $$
 
-Valores:
+::: {.callout-note title="Atenção"}
 
-```{r}
+[Os cálculos consideram os $p - k$ elementos do *ranking* que não estão na lista como indistinguíveis]{.hl}. 
+
+Só a presença deles importa, a identidade não.
+
+Veja o exemplo a seguir, onde estes elementos são escritos como "?".
+
+* A lista tem $k = 2$ elementos, chamados de $a$ e $b$.
+
+* O *ranking* tem $p = 4$ elementos.
+
+* Os $6$ *rankings* possíveis são
+
+  * $?\;?\;a\;b$
+  * $?\;a\;?\;b$
+  * $a\;?\;?\;b$
+  * $?\;?\;b\;a$
+  * $?\;b\;?\;a$
+  * $b\;?\;?\;a$
+
+:::
+
+Quantidades de *rankings*:
+
+```{r cache=TRUE}
 df <- expand_grid(
-  k = 1:15,
+  k = 1:10,
   p = 1:20
 ) %>% 
   filter(p >= k) %>% 
@@ -111,12 +132,10 @@ df <- expand_grid(
   )
 ```
 
-```{r}
+```{r cache=TRUE}
 df %>% 
   pivot_wider(
     names_from = k,
-    # names_prefix = 'k = ',
-    # names_sep = ' ',
     names_sort = TRUE,
     values_from = exemplos,
     values_fill = NA
@@ -132,3 +151,68 @@ df %>%
     )
 ```
 
+
+## Criar uma lista com letras maiúsculas
+
+```{r echo=TRUE}
+criar_lista <- function(k) {
+  
+  stopifnot('Argumento deve ser > 0.' = k > 0)
+  sample(LETTERS, k)
+  
+}
+```
+
+```{r echo=TRUE}
+criar_lista(10)
+```
+
+
+## Criar um *ranking* a partir de uma lista
+
+A função vai receber a lista, um vetor com as posições dos elementos da lista no *ranking*, e o tamanho $p$ do ranking.
+
+A função retorna um vetor com o *ranking*, onde os elementos que não estavam na lista são escritos como "?".
+
+```{r echo=TRUE}
+criar_ranking <- function(lista, posicoes, p) {
+  
+  # Verificar se posicoes contêm só números entre 1 e p, sem repetições
+  stopifnot(
+    'Posições precisam estar entre 1 e p, sem repetições.' =
+    all(between(posicoes, 1, p)) & identical(posicoes, unique(posicoes))
+  )
+  
+  # Verificar se posicoes contém p (o último do ranking tem q ser da lista)
+  stopifnot(
+    'O último do ranking precisa ser da lista' = p %in% posicoes
+  )
+  
+  ranking <- rep('?', p)
+  ranking[posicoes] <- lista
+  ranking
+  
+}
+```
+
+```{r}
+criar_ranking(
+  LETTERS[1:4],
+  c(2, 6, 1, 3),
+  6
+)
+```
+
+
+# Visualizando exemplos
+
+## Como *tibble*
+
+```{r}
+
+```
+
+
+## Como tabela
+
+## Como gráfico
