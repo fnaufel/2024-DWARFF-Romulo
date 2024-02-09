@@ -125,22 +125,6 @@
 \usepackage{colortbl}
 \KOMAoption{captions}{tableheading}
 \makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
-\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
-\definecolor{quarto-callout-color}{HTML}{909090}
-\definecolor{quarto-callout-note-color}{HTML}{0758E5}
-\definecolor{quarto-callout-important-color}{HTML}{CC1914}
-\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
-\definecolor{quarto-callout-tip-color}{HTML}{00A047}
-\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
-\definecolor{quarto-callout-color-frame}{HTML}{acacac}
-\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
-\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
-\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
-\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
-\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
-\makeatother
-\makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
 \makeatother
 \makeatletter
@@ -213,13 +197,21 @@
 
 \title{Comparando listas e rankings}
 \author{Fernando Náufel}
-\date{08/02/2024 18:29}
+\date{09/02/2024 19:40}
 
 \begin{document}
 \maketitle
 
 % Bold title in callout boxes
-\tcbset{fonttitle=\bfseries}
+% But we must be careful: if there are no callout boxes in the document,
+% then package tcolorbox has NOT been loaded, and we must refrain from
+% setting this up; hence the ifpackageloaded
+\makeatletter
+\@ifpackageloaded{tcolorbox}
+{\tcbset{fonttitle=\bfseries}}
+{}
+\makeatother
+
 
 \renewcommand*\contentsname{Índice}
 {
@@ -238,113 +230,91 @@
 
 \bookmarksetup{startatroot}
 
-\chapter{Gerar e visualizar exemplos}\label{gerar-e-visualizar-exemplos}
+\chapter{\texorpdfstring{Gerar e visualizar
+\emph{rankings}}{Gerar e visualizar rankings}}\label{gerar-e-visualizar-rankings}
 
 \section{Problema}\label{problema}
 
-Condições:
+Vamos trabalhar com listas e \emph{rankings} sujeitos às seguintes
+condições:
 
 \begin{itemize}
 \item
-  A \emph{expert list} (lista) tem $k$ elementos, $k > 0$, não
-  necessariamente ordenados.
+  A {\hl{lista}} tem $k$ elementos, $k > 0$, {\hl{não ordenados}}.
 \item
-  O \emph{ranking} tem $p$ elementos, $p \geq k$, ordenados, sem
-  empates.
+  O {\hl{\emph{ranking}}} tem $p$ elementos, $p \geq k$,
+  {\hl{ordenados}}, {\hl{sem empates}}.
 \item
   Todos os elementos da lista estão no \emph{ranking}.
 \item
   O último elemento do \emph{ranking} é elemento da lista.
+\item
+  As identidades dos elementos do \emph{ranking} não importam --- i.e.,
+  eles são indistinguíveis, a não ser por pertencerem ou não à lista (e
+  pela ordem que ocupam no \emph{ranking}, claro).
 \end{itemize}
 
-Dadas estas condições, desenvolver funções para
+\section{\texorpdfstring{Criando
+\emph{rankings}}{Criando rankings}}\label{criando-rankings}
 
-\begin{itemize}
-\item
-  Criar exemplos com pares de listas e \emph{rankings}, cada par em uma
-  \emph{tibble}.
-\item
-  Construir tabelas coloridas mostrando as posições dos elementos da
-  lista no \emph{ranking}.
-\item
-  Calcular diferentes medidas de correlação entre lista e
-  \emph{ranking}.
-\item
-  Construir gráficos.
-\end{itemize}
+\subsection{\texorpdfstring{Quantidade de
+\emph{rankings}}{Quantidade de rankings}}\label{quantidade-de-rankings}
 
-\section{Criando exemplos}\label{criando-exemplos}
-
-\subsection{Quantidade de exemplos}\label{quantidade-de-exemplos}
-
-Dados $k > 0$ e $p \geq k$ fixos, quantos exemplos existem?
-
-A lista é $L = \{ a_1, \ldots, a_k \}$.
+Dados $k > 0$ e $p \geq k$ fixos, quantos \emph{rankings} existem?
 
 Para montar um \emph{ranking}:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Escolher um elemento da lista para ser o último do \emph{ranking}:
-
-  $k$ escolhas.
+  Sabemos que a última posição é ocupada por alguém da lista.
 \item
-  Escolher a ordenação dos $k - 1$ elementos restantes da lista:
-
-  $(k - 1)!$ escolhas.
-\item
-  Escolher as posições dos $k - 1$ elementos restantes da lista dentre
-  as $p - 1$ posições restantes no \emph{ranking}:
-
+  Só resta escolher as posições dos $k - 1$ elementos restantes da lista
+  dentre as $p - 1$ posições restantes no \emph{ranking}, o que dá
   $\binom{p - 1}{k - 1}$ escolhas.
 \end{enumerate}
 
-Quantidade total de \emph{rankings}:
+Assim, a quantidade total de \emph{rankings} para $k$ e $p$ dados é
 
 \[
-k \cdot (k - 1)! \cdot \binom{p - 1}{k - 1} 
-\quad=\quad
-k! \cdot \binom{p - 1}{k - 1}
+\binom{p - 1}{k - 1}
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, colback=white, colframe=quarto-callout-note-color-frame, colbacktitle=quarto-callout-note-color!10!white, titlerule=0mm, rightrule=.15mm, toprule=.15mm, breakable, leftrule=.75mm, left=2mm, coltitle=black, opacitybacktitle=0.6, bottomtitle=1mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Atenção}, arc=.35mm, opacityback=0, bottomrule=.15mm]
+\subsection{Representação}\label{sec-repr}
 
-{\hl{Os cálculos consideram os $p - k$ elementos do \emph{ranking} que
-não estão na lista como indistinguíveis}}.
+Considere naturais $k > 0$ e $p \geq k$.
 
-Só a presença deles importa, a identidade não.
+{\hl{Podemos representar um \emph{ranking} através de um \emph{string}
+contendo $k$ caracteres ``{\mbox{\texttt{x}}}'' e $p - k$ caracteres
+``{\mbox{\texttt{-}}}''}}.
 
-Veja o exemplo a seguir, onde estes elementos são escritos como ``?''.
+``\texttt{x}'' representa uma posição ocupada por um elemento da lista.
+
+``\texttt{-}'' representa uma posição ocupada por um elemento que não
+está na lista.
+
+Por exemplo, para $k = 3, p = 5$, os $\binom{4}{2} = 6$ \emph{rankings}
+possíveis são
 
 \begin{itemize}
+\tightlist
 \item
-  A lista tem $k = 2$ elementos, chamados de $a$ e $b$.
+  \texttt{xx-\/-x}
 \item
-  O \emph{ranking} tem $p = 4$ elementos.
+  \texttt{x-x-x}
 \item
-  Os $6$ \emph{rankings} possíveis são
-
-  \begin{itemize}
-  \tightlist
-  \item
-    $?\;?\;a\;b$
-  \item
-    $?\;a\;?\;b$
-  \item
-    $a\;?\;?\;b$
-  \item
-    $?\;?\;b\;a$
-  \item
-    $?\;b\;?\;a$
-  \item
-    $b\;?\;?\;a$
-  \end{itemize}
+  \texttt{x-\/-xx}
+\item
+  \texttt{-xx-x}
+\item
+  \texttt{-x-xx}
+\item
+  \texttt{-\/-xxx}
 \end{itemize}
 
-\end{tcolorbox}
-
-Quantidades de \emph{rankings}:
+A tabela a seguir (na verdade, um pedaço do triângulo de Pascal) mostra
+as quantidades de \emph{rankings} possíveis para alguns valores de $k$ e
+$p$:
 
 \begin{longtable*}{l|rrrrrrrrrr}
 \toprule
@@ -353,80 +323,67 @@ Quantidades de \emph{rankings}:
 \multicolumn{1}{l}{\(p\)} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ 
 \midrule\addlinespace[2.5pt]
 $1$ & $1$ &  &  &  &  &  &  &  &  &  \\ 
-$2$ & $1$ & $2$ &  &  &  &  &  &  &  &  \\ 
-$3$ & $1$ & $4$ & $6$ &  &  &  &  &  &  &  \\ 
-$4$ & $1$ & $6$ & $18$ & $24$ &  &  &  &  &  &  \\ 
-$5$ & $1$ & $8$ & $36$ & $96$ & $120$ &  &  &  &  &  \\ 
-$6$ & $1$ & $10$ & $60$ & $240$ & $600$ & $720$ &  &  &  &  \\ 
-$7$ & $1$ & $12$ & $90$ & $480$ & $1.800$ & $4.320$ & $5.040$ &  &  &  \\ 
-$8$ & $1$ & $14$ & $126$ & $840$ & $4.200$ & $15.120$ & $35.280$ & $40.320$ &  &  \\ 
-$9$ & $1$ & $16$ & $168$ & $1.344$ & $8.400$ & $40.320$ & $141.120$ & $322.560$ & $362.880$ &  \\ 
-$10$ & $1$ & $18$ & $216$ & $2.016$ & $15.120$ & $90.720$ & $423.360$ & $1.451.520$ & $3.265.920$ & $3.628.800$ \\ 
-$11$ & $1$ & $20$ & $270$ & $2.880$ & $25.200$ & $181.440$ & $1.058.400$ & $4.838.400$ & $16.329.600$ & $36.288.000$ \\ 
-$12$ & $1$ & $22$ & $330$ & $3.960$ & $39.600$ & $332.640$ & $2.328.480$ & $13.305.600$ & $59.875.200$ & $199.584.000$ \\ 
-$13$ & $1$ & $24$ & $396$ & $5.280$ & $59.400$ & $570.240$ & $4.656.960$ & $31.933.440$ & $179.625.600$ & $798.336.000$ \\ 
-$14$ & $1$ & $26$ & $468$ & $6.864$ & $85.800$ & $926.640$ & $8.648.640$ & $69.189.120$ & $467.026.560$ & $2.594.592.000$ \\ 
-$15$ & $1$ & $28$ & $546$ & $8.736$ & $120.120$ & $1.441.440$ & $15.135.120$ & $138.378.240$ & $1.089.728.640$ & $7.264.857.600$ \\ 
-$16$ & $1$ & $30$ & $630$ & $10.920$ & $163.800$ & $2.162.160$ & $25.225.200$ & $259.459.200$ & $2.335.132.800$ & $18.162.144.000$ \\ 
-$17$ & $1$ & $32$ & $720$ & $13.440$ & $218.400$ & $3.144.960$ & $40.360.320$ & $461.260.800$ & $4.670.265.600$ & $41.513.472.000$ \\ 
-$18$ & $1$ & $34$ & $816$ & $16.320$ & $285.600$ & $4.455.360$ & $62.375.040$ & $784.143.360$ & $8.821.612.800$ & $88.216.128.000$ \\ 
-$19$ & $1$ & $36$ & $918$ & $19.584$ & $367.200$ & $6.168.960$ & $93.562.560$ & $1.283.143.680$ & $15.878.903.040$ & $176.432.256.000$ \\ 
-$20$ & $1$ & $38$ & $1.026$ & $23.256$ & $465.120$ & $8.372.160$ & $136.745.280$ & $2.031.644.160$ & $27.427.196.160$ & $335.221.286.400$ \\ 
+$2$ & $1$ & $1$ &  &  &  &  &  &  &  &  \\ 
+$3$ & $1$ & $2$ & $1$ &  &  &  &  &  &  &  \\ 
+$4$ & $1$ & $3$ & $3$ & $1$ &  &  &  &  &  &  \\ 
+$5$ & $1$ & $4$ & $6$ & $4$ & $1$ &  &  &  &  &  \\ 
+$6$ & $1$ & $5$ & $10$ & $10$ & $5$ & $1$ &  &  &  &  \\ 
+$7$ & $1$ & $6$ & $15$ & $20$ & $15$ & $6$ & $1$ &  &  &  \\ 
+$8$ & $1$ & $7$ & $21$ & $35$ & $35$ & $21$ & $7$ & $1$ &  &  \\ 
+$9$ & $1$ & $8$ & $28$ & $56$ & $70$ & $56$ & $28$ & $8$ & $1$ &  \\ 
+$10$ & $1$ & $9$ & $36$ & $84$ & $126$ & $126$ & $84$ & $36$ & $9$ & $1$ \\ 
+$11$ & $1$ & $10$ & $45$ & $120$ & $210$ & $252$ & $210$ & $120$ & $45$ & $10$ \\ 
+$12$ & $1$ & $11$ & $55$ & $165$ & $330$ & $462$ & $462$ & $330$ & $165$ & $55$ \\ 
+$13$ & $1$ & $12$ & $66$ & $220$ & $495$ & $792$ & $924$ & $792$ & $495$ & $220$ \\ 
+$14$ & $1$ & $13$ & $78$ & $286$ & $715$ & $1.287$ & $1.716$ & $1.716$ & $1.287$ & $715$ \\ 
+$15$ & $1$ & $14$ & $91$ & $364$ & $1.001$ & $2.002$ & $3.003$ & $3.432$ & $3.003$ & $2.002$ \\ 
+$16$ & $1$ & $15$ & $105$ & $455$ & $1.365$ & $3.003$ & $5.005$ & $6.435$ & $6.435$ & $5.005$ \\ 
+$17$ & $1$ & $16$ & $120$ & $560$ & $1.820$ & $4.368$ & $8.008$ & $11.440$ & $12.870$ & $11.440$ \\ 
+$18$ & $1$ & $17$ & $136$ & $680$ & $2.380$ & $6.188$ & $12.376$ & $19.448$ & $24.310$ & $24.310$ \\ 
+$19$ & $1$ & $18$ & $153$ & $816$ & $3.060$ & $8.568$ & $18.564$ & $31.824$ & $43.758$ & $48.620$ \\ 
+$20$ & $1$ & $19$ & $171$ & $969$ & $3.876$ & $11.628$ & $27.132$ & $50.388$ & $75.582$ & $92.378$ \\ 
+$21$ & $1$ & $20$ & $190$ & $1.140$ & $4.845$ & $15.504$ & $38.760$ & $77.520$ & $125.970$ & $167.960$ \\ 
+$22$ & $1$ & $21$ & $210$ & $1.330$ & $5.985$ & $20.349$ & $54.264$ & $116.280$ & $203.490$ & $293.930$ \\ 
+$23$ & $1$ & $22$ & $231$ & $1.540$ & $7.315$ & $26.334$ & $74.613$ & $170.544$ & $319.770$ & $497.420$ \\ 
+$24$ & $1$ & $23$ & $253$ & $1.771$ & $8.855$ & $33.649$ & $100.947$ & $245.157$ & $490.314$ & $817.190$ \\ 
+$25$ & $1$ & $24$ & $276$ & $2.024$ & $10.626$ & $42.504$ & $134.596$ & $346.104$ & $735.471$ & $1.307.504$ \\ 
+$26$ & $1$ & $25$ & $300$ & $2.300$ & $12.650$ & $53.130$ & $177.100$ & $480.700$ & $1.081.575$ & $2.042.975$ \\ 
+$27$ & $1$ & $26$ & $325$ & $2.600$ & $14.950$ & $65.780$ & $230.230$ & $657.800$ & $1.562.275$ & $3.124.550$ \\ 
+$28$ & $1$ & $27$ & $351$ & $2.925$ & $17.550$ & $80.730$ & $296.010$ & $888.030$ & $2.220.075$ & $4.686.825$ \\ 
+$29$ & $1$ & $28$ & $378$ & $3.276$ & $20.475$ & $98.280$ & $376.740$ & $1.184.040$ & $3.108.105$ & $6.906.900$ \\ 
+$30$ & $1$ & $29$ & $406$ & $3.654$ & $23.751$ & $118.755$ & $475.020$ & $1.560.780$ & $4.292.145$ & $10.015.005$ \\ 
 \bottomrule
 \end{longtable*}
 
-\subsection{Criar uma lista com letras
-maiúsculas}\label{criar-uma-lista-com-letras-maiuxfasculas}
+\subsection{\texorpdfstring{Criar um \emph{ranking} a partir de um
+vetor}{Criar um ranking a partir de um vetor}}\label{criar-um-ranking-a-partir-de-um-vetor}
+
+Em vez de especificar as $p$ posições do \emph{ranking}, {\hl{pode ser
+mais compacto especificar as $k$ posições do \emph{ranking} que são
+ocupadas por elementos da lista}}.
+
+A função \texttt{rk()} faz isso, recebendo um vetor numérico com $k$
+elementos e retornando um \emph{string}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{criar\_lista }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(k) \{}
+\NormalTok{rk }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(v) \{}
   
-  \FunctionTok{stopifnot}\NormalTok{(}\StringTok{\textquotesingle{}Argumento deve ser \textgreater{} 0.\textquotesingle{}} \OtherTok{=}\NormalTok{ k }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
-  \FunctionTok{sample}\NormalTok{(LETTERS, k)}
-  
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{criar\_lista}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
- [1] "C" "D" "U" "I" "A" "E" "R" "K" "W" "T"
-\end{verbatim}
-
-\subsection{\texorpdfstring{Criar um \emph{ranking} a partir de uma
-lista}{Criar um ranking a partir de uma lista}}\label{criar-um-ranking-a-partir-de-uma-lista}
-
-A função vai receber a lista, um vetor com as posições dos elementos da
-lista no \emph{ranking}.
-
-O tamanho $p$ do \emph{ranking} vai ser o maior valor do vetor de
-posições (já que o último elemento do \emph{ranking} precisa ser da
-lista).
-
-A função retorna um vetor com o \emph{ranking}, onde os elementos que
-não estavam na lista são escritos como ``?''.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{criar\_ranking }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(lista, posicoes) \{}
-  
-\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(posicoes)}
+\NormalTok{  k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(v)}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(v)   }\CommentTok{\# o último elemento pertence à lista}
   
   \CommentTok{\# Verificar se posicoes contêm só números entre 1 e p, sem repetições}
   \FunctionTok{stopifnot}\NormalTok{(}
-    \StringTok{\textquotesingle{}Posições precisam estar entre 1 e p, sem repetições.\textquotesingle{}} \OtherTok{=}
-    \FunctionTok{all}\NormalTok{(}\FunctionTok{between}\NormalTok{(posicoes, }\DecValTok{1}\NormalTok{, p)) }\SpecialCharTok{\&} \FunctionTok{identical}\NormalTok{(posicoes, }\FunctionTok{unique}\NormalTok{(posicoes))}
+    \StringTok{\textquotesingle{}Valores precisam ser inteiros positivos, sem repetições.\textquotesingle{}} \OtherTok{=}
+    \FunctionTok{all}\NormalTok{(v }\SpecialCharTok{==} \FunctionTok{as.integer}\NormalTok{(v)) }\SpecialCharTok{\&} 
+      \FunctionTok{all}\NormalTok{(v }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\&}
+      \FunctionTok{identical}\NormalTok{(v, }\FunctionTok{unique}\NormalTok{(v))}
 \NormalTok{  )}
+
+\NormalTok{  s }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{, p)}
+\NormalTok{  s[v] }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}x\textquotesingle{}}
   
-\NormalTok{  ranking }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}?\textquotesingle{}}\NormalTok{, p)}
-\NormalTok{  ranking[posicoes] }\OtherTok{\textless{}{-}}\NormalTok{ lista}
-\NormalTok{  ranking}
+  \FunctionTok{paste0}\NormalTok{(s, }\AttributeTok{collapse =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
   
 \NormalTok{\}}
 \end{Highlighting}
@@ -434,23 +391,62 @@ não estavam na lista são escritos como ``?''.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{criar\_ranking}\NormalTok{(}
-\NormalTok{  LETTERS[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{],}
-  \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\NormalTok{)}
-
-\NormalTok{r}
+\FunctionTok{rk}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-[1] "C" "A" "D" "?" "?" "B"
+[1] "x-x-x-x"
 \end{verbatim}
 
-\section{Representando um exemplo}\label{representando-um-exemplo}
+Observe que as posições não precisam ser passadas em ordem:
 
-\subsection{\texorpdfstring{Como
-\emph{tibble}}{Como tibble}}\label{como-tibble}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rk}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "x-x-x-x"
+\end{verbatim}
+
+A função detecta vetores que não podem representar \emph{rankings}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rk}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in rk(c(3, 7, 3, 1)): Valores precisam ser inteiros positivos, sem repetições.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rk}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{1.5}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in rk(c(5, 7, 3, 1.5)): Valores precisam ser inteiros positivos, sem repetições.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rk}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Error in rk(c(5, -7, 3, 1)): Valores precisam ser inteiros positivos, sem repetições.
+\end{verbatim}
+
+\section{Outras funções}\label{outras-funuxe7uxf5es}
+
+\subsection{\texorpdfstring{Converter para
+\emph{tibble}}{Converter para tibble}}\label{converter-para-tibble}
 
 Para calcular a correlação entre a lista e o \emph{ranking}, vamos
 precisar ordenar a lista de alguma forma, pois, se todos os elementos da
@@ -460,30 +456,38 @@ posição), vamos cair em um caso em que o desvio-padrão é $0$ (quando o
 
 Dado um \emph{ranking}, a maneira mais conveniente de ordenar a lista
 afetando a correlação de forma previsível é concordando com o
-\emph{ranking}!
-
-É isto que esta função faz.
+\emph{ranking}! Isto vai ficar mais claro mais adiante.
 
 Além disso, os elementos que não estavam na lista mas estão no
-\emph{ranking}, se existirem, precisam entrar na \emph{tibble}.
+\emph{ranking}, se existirem, também precisam entrar na \emph{tibble}.
 
 Eles vão entrar todos empatados no fim da lista, como no exemplo mais
 abaixo.
 
-A função retorna uma \emph{tibble} com as colunas \texttt{nome},
-\texttt{pos\_lista} e \texttt{pos\_ranking}.
+A função \texttt{criar\_df()} recebe o \emph{string} correspondente a um
+\emph{ranking} e retorna uma \emph{tibble} com as colunas
+\texttt{elemento}, \texttt{pos\_lista} e \texttt{pos\_ranking}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{criar\_df }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ranking) \{}
   
+  \FunctionTok{stopifnot}\NormalTok{(}
+    \StringTok{\textquotesingle{}Argumento deve conter apenas "x" e "{-}", terminando com "x".\textquotesingle{}} \OtherTok{=}
+    \FunctionTok{str\_detect}\NormalTok{(ranking, }\StringTok{\textquotesingle{}[{-}x]+\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\&} \FunctionTok{endsWith}\NormalTok{(ranking, }\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{)}
+\NormalTok{  )}
+  
+  \CommentTok{\# Separar caracteres. }
+  \CommentTok{\# De agora em diante, é vetor:}
+\NormalTok{  ranking }\OtherTok{\textless{}{-}} \FunctionTok{str\_split}\NormalTok{(ranking, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)[[}\DecValTok{1}\NormalTok{]]}
+  
 \NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ranking)}
-\NormalTok{  lista }\OtherTok{\textless{}{-}}\NormalTok{ ranking[ranking }\SpecialCharTok{!=} \StringTok{\textquotesingle{}?\textquotesingle{}}\NormalTok{]}
+\NormalTok{  lista }\OtherTok{\textless{}{-}}\NormalTok{ ranking[ranking }\SpecialCharTok{==} \StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{]}
 \NormalTok{  k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(lista)}
 \NormalTok{  pos\_lista }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\NormalTok{k}
 \NormalTok{  pos\_ranking }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(ranking }\SpecialCharTok{\%in\%}\NormalTok{ lista)}
   
-  \CommentTok{\# Linhas com elementos da lista}
+  \CommentTok{\# Linhas da tibble com elementos da lista}
 \NormalTok{  df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
     \AttributeTok{nome =}\NormalTok{ lista,}
     \AttributeTok{pos\_lista =}\NormalTok{ pos\_lista,}
@@ -492,8 +496,8 @@ A função retorna uma \emph{tibble} com as colunas \texttt{nome},
   
   \ControlFlowTok{if}\NormalTok{ (p }\SpecialCharTok{\textgreater{}}\NormalTok{ k) \{}
     
-    \CommentTok{\# Linhas com outros elementos}
-\NormalTok{    nomes }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}?\textquotesingle{}}\NormalTok{, p }\SpecialCharTok{{-}}\NormalTok{ k)}
+    \CommentTok{\# Linhas da tibble com outros elementos}
+\NormalTok{    nomes }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{, p }\SpecialCharTok{{-}}\NormalTok{ k)}
 \NormalTok{    pos\_lista }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{((}\FunctionTok{sum}\NormalTok{((k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{p) }\SpecialCharTok{/}\NormalTok{ (p }\SpecialCharTok{{-}}\NormalTok{ k)) , p }\SpecialCharTok{{-}}\NormalTok{ k)}
 \NormalTok{    pos\_ranking }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(ranking }\SpecialCharTok{\%in\%}\NormalTok{ lista))}
     
@@ -504,7 +508,8 @@ A função retorna uma \emph{tibble} com as colunas \texttt{nome},
           \AttributeTok{pos\_lista =}\NormalTok{ pos\_lista,}
           \AttributeTok{pos\_ranking =}\NormalTok{ pos\_ranking}
 \NormalTok{        )}
-\NormalTok{      )}
+\NormalTok{      ) }\SpecialCharTok{\%\textgreater{}\%} 
+      \FunctionTok{arrange}\NormalTok{(pos\_ranking)}
       
 \NormalTok{  \}}
   
@@ -516,48 +521,45 @@ A função retorna uma \emph{tibble} com as colunas \texttt{nome},
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{criar\_ranking}\NormalTok{(LETTERS[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{], }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
-\FunctionTok{criar\_df}\NormalTok{(r)}
+\NormalTok{r }\OtherTok{=} \StringTok{\textquotesingle{}x{-}x{-}x{-}xx\textquotesingle{}}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{criar\_df}\NormalTok{(r)}
+\NormalTok{df}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 6 x 3
+# A tibble: 8 x 3
   nome  pos_lista pos_ranking
   <chr>     <dbl>       <int>
-1 C           1             1
-2 A           2             2
-3 D           3             3
-4 B           4             6
-5 ?           5.5           4
-6 ?           5.5           5
+1 x             1           1
+2 -             7           2
+3 x             2           3
+4 -             7           4
+5 x             3           5
+6 -             7           6
+# i 2 more rows
 \end{verbatim}
 
-\subsection{Como tabela}\label{como-tabela}
-
-Uma maneira mais compacta ainda de representar um exemplo de
-\emph{ranking}.
+A partir da \emph{tibble}, o \emph{string} do \emph{ranking} pode ser
+recuperado com
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{criar\_tabela }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ranking) \{}
-  
-\NormalTok{  df }\OtherTok{\textless{}{-}} \FunctionTok{criar\_df}\NormalTok{(ranking) }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{pos\_lista) }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{arrange}\NormalTok{(pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{pivot\_wider}\NormalTok{(}
-      \AttributeTok{names\_from =}\NormalTok{ pos\_ranking,}
-      \AttributeTok{values\_from =}\NormalTok{ nome}
-\NormalTok{    )}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{nome }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{paste0}\NormalTok{(}\AttributeTok{collapse =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\NormalTok{  df }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{gt}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-      \FunctionTok{tab\_style}\NormalTok{(}
-        \FunctionTok{cell\_fill}\NormalTok{(}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{),}
-        \FunctionTok{cells\_body}\NormalTok{(}
-          \AttributeTok{columns =} \FunctionTok{where}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ .x }\SpecialCharTok{==} \StringTok{\textquotesingle{}?\textquotesingle{}}\NormalTok{)}
-\NormalTok{        )}
-\NormalTok{      )}
+\begin{verbatim}
+[1] "x-x-x-xx"
+\end{verbatim}
+
+A função \texttt{df\_string()} faz isto:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_string }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df) \{}
+  
+\NormalTok{  df}\SpecialCharTok{$}\NormalTok{nome }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{paste0}\NormalTok{(}\AttributeTok{collapse =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
   
 \NormalTok{\}}
 \end{Highlighting}
@@ -565,26 +567,19 @@ Uma maneira mais compacta ainda de representar um exemplo de
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{criar\_ranking}\NormalTok{(LETTERS[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{], }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
-\FunctionTok{criar\_tabela}\NormalTok{(r)}
+\FunctionTok{df\_string}\NormalTok{(df)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{longtable*}{llllll}
-\toprule
-1 & 2 & 3 & 4 & 5 & 6 \\ 
-\midrule\addlinespace[2.5pt]
-C & A & D & \cellcolor[HTML]{FF0000}{?} & \cellcolor[HTML]{FF0000}{?} & B \\ 
-\bottomrule
-\end{longtable*}
+\begin{verbatim}
+[1] "x-x-x-xx"
+\end{verbatim}
 
-Aqui, fica claro quais são e em que posições estão os elementos da
-lista.
+\subsection{\texorpdfstring{Criar
+\emph{plot}}{Criar plot}}\label{criar-plot}
 
-\subsection{Como gráfico}\label{como-gruxe1fico}
-
-A função recebe um \emph{ranking}, na forma de vetor ou de
-\emph{tibble}.
+A função \texttt{criar\_plot} recebe um \emph{ranking}, na forma de
+\emph{string} ou de \emph{tibble}.
 
 A função gera um gráfico de pontos, com um ponto para cada elemento.
 
@@ -592,13 +587,14 @@ No eixo $x$, a posição do elemento na lista.
 
 No eixo $y$, a posição do elemento no \emph{ranking}.
 
-A função pode receber, além do \emph{ranking}, uma função para calcular
-o \emph{score} deste \emph{ranking} (i.e., alguma forma de correlação
-entre o \emph{ranking} e a lista). O \emph{score} vai ser mostrado no
-título do gráfico.
+A função \texttt{criar\_plot} pode receber um segundo argumento,
+opcional, especificando uma função para calcular o \emph{score} deste
+\emph{ranking} (i.e., alguma forma de correlação entre o \emph{ranking}
+e a lista). O \emph{score} vai ser mostrado no título do gráfico.
 
-Opcionalmente, é incluída uma reta de regressão linear via mínimos
-quadrados.
+O terceiro argumento especifica se deve ser incluída uma reta de
+regressão linear via mínimos quadrados. O \emph{default} é
+\texttt{TRUE}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -643,37 +639,8 @@ quadrados.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{criar\_ranking}\NormalTok{(LETTERS[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{], }\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{criar\_tabela}\NormalTok{(r)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{longtable*}{llllll}
-\toprule
-1 & 2 & 3 & 4 & 5 & 6 \\ 
-\midrule\addlinespace[2.5pt]
-C & A & D & \cellcolor[HTML]{FF0000}{?} & \cellcolor[HTML]{FF0000}{?} & B \\ 
-\bottomrule
-\end{longtable*}
-
-\begin{Shaded}
-\begin{Highlighting}[]
+\NormalTok{r }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}x{-}x{-}x{-}xx\textquotesingle{}}
 \FunctionTok{criar\_plot}\NormalTok{(r)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-14-1.pdf}
-\end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{criar\_plot}\NormalTok{(r, }\AttributeTok{reta =} \ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -683,13 +650,35 @@ C & A & D & \cellcolor[HTML]{FF0000}{?} & \cellcolor[HTML]{FF0000}{?} & B \\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{criar\_plot}\NormalTok{(r, \textbackslash{}(df) \{ }\FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{pos\_lista, df}\SpecialCharTok{$}\NormalTok{pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{round}\NormalTok{(}\DecValTok{2}\NormalTok{) \})}
+\FunctionTok{criar\_plot}\NormalTok{(r, }\AttributeTok{reta =} \ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}
 \includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-16-1.pdf}
 \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{criar\_plot}\NormalTok{(r, \textbackslash{}(df) \{ }\FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{pos\_lista, df}\SpecialCharTok{$}\NormalTok{pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{round}\NormalTok{(}\DecValTok{2}\NormalTok{) \})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-17-1.pdf}
+\end{center}
+
+\subsection{\texorpdfstring{Criar uma tibble com todos os
+\emph{rankings}}{Criar uma tibble com todos os rankings}}\label{criar-uma-tibble-com-todos-os-rankings}
+
+Dados valores de $k$ e $p$, a função \texttt{criar\_df\_rankings()}
+retorna uma \emph{tibble} com todos os $\binom{p - 1}{k - 1}$
+\emph{rankings} possíveis.
+
+Cada \emph{ranking} é representado por um \emph{string}, como descrito
+na Seção~\ref{sec-repr}.
+
+???
 
 
 

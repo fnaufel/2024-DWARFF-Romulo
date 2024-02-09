@@ -1,2 +1,10 @@
 % Bold title in callout boxes
-\tcbset{fonttitle=\bfseries}
+% But we must be careful: if there are no callout boxes in the document,
+% then package tcolorbox has NOT been loaded, and we must refrain from
+% setting this up; hence the ifpackageloaded
+\makeatletter
+\@ifpackageloaded{tcolorbox}
+{\tcbset{fonttitle=\bfseries}}
+{}
+\makeatother
+

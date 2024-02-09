@@ -6,94 +6,70 @@ source('_setup.R')
 library(gt)
 ```
 
-# Gerar e visualizar exemplos
+# Gerar e visualizar *rankings*
 
 ## Problema
 
-Condições:
+Vamos trabalhar com listas e *rankings* sujeitos às seguintes condições:
 
-* A *expert list* (lista) tem $k$ elementos, $k > 0$, não necessariamente ordenados.
+* A [lista]{.hl} tem $k$ elementos, $k > 0$, [não ordenados]{.hl}.
 
-* O *ranking* tem $p$ elementos, $p \geq k$, ordenados, sem empates.
+* O [*ranking*]{.hl} tem $p$ elementos, $p \geq k$, [ordenados]{.hl}, [sem empates]{.hl}.
 
 * Todos os elementos da lista estão no *ranking*.
 
 * O último elemento do *ranking* é elemento da lista.
 
-Dadas estas condições, desenvolver funções para
-
-* Criar exemplos com pares de listas e *rankings*, cada par em uma *tibble*.
-
-* Construir tabelas coloridas mostrando as posições dos elementos da lista no *ranking*.
-
-* Calcular diferentes medidas de correlação entre lista e *ranking*.
-
-* Construir gráficos.
+* As identidades dos elementos do *ranking* não importam --- i.e., eles são indistinguíveis, a não ser por pertencerem ou não à lista (e pela ordem que ocupam no *ranking*, claro). 
 
 
-## Criando exemplos
+## Criando *rankings*
 
-### Quantidade de exemplos
+### Quantidade de *rankings*
 
-Dados $k > 0$ e $p \geq k$ fixos, quantos exemplos existem?
-
-A lista é $L = \{ a_1, \ldots, a_k \}$.
+Dados $k > 0$ e $p \geq k$ fixos, quantos *rankings* existem?
 
 Para montar um *ranking*:
 
-1. Escolher um elemento da lista para ser o último do *ranking*:
+1. Sabemos que a última posição é ocupada por alguém da lista.
 
-   $k$ escolhas.
+1. Só resta escolher as posições dos $k - 1$ elementos restantes da lista dentre as $p - 1$ posições restantes no *ranking*, o que dá $\binom{p - 1}{k - 1}$ escolhas.
    
-1. Escolher a ordenação dos $k - 1$ elementos restantes da lista:
-
-   $(k - 1)!$ escolhas.
-   
-1. Escolher as posições dos $k - 1$ elementos restantes da lista dentre as $p - 1$ posições restantes no *ranking*:
-
-   $\binom{p - 1}{k - 1}$ escolhas.
-   
-Quantidade total de *rankings*:
+Assim, a quantidade total de *rankings* para $k$ e $p$ dados é
 
 $$
-k \cdot (k - 1)! \cdot \binom{p - 1}{k - 1} 
-\quad=\quad
-k! \cdot \binom{p - 1}{k - 1}
+\binom{p - 1}{k - 1}
 $$
 
-::: {.callout-note title="Atenção"}
+### Representação {#sec-repr}
 
-[Os cálculos consideram os $p - k$ elementos do *ranking* que não estão na lista como indistinguíveis]{.hl}. 
+Considere naturais $k > 0$ e $p \geq k$. 
 
-Só a presença deles importa, a identidade não.
+[Podemos representar um *ranking* através de um *string* contendo $k$ caracteres "`x`" e $p - k$ caracteres "`-`"]{.hl}.
 
-Veja o exemplo a seguir, onde estes elementos são escritos como "?".
+"`x`" representa uma posição ocupada por um elemento da lista.
 
-* A lista tem $k = 2$ elementos, chamados de $a$ e $b$.
+"`-`" representa uma posição ocupada por um elemento que não está na lista.
 
-* O *ranking* tem $p = 4$ elementos.
+Por exemplo, para $k = 3, p = 5$, os $\binom{4}{2} = 6$ *rankings* possíveis são
 
-* Os $6$ *rankings* possíveis são
+  * `xx--x`
+  * `x-x-x`
+  * `x--xx`
+  * `-xx-x`
+  * `-x-xx`
+  * `--xxx`
 
-  * $?\;?\;a\;b$
-  * $?\;a\;?\;b$
-  * $a\;?\;?\;b$
-  * $?\;?\;b\;a$
-  * $?\;b\;?\;a$
-  * $b\;?\;?\;a$
-
-:::
-
-Quantidades de *rankings*:
+A tabela a seguir (na verdade, um pedaço do triângulo de Pascal) mostra as quantidades de *rankings* possíveis para alguns valores de $k$ e $p$:
 
 ```{r cache=TRUE}
 df <- expand_grid(
   k = 1:10,
-  p = 1:20
+  p = 1:30
 ) %>% 
   filter(p >= k) %>% 
   mutate(
-    exemplos = factorial(k) * choose(p - 1, k - 1)
+    n_rankings = choose(p - 1, k - 1)
   )
 ```
 
@@ -102,7 +78,7 @@ df %>%
   pivot_wider(
     names_from = k,
     names_sort = TRUE,
-    values_from = exemplos,
+    values_from = n_rankings,
     values_fill = NA
   ) %>% 
   gt(rowname_col = 'p') %>%
@@ -117,84 +93,92 @@ df %>%
 ```
 
 
-### Criar uma lista com letras maiúsculas
+### Criar um *ranking* a partir de um vetor
+
+Em vez de especificar as $p$ posições do *ranking*, [pode ser mais compacto especificar as $k$ posições do *ranking* que são ocupadas por elementos da lista]{.hl}.
+
+A função `rk()` faz isso, recebendo um vetor numérico com $k$ elementos e retornando um *string*.
 
 ```{r echo=TRUE}
-criar_lista <- function(k) {
+rk <- function(v) {
   
-  stopifnot('Argumento deve ser > 0.' = k > 0)
-  sample(LETTERS, k)
-  
-}
-```
-
-```{r echo=TRUE}
-criar_lista(10)
-```
-
-
-### Criar um *ranking* a partir de uma lista
-
-A função vai receber a lista, um vetor com as posições dos elementos da lista no *ranking*.
-
-O tamanho $p$ do *ranking* vai ser o maior valor do vetor de posições (já que o último elemento do *ranking* precisa ser da lista).
-
-A função retorna um vetor com o *ranking*, onde os elementos que não estavam na lista são escritos como "?".
-
-```{r echo=TRUE}
-criar_ranking <- function(lista, posicoes) {
-  
-  p <- max(posicoes)
+  k <- length(v)
+  p <- max(v)   # o último elemento pertence à lista
   
   # Verificar se posicoes contêm só números entre 1 e p, sem repetições
   stopifnot(
-    'Posições precisam estar entre 1 e p, sem repetições.' =
-    all(between(posicoes, 1, p)) & identical(posicoes, unique(posicoes))
+    'Valores precisam ser inteiros positivos, sem repetições.' =
+    all(v == as.integer(v)) & 
+      all(v > 0) &
+      identical(v, unique(v))
   )
+
+  s <- rep('-', p)
+  s[v] <- 'x'
   
-  ranking <- rep('?', p)
-  ranking[posicoes] <- lista
-  ranking
+  paste0(s, collapse = '')
   
 }
 ```
 
 ```{r echo=TRUE}
-r <- criar_ranking(
-  LETTERS[1:4],
-  c(2, 6, 1, 3)
-)
+rk(c(1, 3, 5, 7))
+```
 
-r
+Observe que as posições não precisam ser passadas em ordem:
+
+```{r echo=TRUE}
+rk(c(3, 7, 5, 1))
+```
+
+A função detecta vetores que não podem representar *rankings*:
+
+```{r echo=TRUE}
+rk(c(3, 7, 3, 1))
+```
+
+```{r echo=TRUE}
+rk(c(5, 7, 3, 1.5))
+```
+
+```{r echo=TRUE}
+rk(c(5, -7, 3, 1))
 ```
 
 
-## Representando um exemplo
+## Outras funções
 
-### Como *tibble*
+### Converter para *tibble*
 
 Para calcular a correlação entre a lista e o *ranking*, vamos precisar ordenar a lista de alguma forma, pois, se todos os elementos da lista estiverem empatados (i.e., se todos tiverem o mesmo valor de posição), vamos cair em um caso em que o desvio-padrão é $0$ (quando o *ranking* só contiver jogadores da lista).
 
-Dado um *ranking*, a maneira mais conveniente de ordenar a lista afetando a correlação de forma previsível é concordando com o *ranking*!
+Dado um *ranking*, a maneira mais conveniente de ordenar a lista afetando a correlação de forma previsível é concordando com o *ranking*! Isto vai ficar mais claro mais adiante.
 
-É isto que esta função faz.
-
-Além disso, os elementos que não estavam na lista mas estão no *ranking*, se existirem, precisam entrar na *tibble*.
+Além disso, os elementos que não estavam na lista mas estão no *ranking*, se existirem, também precisam entrar na *tibble*.
 
 Eles vão entrar todos empatados no fim da lista, como no exemplo mais abaixo.
 
-A função retorna uma *tibble* com as colunas `nome`, `pos_lista` e `pos_ranking`.
+A função `criar_df()` recebe o *string* correspondente a um *ranking* e retorna uma *tibble* com as colunas `elemento`, `pos_lista` e `pos_ranking`.
 
 ```{r echo=TRUE}
 criar_df <- function(ranking) {
   
+  stopifnot(
+    'Argumento deve conter apenas "x" e "-", terminando com "x".' =
+    str_detect(ranking, '[-x]+') & endsWith(ranking, 'x')
+  )
+  
+  # Separar caracteres. 
+  # De agora em diante, é vetor:
+  ranking <- str_split(ranking, '')[[1]]
+  
   p <- length(ranking)
-  lista <- ranking[ranking != '?']
+  lista <- ranking[ranking == 'x']
   k <- length(lista)
   pos_lista <- 1:k
   pos_ranking <- which(ranking %in% lista)
   
-  # Linhas com elementos da lista
+  # Linhas da tibble com elementos da lista
   df <- tibble(
     nome = lista,
     pos_lista = pos_lista,
@@ -203,8 +187,8 @@ criar_df <- function(ranking) {
   
   if (p > k) {
     
-    # Linhas com outros elementos
-    nomes <- rep('?', p - k)
+    # Linhas da tibble com outros elementos
+    nomes <- rep('-', p - k)
     pos_lista <- rep((sum((k+1):p) / (p - k)) , p - k)
     pos_ranking <- which(!(ranking %in% lista))
     
@@ -215,7 +199,8 @@ criar_df <- function(ranking) {
           pos_lista = pos_lista,
           pos_ranking = pos_ranking
         )
-      )
+      ) %>% 
+      arrange(pos_ranking)
       
   }
   
@@ -225,49 +210,35 @@ criar_df <- function(ranking) {
 ```
 
 ```{r echo=TRUE}
-r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3))
-criar_df(r)
+r = 'x-x-x-xx'
+df <- criar_df(r)
+df
 ```
 
-
-### Como tabela
-
-Uma maneira mais compacta ainda de representar um exemplo de *ranking*.
+A partir da *tibble*, o *string* do *ranking* pode ser recuperado com
 
 ```{r echo=TRUE}
-criar_tabela <- function(ranking) {
-  
-  df <- criar_df(ranking) %>%
-    select(-pos_lista) %>% 
-    arrange(pos_ranking) %>% 
-    pivot_wider(
-      names_from = pos_ranking,
-      values_from = nome
-    )
+df$nome %>% paste0(collapse = '')
+```
 
-  df %>%
-    gt() %>% 
-      tab_style(
-        cell_fill('red'),
-        cells_body(
-          columns = where(~ .x == '?')
-        )
-      )
+A função `df_string()` faz isto:
+
+```{r echo=TRUE}
+df_string <- function(df) {
+  
+  df$nome %>% paste0(collapse = '')
   
 }
 ```
 
 ```{r echo=TRUE}
-r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3))
-criar_tabela(r)
+df_string(df)
 ```
 
-Aqui, fica claro quais são e em que posições estão os elementos da lista. 
 
+### Criar *plot*
 
-### Como gráfico
-
-A função recebe um *ranking*, na forma de vetor ou de *tibble*.
+A função `criar_plot` recebe um *ranking*, na forma de *string* ou de *tibble*.
 
 A função gera um gráfico de pontos, com um ponto para cada elemento. 
 
@@ -275,9 +246,9 @@ No eixo $x$, a posição do elemento na lista.
 
 No eixo $y$, a posição do elemento no *ranking*.
 
-A função pode receber, além do *ranking*, uma função para calcular o *score* deste *ranking* (i.e., alguma forma de correlação entre o *ranking* e a lista). O *score* vai ser mostrado no título do gráfico.
+A função `criar_plot` pode receber um segundo argumento, opcional, especificando uma função para calcular o *score* deste *ranking* (i.e., alguma forma de correlação entre o *ranking* e a lista). O *score* vai ser mostrado no título do gráfico.
 
-Opcionalmente, é incluída uma reta de regressão linear via mínimos quadrados.
+O terceiro argumento especifica se deve ser incluída uma reta de regressão linear via mínimos quadrados. O *default* é `TRUE`.
 
 ```{r echo=TRUE}
 criar_plot <- function(ranking, fun = NULL, reta = TRUE) {
@@ -319,14 +290,7 @@ criar_plot <- function(ranking, fun = NULL, reta = TRUE) {
 ```
 
 ```{r echo=TRUE}
-r <- criar_ranking(LETTERS[1:4], c(2, 6, 1, 3))
-```
-
-```{r echo=TRUE}
-criar_tabela(r)
-```
-
-```{r echo=TRUE}
+r <- 'x-x-x-xx'
 criar_plot(r)
 ```
 
@@ -337,4 +301,14 @@ criar_plot(r, reta = FALSE)
 ```{r echo=TRUE}
 criar_plot(r, \(df) { cor(df$pos_lista, df$pos_ranking) %>% round(2) })
 ```
+
+
+### Criar uma tibble com todos os *rankings*
+
+Dados valores de $k$ e $p$, a função `criar_df_rankings()` retorna uma *tibble* com todos os $\binom{p - 1}{k - 1}$ *rankings* possíveis.
+
+Cada *ranking* é representado por um *string*, como descrito na @sec-repr.
+
+???
+
 
