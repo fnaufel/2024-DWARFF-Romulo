@@ -57,3 +57,67 @@ df %>%
 A linha tracejada indica onde todos os pontos deveriam estar para que a concordância entre as duas ordenações fosse perfeita (i.e., $\rho = 1$).
 
 Nããão. Depende dos desvios-padrão.
+
+
+# Somando -
+
+Dado um *ranking* $r$ com $k$ e $p$, calculamos
+
+$$
+s(r) = \frac{\sum_{i = 1, k - 1} i + \operatorname{soma\_}}
+  {\sum_{i = 1, p - 1} i}
+$$
+
+
+```{r}
+s <- function(ranking) {
+  
+  if (!is_tibble(ranking)) {
+    ranking <- criar_df(ranking)
+  }
+  
+  p <- nrow(ranking)
+  
+  nomes <- ranking %>% pull(nome)
+  k <- sum(nomes == 'x')
+  
+  soma_k_1 <- sum(1:(k - 1))
+  soma_p_1 <- sum(1:(p - 1))
+  
+  soma_ <- ranking %>% 
+    filter(nome == '-') %>% 
+    pull(pos_ranking) %>% 
+    sum()
+  
+  (soma_k_1 + soma_) / soma_p_1
+  
+}
+
+s <- Vectorize(s)
+```
+
+
+```{r}
+s <- function(ranking) {
+  
+  if (!is_tibble(ranking)) {
+    ranking <- criar_df(ranking)
+  }
+  
+  p <- nrow(ranking)
+  
+  nomes <- ranking %>% pull(nome)
+  k <- sum(nomes == 'x')
+  
+  soma_ <- ranking %>% 
+    filter(nome == '-') %>% 
+    pull(pos_ranking) %>% 
+    sum()
+  
+  (k * (p + 1) + 2 * soma_) / (2 * p * (p + 1))
+
+}
+
+
+```
+

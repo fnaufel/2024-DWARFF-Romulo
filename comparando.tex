@@ -197,7 +197,7 @@
 
 \title{Comparando listas e rankings}
 \author{Fernando Náufel}
-\date{09/02/2024 19:40}
+\date{10/02/2024 19:06}
 
 \begin{document}
 \maketitle
@@ -230,8 +230,8 @@
 
 \bookmarksetup{startatroot}
 
-\chapter{\texorpdfstring{Gerar e visualizar
-\emph{rankings}}{Gerar e visualizar rankings}}\label{gerar-e-visualizar-rankings}
+\chapter{\texorpdfstring{Listas e
+\emph{rankings}}{Listas e rankings}}\label{listas-e-rankings}
 
 \section{Problema}\label{problema}
 
@@ -245,9 +245,9 @@ condições:
   O {\hl{\emph{ranking}}} tem $p$ elementos, $p \geq k$,
   {\hl{ordenados}}, {\hl{sem empates}}.
 \item
-  Todos os elementos da lista estão no \emph{ranking}.
+  Todos os elementos da lista também pertencem ao \emph{ranking}.
 \item
-  O último elemento do \emph{ranking} é elemento da lista.
+  O último elemento do \emph{ranking} sempre pertence à lista.
 \item
   As identidades dos elementos do \emph{ranking} não importam --- i.e.,
   eles são indistinguíveis, a não ser por pertencerem ou não à lista (e
@@ -367,30 +367,6 @@ elementos e retornando um \emph{string}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{rk }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(v) \{}
-  
-\NormalTok{  k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(v)}
-\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(v)   }\CommentTok{\# o último elemento pertence à lista}
-  
-  \CommentTok{\# Verificar se posicoes contêm só números entre 1 e p, sem repetições}
-  \FunctionTok{stopifnot}\NormalTok{(}
-    \StringTok{\textquotesingle{}Valores precisam ser inteiros positivos, sem repetições.\textquotesingle{}} \OtherTok{=}
-    \FunctionTok{all}\NormalTok{(v }\SpecialCharTok{==} \FunctionTok{as.integer}\NormalTok{(v)) }\SpecialCharTok{\&} 
-      \FunctionTok{all}\NormalTok{(v }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\&}
-      \FunctionTok{identical}\NormalTok{(v, }\FunctionTok{unique}\NormalTok{(v))}
-\NormalTok{  )}
-
-\NormalTok{  s }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{, p)}
-\NormalTok{  s[v] }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}x\textquotesingle{}}
-  
-  \FunctionTok{paste0}\NormalTok{(s, }\AttributeTok{collapse =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
-  
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{rk}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -465,59 +441,8 @@ Eles vão entrar todos empatados no fim da lista, como no exemplo mais
 abaixo.
 
 A função \texttt{criar\_df()} recebe o \emph{string} correspondente a um
-\emph{ranking} e retorna uma \emph{tibble} com as colunas
-\texttt{elemento}, \texttt{pos\_lista} e \texttt{pos\_ranking}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{criar\_df }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ranking) \{}
-  
-  \FunctionTok{stopifnot}\NormalTok{(}
-    \StringTok{\textquotesingle{}Argumento deve conter apenas "x" e "{-}", terminando com "x".\textquotesingle{}} \OtherTok{=}
-    \FunctionTok{str\_detect}\NormalTok{(ranking, }\StringTok{\textquotesingle{}[{-}x]+\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\&} \FunctionTok{endsWith}\NormalTok{(ranking, }\StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{)}
-\NormalTok{  )}
-  
-  \CommentTok{\# Separar caracteres. }
-  \CommentTok{\# De agora em diante, é vetor:}
-\NormalTok{  ranking }\OtherTok{\textless{}{-}} \FunctionTok{str\_split}\NormalTok{(ranking, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)[[}\DecValTok{1}\NormalTok{]]}
-  
-\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ranking)}
-\NormalTok{  lista }\OtherTok{\textless{}{-}}\NormalTok{ ranking[ranking }\SpecialCharTok{==} \StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{]}
-\NormalTok{  k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(lista)}
-\NormalTok{  pos\_lista }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\NormalTok{k}
-\NormalTok{  pos\_ranking }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(ranking }\SpecialCharTok{\%in\%}\NormalTok{ lista)}
-  
-  \CommentTok{\# Linhas da tibble com elementos da lista}
-\NormalTok{  df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-    \AttributeTok{nome =}\NormalTok{ lista,}
-    \AttributeTok{pos\_lista =}\NormalTok{ pos\_lista,}
-    \AttributeTok{pos\_ranking =}\NormalTok{ pos\_ranking}
-\NormalTok{  )}
-  
-  \ControlFlowTok{if}\NormalTok{ (p }\SpecialCharTok{\textgreater{}}\NormalTok{ k) \{}
-    
-    \CommentTok{\# Linhas da tibble com outros elementos}
-\NormalTok{    nomes }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{, p }\SpecialCharTok{{-}}\NormalTok{ k)}
-\NormalTok{    pos\_lista }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{((}\FunctionTok{sum}\NormalTok{((k}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{p) }\SpecialCharTok{/}\NormalTok{ (p }\SpecialCharTok{{-}}\NormalTok{ k)) , p }\SpecialCharTok{{-}}\NormalTok{ k)}
-\NormalTok{    pos\_ranking }\OtherTok{\textless{}{-}} \FunctionTok{which}\NormalTok{(}\SpecialCharTok{!}\NormalTok{(ranking }\SpecialCharTok{\%in\%}\NormalTok{ lista))}
-    
-\NormalTok{    df }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} 
-      \FunctionTok{bind\_rows}\NormalTok{(}
-        \FunctionTok{tibble}\NormalTok{(}
-          \AttributeTok{nome =}\NormalTok{ nomes,}
-          \AttributeTok{pos\_lista =}\NormalTok{ pos\_lista,}
-          \AttributeTok{pos\_ranking =}\NormalTok{ pos\_ranking}
-\NormalTok{        )}
-\NormalTok{      ) }\SpecialCharTok{\%\textgreater{}\%} 
-      \FunctionTok{arrange}\NormalTok{(pos\_ranking)}
-      
-\NormalTok{  \}}
-  
-\NormalTok{  df}
-  
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
+\emph{ranking} e retorna uma \emph{tibble} com as colunas \texttt{nome},
+\texttt{pos\_lista} e \texttt{pos\_ranking}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -542,28 +467,6 @@ A função \texttt{criar\_df()} recebe o \emph{string} correspondente a um
 
 A partir da \emph{tibble}, o \emph{string} do \emph{ranking} pode ser
 recuperado com
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{df}\SpecialCharTok{$}\NormalTok{nome }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{paste0}\NormalTok{(}\AttributeTok{collapse =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] "x-x-x-xx"
-\end{verbatim}
-
-A função \texttt{df\_string()} faz isto:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{df\_string }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(df) \{}
-  
-\NormalTok{  df}\SpecialCharTok{$}\NormalTok{nome }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{paste0}\NormalTok{(}\AttributeTok{collapse =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
-  
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -598,54 +501,13 @@ regressão linear via mínimos quadrados. O \emph{default} é
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{criar\_plot }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ranking, }\AttributeTok{fun =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{reta =} \ConstantTok{TRUE}\NormalTok{) \{}
-  
-  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{is\_tibble}\NormalTok{(ranking)) \{}
-\NormalTok{    ranking }\OtherTok{\textless{}{-}} \FunctionTok{criar\_df}\NormalTok{(ranking)}
-\NormalTok{  \}}
-  
-\NormalTok{  df }\OtherTok{\textless{}{-}}\NormalTok{ ranking}
-\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(df)}
-  
-\NormalTok{  grafico }\OtherTok{\textless{}{-}}\NormalTok{ df }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(pos\_lista, pos\_ranking)) }\SpecialCharTok{+}
-      \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-      \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{p, }\AttributeTok{labels =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{p, }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, p)) }\SpecialCharTok{+}
-      \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{p, }\AttributeTok{labels =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{p, }\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, p)) }\SpecialCharTok{+}
-      \FunctionTok{labs}\NormalTok{(}
-        \AttributeTok{x =} \StringTok{\textquotesingle{}lista\textquotesingle{}}\NormalTok{,}
-        \AttributeTok{y =} \StringTok{\textquotesingle{}ranking\textquotesingle{}}
-\NormalTok{      )}
-  
-  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{is.null}\NormalTok{(fun)) \{}
-\NormalTok{    score }\OtherTok{\textless{}{-}} \FunctionTok{do.call}\NormalTok{(fun, }\FunctionTok{list}\NormalTok{(df))}
-\NormalTok{    grafico }\OtherTok{\textless{}{-}}\NormalTok{ grafico }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Score = \textquotesingle{}}\NormalTok{, score))}
-\NormalTok{  \}}
-  
-  \ControlFlowTok{if}\NormalTok{ (reta) \{}
-\NormalTok{    grafico }\OtherTok{\textless{}{-}}\NormalTok{ grafico }\SpecialCharTok{+}
-      \FunctionTok{geom\_smooth}\NormalTok{(}
-        \AttributeTok{formula =}\NormalTok{ y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ x,}
-        \AttributeTok{method =} \StringTok{\textquotesingle{}lm\textquotesingle{}}\NormalTok{,}
-        \AttributeTok{se =} \ConstantTok{FALSE}
-\NormalTok{      )}
-\NormalTok{  \}}
-  
-\NormalTok{  grafico}
-
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{r }\OtherTok{\textless{}{-}} \StringTok{\textquotesingle{}x{-}x{-}x{-}xx\textquotesingle{}}
 \FunctionTok{criar\_plot}\NormalTok{(r)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-15-1.pdf}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-10-1.pdf}
 \end{center}
 
 \begin{Shaded}
@@ -655,7 +517,7 @@ regressão linear via mínimos quadrados. O \emph{default} é
 \end{Shaded}
 
 \begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-16-1.pdf}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-11-1.pdf}
 \end{center}
 
 \begin{Shaded}
@@ -665,20 +527,287 @@ regressão linear via mínimos quadrados. O \emph{default} é
 \end{Shaded}
 
 \begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-17-1.pdf}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-12-1.pdf}
 \end{center}
 
 \subsection{\texorpdfstring{Criar uma tibble com todos os
 \emph{rankings}}{Criar uma tibble com todos os rankings}}\label{criar-uma-tibble-com-todos-os-rankings}
 
-Dados valores de $k$ e $p$, a função \texttt{criar\_df\_rankings()}
-retorna uma \emph{tibble} com todos os $\binom{p - 1}{k - 1}$
-\emph{rankings} possíveis.
+Dados valores de $p$ e $k$ (nesta ordem), a função
+\texttt{criar\_df\_rankings()} retorna uma \emph{tibble} com todos os
+$\binom{p - 1}{k - 1}$ \emph{rankings} possíveis.
+
+Se for passado apenas o valor de $p$, a função retorna uma \emph{tibble}
+com todos os \emph{rankings} possíveis de comprimento $p$ (com $k$
+variando de $1$ até $p$). Exercício: quantos são?
 
 Cada \emph{ranking} é representado por um \emph{string}, como descrito
-na Seção~\ref{sec-repr}.
+na \hyperref[sec-repr]{seção sobre a representação de \emph{rankings}}.
 
-???
+Todos os \emph{rankings} com $p = 8$ e $k = 5$:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{criar\_df\_rankings}\NormalTok{(}\DecValTok{8}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 35 x 1
+  ranking 
+  <chr>   
+1 xxxx---x
+2 xxx-x--x
+3 xxx--x-x
+4 xxx---xx
+5 xx-xx--x
+6 xx-x-x-x
+# i 29 more rows
+\end{verbatim}
+
+Todos os \emph{rankings} com $p = 5$:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{criar\_df\_rankings}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 16 x 1
+  ranking
+  <chr>  
+1 ----x  
+2 x---x  
+3 -x--x  
+4 --x-x  
+5 ---xx  
+6 xx--x  
+# i 10 more rows
+\end{verbatim}
+
+\bookmarksetup{startatroot}
+
+\chapter{\texorpdfstring{O \emph{ranking} concorda com a lista?
+Posições}{O ranking concorda com a lista? Posições}}\label{o-ranking-concorda-com-a-lista-posiuxe7uxf5es}
+
+\section{\texorpdfstring{Usando $p$ como medida de
+concordância}{Usando  como medida de concordância}}\label{usando-p-como-medida-de-concorduxe2ncia}
+
+Imagine que a lista de $k$ elementos foi definida por uma autoridade,
+usando critérios que não conhecemos.
+
+Em uma tentativa de descobrir esses critérios, construímos um modelo
+para avaliar todos os elementos da população (que inclui os $k$
+elementos da lista e outros).
+
+Nosso modelo produz um \emph{ranking} de todos os elementos. Para
+facilitar, vamos supor que não há empates no \emph{ranking}.
+
+Uma pergunta natural sobre a qualidade do \emph{ranking} produzido é
+
+\begin{quote}
+Quantas posições do \emph{ranking} são necessárias para incluir todos os
+$k$ elementos da lista?
+\end{quote}
+
+A resposta é $p$, a posição, no \emph{ranking}, do elemento da lista com
+pior classificação.
+
+Aliás, é por isso que convencionamos, no capítulo anterior, que nossos
+\emph{rankings} sempre terminam com um elemento da lista.
+
+Um exemplo:
+
+\begin{itemize}
+\item
+  A lista contém $k = 5$ elementos.
+\item
+  O \emph{ranking} $r_1$ é \texttt{xx-x-xx}, com $p = 7$.
+\item
+  O \emph{ranking} $r_2$ é \texttt{-xxxxx}, com $p = 6$.
+\end{itemize}
+
+Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.
+
+Embora comparar \emph{rankings} através de seus valores de $p$ seja
+simples, podemos examinar medidas alternativas, que sejam mais finas que
+esta.
+
+Por exemplo, é discutível se os dois rankings \texttt{xx-\/-\/-x} e
+\texttt{-\/-\/-xxx} devem ser considerados igualmente bons; no entanto,
+ambos têm $p = 6$.
+
+\section{\texorpdfstring{Usando $p$ e as posições dos elementos da
+lista}{Usando  e as posições dos elementos da lista}}\label{usando-p-e-as-posiuxe7uxf5es-dos-elementos-da-lista}
+
+\subsection{\texorpdfstring{Contando posições
+\texttt{-}}{Contando posições -}}\label{contando-posiuxe7uxf5es--}
+
+Dado um \emph{ranking} $r$ com $k$ e $p$, queremos definir uma função
+$s(r)$ com as seguintes características:
+
+\begin{itemize}
+\item
+  Se $r$ não contiver ``\texttt{-}'', então $s(r) = 1$. Neste caso, $r$
+  é um \emph{ranking} perfeito, que coincide com a lista (por exempĺo,
+  \texttt{xxxxx}). Em casos assim, $k = p$. Vamos definir $s$ como sendo
+  da forma
+
+  \[
+  s(r) = \frac k p + \cdots
+  \]
+
+  onde as reticências representam termos que ainda vamos definir. Se $r$
+  for um \emph{ranking} perfeito, a parcela $k/p$ será $1$, e vamos
+  definir os termos restantes para que sejam iguais a zero.
+\item
+  Os termos restantes devem ter valores maiores quanto melhor for o
+  \emph{ranking}. Quanto mais próximos do fim do \emph{ranking}
+  estiverem os caracteres ``\texttt{-}'', melhor ele será. Uma
+  quantidade natural seria
+
+  \[
+  \frac{\operatorname{soma\_}}{\sum_{i = 1, p}i} 
+  \quad=\quad 
+  \frac{\operatorname{soma\_}}{p(p + 1) / 2}
+  \quad=\quad 
+  \frac{2\operatorname{soma\_}}{p(p + 1)}
+  \]
+
+  onde $\operatorname{soma\_}$ é a soma das posições ocupadas por
+  ``\texttt{\_}'' em $r$.
+
+  Como queríamos, quando $r$ for um \emph{ranking} perfeito,
+  $\operatorname{soma\_} = 0$, e então $s(r) = 1$.
+\item
+  Mas também queremos que somente \emph{rankings} perfeitos tenham
+  $s(r) = 1$. Para isso, considere que um \emph{ranking} mais próximo do
+  perfeito é da forma
+
+  \texttt{x...x-x}
+
+  Ou seja, $k = p - 1$ e $\operatorname{soma\_} = p - 1$.
+
+  Vamos multiplicar a segunda parcela por $\alpha$ de forma que
+  $s(r) < 1$ para este \emph{ranking} quase perfeito:
+
+  \[
+  s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha
+  \]
+
+  Então
+
+  \[
+  \begin{aligned}
+    s(r) < 1 
+    &\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha < \frac1p \\
+    &\iff 2 \alpha (p - 1) < p + 1 \\
+    &\iff \alpha < \frac12 \cdot \frac{p + 1}{p - 1} \\
+    &\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} & (m > 2)
+  \end{aligned}
+  \]
+
+  o que dá
+
+  \[
+  \begin{aligned}
+  s(r) 
+  &= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p+1)} \cdot \alpha \\
+  &= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p+1)} \cdot 
+    \frac1m \cdot \frac{p + 1}{p - 1} & (m > 2) \\
+  &= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p-1)} \cdot 
+    \frac1m & (m > 2) \\
+  &= \frac{k}{p} + \frac{\operatorname{soma\_}}{p(p-1)} \cdot 
+    \frac2m & (m > 2)
+  \end{aligned}
+  \]
+
+  Dependendo do valor de $m > 2$ escolhido, teremos medidas diferentes.
+\item
+  Vamos escolher $m = 4$. Nossa função fica
+
+  \[
+  s(r) = 
+    \frac k p + \frac{\operatorname{soma\_}}{2p(p - 1)}
+  \]
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ranking) \{}
+  
+  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{is\_tibble}\NormalTok{(ranking)) \{}
+\NormalTok{    ranking }\OtherTok{\textless{}{-}} \FunctionTok{criar\_df}\NormalTok{(ranking)}
+\NormalTok{  \}}
+  
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(ranking)}
+  
+\NormalTok{  nomes }\OtherTok{\textless{}{-}}\NormalTok{ ranking }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pull}\NormalTok{(nome)}
+\NormalTok{  k }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(nomes }\SpecialCharTok{==} \StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{)}
+  
+\NormalTok{  soma\_ }\OtherTok{\textless{}{-}}\NormalTok{ ranking }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{filter}\NormalTok{(nome }\SpecialCharTok{==} \StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{pull}\NormalTok{(pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} 
+    \FunctionTok{sum}\NormalTok{()}
+  
+\NormalTok{  (k }\SpecialCharTok{/}\NormalTok{ p) }\SpecialCharTok{+}\NormalTok{ (soma\_ }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ p }\SpecialCharTok{*}\NormalTok{ (p }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)))}
+
+\NormalTok{\}}
+
+\NormalTok{s }\OtherTok{\textless{}{-}} \FunctionTok{Vectorize}\NormalTok{(s)}
+\end{Highlighting}
+\end{Shaded}
+
+Para $p = 8$, alguns exemplos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{s}\NormalTok{(}
+  \FunctionTok{c}\NormalTok{(}
+    \StringTok{\textquotesingle{}xxxxxxxx\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}xxxxxx{-}x\textquotesingle{}}\NormalTok{,}
+    \StringTok{\textquotesingle{}{-}xxxxxxx\textquotesingle{}}
+\NormalTok{  )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ xxxxxxxx  xxxxxx-x  -xxxxxxx 
+1,0000000 0,9375000 0,8839286 
+\end{verbatim}
+
+Todos os \emph{rankings} de comprimento $8$, com suas pontuações:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{criar\_df\_rankings}\NormalTok{(}\DecValTok{8}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{s =} \FunctionTok{s}\NormalTok{(ranking)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(s))}
+
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 128 x 2
+  ranking      s
+  <chr>    <dbl>
+1 xxxxxxxx 1    
+2 xxxxxx-x 0.938
+3 xxxxx-xx 0.929
+4 xxxx-xxx 0.920
+5 xxx-xxxx 0.911
+6 xx-xxxxx 0.902
+# i 122 more rows
+\end{verbatim}
+
+Perceba que pode haver empates: \texttt{xxxx-\/-xx} e \texttt{xxx-xx-x}
+têm o mesmo valor de $s$. É razoável achar que estes dois
+\emph{rankings} têm a mesma qualidade.
 
 
 

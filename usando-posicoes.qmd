@@ -1,0 +1,168 @@
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+source('funcoes.R')
+```
+
+# O *ranking* concorda com a lista? Posições
+
+## Usando $p$ como medida de concordância
+
+Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.
+
+Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os $k$ elementos da lista e outros).
+
+Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.
+
+Uma pergunta natural sobre a qualidade do *ranking* produzido é
+
+> Quantas posições do *ranking* são necessárias para incluir todos os $k$ elementos da lista?
+
+A resposta é $p$, a posição, no *ranking*, do elemento da lista com pior classificação.
+
+Aliás, é por isso que convencionamos, no capítulo anterior, que nossos *rankings* sempre terminam com um elemento da lista.
+
+Um exemplo:
+
+* A lista contém $k = 5$ elementos.
+
+* O *ranking* $r_1$ é `xx-x-xx`, com $p = 7$.
+
+* O *ranking* $r_2$ é `-xxxxx`, com $p = 6$.
+
+Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.
+
+Embora comparar *rankings* através de seus valores de $p$ seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.
+
+Por exemplo, é discutível se os dois rankings `xx---x` e `---xxx` devem ser considerados igualmente bons; no entanto, ambos têm $p = 6$.
+
+
+## Usando $p$ e as posições dos elementos da lista
+
+### Contando posições `-`
+
+Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as seguintes características:
+
+* Se $r$ não contiver "`-`", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, `xxxxx`). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma
+
+  $$
+  s(r) = \frac k p + \cdots
+  $$
+
+  onde as reticências representam termos que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir os termos restantes para que sejam iguais a zero.
+
+* Os termos restantes devem ter valores maiores quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "`-`", melhor ele será. Uma quantidade natural seria
+
+  $$
+  \frac{\operatorname{soma\_}}{\sum_{i = 1, p}i} 
+  \quad=\quad 
+  \frac{\operatorname{soma\_}}{p(p + 1) / 2}
+  \quad=\quad 
+  \frac{2\operatorname{soma\_}}{p(p + 1)}
+  $$
+
+  onde $\operatorname{soma\_}$ é a soma das posições ocupadas por "`_`" em $r$.
+  
+  Como queríamos, quando $r$ for um *ranking* perfeito, $\operatorname{soma\_} = 0$, e então $s(r) = 1$.
+  
+* Mas também queremos que somente *rankings* perfeitos tenham $s(r) = 1$. Para isso, considere que um *ranking* mais próximo do perfeito é da forma
+
+  `x...x-x`
+  
+  Ou seja, $k = p - 1$ e $\operatorname{soma\_} = p - 1$.
+  
+  Vamos multiplicar a segunda parcela por $\alpha$ de forma que $s(r) < 1$ para este *ranking* quase perfeito:
+  
+  $$
+  s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha
+  $$
+
+  Então
+  
+  $$
+  \begin{aligned}
+    s(r) < 1 
+    &\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha < \frac1p \\
+    &\iff 2 \alpha (p - 1) < p + 1 \\
+    &\iff \alpha < \frac12 \cdot \frac{p + 1}{p - 1} \\
+    &\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} & (m > 2)
+  \end{aligned}
+  $$
+
+  o que dá
+  
+  $$
+  \begin{aligned}
+  s(r) 
+  &= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p+1)} \cdot \alpha \\
+  &= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p+1)} \cdot 
+    \frac1m \cdot \frac{p + 1}{p - 1} & (m > 2) \\
+  &= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p-1)} \cdot 
+    \frac1m & (m > 2) \\
+  &= \frac{k}{p} + \frac{\operatorname{soma\_}}{p(p-1)} \cdot 
+    \frac2m & (m > 2)
+  \end{aligned}
+  $$
+
+  Dependendo do valor de $m > 2$ escolhido, teremos medidas diferentes.
+
+* Vamos escolher $m = 4$. Nossa função fica
+
+  $$
+  s(r) = 
+    \frac k p + \frac{\operatorname{soma\_}}{2p(p - 1)}
+  $$
+
+
+
+```{r echo=TRUE}
+s <- function(ranking) {
+  
+  if (!is_tibble(ranking)) {
+    ranking <- criar_df(ranking)
+  }
+  
+  p <- nrow(ranking)
+  
+  nomes <- ranking %>% pull(nome)
+  k <- sum(nomes == 'x')
+  
+  soma_ <- ranking %>% 
+    filter(nome == '-') %>% 
+    pull(pos_ranking) %>% 
+    sum()
+  
+  (k / p) + (soma_ / (2 * p * (p - 1)))
+
+}
+
+s <- Vectorize(s)
+```
+
+Para $p = 8$, alguns exemplos:
+
+```{r echo=TRUE}
+s(
+  c(
+    'xxxxxxxx',
+    'xxxxxx-x',
+    '-xxxxxxx'
+  )
+)
+```
+
+Todos os *rankings* de comprimento $8$, com suas pontuações:
+
+```{r echo=TRUE}
+df <- criar_df_rankings(8) %>% 
+  mutate(
+    s = s(ranking)
+  ) %>% 
+  arrange(desc(s))
+
+df
+```
+
+Perceba que pode haver empates: `xxxx--xx` e `xxx-xx-x` têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.

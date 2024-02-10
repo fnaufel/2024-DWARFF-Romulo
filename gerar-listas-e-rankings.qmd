@@ -3,10 +3,10 @@
 
 ```{r setup, include=FALSE}
 source('_setup.R')
-library(gt)
+source('funcoes.R')
 ```
 
-# Gerar e visualizar *rankings*
+# Listas e *rankings*
 
 ## Problema
 
@@ -16,9 +16,9 @@ Vamos trabalhar com listas e *rankings* sujeitos às seguintes condições:
 
 * O [*ranking*]{.hl} tem $p$ elementos, $p \geq k$, [ordenados]{.hl}, [sem empates]{.hl}.
 
-* Todos os elementos da lista estão no *ranking*.
+* Todos os elementos da lista também pertencem ao *ranking*.
 
-* O último elemento do *ranking* é elemento da lista.
+* O último elemento do *ranking* sempre pertence à lista.
 
 * As identidades dos elementos do *ranking* não importam --- i.e., eles são indistinguíveis, a não ser por pertencerem ou não à lista (e pela ordem que ocupam no *ranking*, claro). 
 
@@ -100,28 +100,6 @@ Em vez de especificar as $p$ posições do *ranking*, [pode ser mais compacto es
 A função `rk()` faz isso, recebendo um vetor numérico com $k$ elementos e retornando um *string*.
 
 ```{r echo=TRUE}
-rk <- function(v) {
-  
-  k <- length(v)
-  p <- max(v)   # o último elemento pertence à lista
-  
-  # Verificar se posicoes contêm só números entre 1 e p, sem repetições
-  stopifnot(
-    'Valores precisam ser inteiros positivos, sem repetições.' =
-    all(v == as.integer(v)) & 
-      all(v > 0) &
-      identical(v, unique(v))
-  )
-
-  s <- rep('-', p)
-  s[v] <- 'x'
-  
-  paste0(s, collapse = '')
-  
-}
-```
-
-```{r echo=TRUE}
 rk(c(1, 3, 5, 7))
 ```
 
@@ -158,56 +136,7 @@ Além disso, os elementos que não estavam na lista mas estão no *ranking*, se 
 
 Eles vão entrar todos empatados no fim da lista, como no exemplo mais abaixo.
 
-A função `criar_df()` recebe o *string* correspondente a um *ranking* e retorna uma *tibble* com as colunas `elemento`, `pos_lista` e `pos_ranking`.
-
-```{r echo=TRUE}
-criar_df <- function(ranking) {
-  
-  stopifnot(
-    'Argumento deve conter apenas "x" e "-", terminando com "x".' =
-    str_detect(ranking, '[-x]+') & endsWith(ranking, 'x')
-  )
-  
-  # Separar caracteres. 
-  # De agora em diante, é vetor:
-  ranking <- str_split(ranking, '')[[1]]
-  
-  p <- length(ranking)
-  lista <- ranking[ranking == 'x']
-  k <- length(lista)
-  pos_lista <- 1:k
-  pos_ranking <- which(ranking %in% lista)
-  
-  # Linhas da tibble com elementos da lista
-  df <- tibble(
-    nome = lista,
-    pos_lista = pos_lista,
-    pos_ranking = pos_ranking
-  )
-  
-  if (p > k) {
-    
-    # Linhas da tibble com outros elementos
-    nomes <- rep('-', p - k)
-    pos_lista <- rep((sum((k+1):p) / (p - k)) , p - k)
-    pos_ranking <- which(!(ranking %in% lista))
-    
-    df <- df %>% 
-      bind_rows(
-        tibble(
-          nome = nomes,
-          pos_lista = pos_lista,
-          pos_ranking = pos_ranking
-        )
-      ) %>% 
-      arrange(pos_ranking)
-      
-  }
-  
-  df
-  
-}
-```
+A função `criar_df()` recebe o *string* correspondente a um *ranking* e retorna uma *tibble* com as colunas `nome`, `pos_lista` e `pos_ranking`.
 
 ```{r echo=TRUE}
 r = 'x-x-x-xx'
@@ -216,20 +145,6 @@ df
 ```
 
 A partir da *tibble*, o *string* do *ranking* pode ser recuperado com
-
-```{r echo=TRUE}
-df$nome %>% paste0(collapse = '')
-```
-
-A função `df_string()` faz isto:
-
-```{r echo=TRUE}
-df_string <- function(df) {
-  
-  df$nome %>% paste0(collapse = '')
-  
-}
-```
 
 ```{r echo=TRUE}
 df_string(df)
@@ -251,45 +166,6 @@ A função `criar_plot` pode receber um segundo argumento, opcional, especifican
 O terceiro argumento especifica se deve ser incluída uma reta de regressão linear via mínimos quadrados. O *default* é `TRUE`.
 
 ```{r echo=TRUE}
-criar_plot <- function(ranking, fun = NULL, reta = TRUE) {
-  
-  if (!is_tibble(ranking)) {
-    ranking <- criar_df(ranking)
-  }
-  
-  df <- ranking
-  p <- nrow(df)
-  
-  grafico <- df %>% 
-    ggplot(aes(pos_lista, pos_ranking)) +
-      geom_point() +
-      scale_x_continuous(breaks = 1:p, labels = 1:p, limits = c(1, p)) +
-      scale_y_continuous(breaks = 1:p, labels = 1:p, limits = c(1, p)) +
-      labs(
-        x = 'lista',
-        y = 'ranking'
-      )
-  
-  if (!is.null(fun)) {
-    score <- do.call(fun, list(df))
-    grafico <- grafico + labs(title = paste0('Score = ', score))
-  }
-  
-  if (reta) {
-    grafico <- grafico +
-      geom_smooth(
-        formula = y ~ x,
-        method = 'lm',
-        se = FALSE
-      )
-  }
-  
-  grafico
-
-}
-```
-
-```{r echo=TRUE}
 r <- 'x-x-x-xx'
 criar_plot(r)
 ```
@@ -305,10 +181,21 @@ criar_plot(r, \(df) { cor(df$pos_lista, df$pos_ranking) %>% round(2) })
 
 ### Criar uma tibble com todos os *rankings*
 
-Dados valores de $k$ e $p$, a função `criar_df_rankings()` retorna uma *tibble* com todos os $\binom{p - 1}{k - 1}$ *rankings* possíveis.
+Dados valores de $p$ e $k$ (nesta ordem), a função `criar_df_rankings()` retorna uma *tibble* com todos os $\binom{p - 1}{k - 1}$ *rankings* possíveis.
 
-Cada *ranking* é representado por um *string*, como descrito na @sec-repr.
+Se for passado apenas o valor de $p$, a função retorna uma *tibble* com todos os *rankings* possíveis de comprimento $p$ (com $k$ variando de $1$ até $p$). Exercício: quantos são?
 
-???
+Cada *ranking* é representado por um *string*, como descrito na [seção sobre a representação de *rankings*](#sec-repr).
 
+Todos os *rankings* com $p = 8$ e $k = 5$:
+
+```{r echo=TRUE}
+criar_df_rankings(8, 5)
+```
+
+Todos os *rankings* com $p = 5$:
+
+```{r echo=TRUE}
+criar_df_rankings(5)
+```
 

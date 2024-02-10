@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Comparando listas e rankings - 2&nbsp; O ranking concorda com a lista? Posições</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./gerar-listas-e-rankings.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script><script async="" src="https://hypothes.is/embed.js"></script><script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script><link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./usando-posicoes.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Posições</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Comparando listas e rankings</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/fnaufel/2024-DWARFF-Romulo" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./comparando.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=%7Curl%7C">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+</div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Apresentação</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gerar-listas-e-rankings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Listas e <em>rankings</em></span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./usando-posicoes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Posições</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Índice</h2>
+   
+  <ul>
+<li><a href="#usando-p-como-medida-de-concord%C3%A2ncia" id="toc-usando-p-como-medida-de-concordância" class="nav-link active" data-scroll-target="#usando-p-como-medida-de-concord%C3%A2ncia"><span class="header-section-number">2.1</span> Usando <span class="math inline">\(p\)</span> como medida de concordância</a></li>
+  <li>
+<a href="#usando-p-e-as-posi%C3%A7%C3%B5es-dos-elementos-da-lista" id="toc-usando-p-e-as-posições-dos-elementos-da-lista" class="nav-link" data-scroll-target="#usando-p-e-as-posi%C3%A7%C3%B5es-dos-elementos-da-lista"><span class="header-section-number">2.2</span> Usando <span class="math inline">\(p\)</span> e as posições dos elementos da lista</a>
+  <ul class="collapse">
+<li><a href="#contando-posi%C3%A7%C3%B5es--" id="toc-contando-posições--" class="nav-link" data-scroll-target="#contando-posi%C3%A7%C3%B5es--">Contando posições <code>-</code></a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/edit/master/usando-posicoes.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/blob/master/usando-posicoes.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">
+<span class="chapter-number">2</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Posições</span>
+</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Código</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header><section id="usando-p-como-medida-de-concordância" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="usando-p-como-medida-de-concordância">
+<span class="header-section-number">2.1</span> Usando <span class="math inline">\(p\)</span> como medida de concordância</h2>
+<p>Imagine que a lista de <span class="math inline">\(k\)</span> elementos foi definida por uma autoridade, usando critérios que não conhecemos.</p>
+<p>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os <span class="math inline">\(k\)</span> elementos da lista e outros).</p>
+<p>Nosso modelo produz um <em>ranking</em> de todos os elementos. Para facilitar, vamos supor que não há empates no <em>ranking</em>.</p>
+<p>Uma pergunta natural sobre a qualidade do <em>ranking</em> produzido é</p>
+<blockquote class="blockquote">
+<p>Quantas posições do <em>ranking</em> são necessárias para incluir todos os <span class="math inline">\(k\)</span> elementos da lista?</p>
+</blockquote>
+<p>A resposta é <span class="math inline">\(p\)</span>, a posição, no <em>ranking</em>, do elemento da lista com pior classificação.</p>
+<p>Aliás, é por isso que convencionamos, no capítulo anterior, que nossos <em>rankings</em> sempre terminam com um elemento da lista.</p>
+<p>Um exemplo:</p>
+<ul>
+<li><p>A lista contém <span class="math inline">\(k = 5\)</span> elementos.</p></li>
+<li><p>O <em>ranking</em> <span class="math inline">\(r_1\)</span> é <code>xx-x-xx</code>, com <span class="math inline">\(p = 7\)</span>.</p></li>
+<li><p>O <em>ranking</em> <span class="math inline">\(r_2\)</span> é <code>-xxxxx</code>, com <span class="math inline">\(p = 6\)</span>.</p></li>
+</ul>
+<p>Segundo a medida proposta aqui, <span class="math inline">\(r_2\)</span> é melhor que <span class="math inline">\(r_1\)</span>.</p>
+<p>Embora comparar <em>rankings</em> através de seus valores de <span class="math inline">\(p\)</span> seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.</p>
+<p>Por exemplo, é discutível se os dois rankings <code>xx---x</code> e <code>---xxx</code> devem ser considerados igualmente bons; no entanto, ambos têm <span class="math inline">\(p = 6\)</span>.</p>
+</section><section id="usando-p-e-as-posições-dos-elementos-da-lista" class="level2" data-number="2.2"><h2 data-number="2.2" class="anchored" data-anchor-id="usando-p-e-as-posições-dos-elementos-da-lista">
+<span class="header-section-number">2.2</span> Usando <span class="math inline">\(p\)</span> e as posições dos elementos da lista</h2>
+<section id="contando-posições--" class="level3"><h3 class="anchored" data-anchor-id="contando-posições--">Contando posições <code>-</code>
+</h3>
+<p>Dado um <em>ranking</em> <span class="math inline">\(r\)</span> com <span class="math inline">\(k\)</span> e <span class="math inline">\(p\)</span>, queremos definir uma função <span class="math inline">\(s(r)\)</span> com as seguintes características:</p>
+<ul>
+<li>
+<p>Se <span class="math inline">\(r\)</span> não contiver “<code>-</code>”, então <span class="math inline">\(s(r) = 1\)</span>. Neste caso, <span class="math inline">\(r\)</span> é um <em>ranking</em> perfeito, que coincide com a lista (por exempĺo, <code>xxxxx</code>). Em casos assim, <span class="math inline">\(k = p\)</span>. Vamos definir <span class="math inline">\(s\)</span> como sendo da forma</p>
+<p><span class="math display">\[
+s(r) = \frac k p + \cdots
+\]</span></p>
+<p>onde as reticências representam termos que ainda vamos definir. Se <span class="math inline">\(r\)</span> for um <em>ranking</em> perfeito, a parcela <span class="math inline">\(k/p\)</span> será <span class="math inline">\(1\)</span>, e vamos definir os termos restantes para que sejam iguais a zero.</p>
+</li>
+<li>
+<p>Os termos restantes devem ter valores maiores quanto melhor for o <em>ranking</em>. Quanto mais próximos do fim do <em>ranking</em> estiverem os caracteres “<code>-</code>”, melhor ele será. Uma quantidade natural seria</p>
+<p><span class="math display">\[
+\frac{\operatorname{soma\_}}{\sum_{i = 1, p}i}
+\quad=\quad
+\frac{\operatorname{soma\_}}{p(p + 1) / 2}
+\quad=\quad
+\frac{2\operatorname{soma\_}}{p(p + 1)}
+\]</span></p>
+<p>onde <span class="math inline">\(\operatorname{soma\_}\)</span> é a soma das posições ocupadas por “<code>_</code>” em <span class="math inline">\(r\)</span>.</p>
+<p>Como queríamos, quando <span class="math inline">\(r\)</span> for um <em>ranking</em> perfeito, <span class="math inline">\(\operatorname{soma\_} = 0\)</span>, e então <span class="math inline">\(s(r) = 1\)</span>.</p>
+</li>
+<li>
+<p>Mas também queremos que somente <em>rankings</em> perfeitos tenham <span class="math inline">\(s(r) = 1\)</span>. Para isso, considere que um <em>ranking</em> mais próximo do perfeito é da forma</p>
+<p><code>x...x-x</code></p>
+<p>Ou seja, <span class="math inline">\(k = p - 1\)</span> e <span class="math inline">\(\operatorname{soma\_} = p - 1\)</span>.</p>
+<p>Vamos multiplicar a segunda parcela por <span class="math inline">\(\alpha\)</span> de forma que <span class="math inline">\(s(r) &lt; 1\)</span> para este <em>ranking</em> quase perfeito:</p>
+<p><span class="math display">\[
+s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha
+\]</span></p>
+<p>Então</p>
+<p><span class="math display">\[
+\begin{aligned}
+  s(r) &lt; 1
+  &amp;\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha &lt; \frac1p \\
+  &amp;\iff 2 \alpha (p - 1) &lt; p + 1 \\
+  &amp;\iff \alpha &lt; \frac12 \cdot \frac{p + 1}{p - 1} \\
+  &amp;\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2)
+\end{aligned}
+\]</span></p>
+<p>o que dá</p>
+<p><span class="math display">\[
+\begin{aligned}
+s(r)
+&amp;= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p+1)} \cdot \alpha \\
+&amp;= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p+1)} \cdot
+  \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2) \\
+&amp;= \frac{k}{p} + \frac{2\operatorname{soma\_}}{p(p-1)} \cdot
+  \frac1m &amp; (m &gt; 2) \\
+&amp;= \frac{k}{p} + \frac{\operatorname{soma\_}}{p(p-1)} \cdot
+  \frac2m &amp; (m &gt; 2)
+\end{aligned}
+\]</span></p>
+<p>Dependendo do valor de <span class="math inline">\(m &gt; 2\)</span> escolhido, teremos medidas diferentes.</p>
+</li>
+<li>
+<p>Vamos escolher <span class="math inline">\(m = 4\)</span>. Nossa função fica</p>
+<p><span class="math display">\[
+s(r) =
+  \frac k p + \frac{\operatorname{soma\_}}{2p(p - 1)}
+\]</span></p>
+</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ranking</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu">is_tibble</span><span class="op">(</span><span class="va">ranking</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">ranking</span> <span class="op">&lt;-</span> <span class="fu">criar_df</span><span class="op">(</span><span class="va">ranking</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">ranking</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">nomes</span> <span class="op">&lt;-</span> <span class="va">ranking</span> <span class="op">%&gt;%</span> <span class="fu">pull</span><span class="op">(</span><span class="va">nome</span><span class="op">)</span></span>
+<span>  <span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">nomes</span> <span class="op">==</span> <span class="st">'x'</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">soma_</span> <span class="op">&lt;-</span> <span class="va">ranking</span> <span class="op">%&gt;%</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">nome</span> <span class="op">==</span> <span class="st">'-'</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>    <span class="fu">pull</span><span class="op">(</span><span class="va">pos_ranking</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="op">(</span><span class="va">k</span> <span class="op">/</span> <span class="va">p</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="va">soma_</span> <span class="op">/</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="va">p</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Vectorize.html">Vectorize</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para <span class="math inline">\(p = 8\)</span>, alguns exemplos:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">s</span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">'xxxxxxxx'</span>,</span>
+<span>    <span class="st">'xxxxxx-x'</span>,</span>
+<span>    <span class="st">'-xxxxxxx'</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> xxxxxxxx  xxxxxx-x  -xxxxxxx 
+1,0000000 0,9375000 0,8839286 </code></pre>
+</div>
+</div>
+<p>Todos os <em>rankings</em> de comprimento <span class="math inline">\(8\)</span>, com suas pontuações:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">criar_df_rankings</span><span class="op">(</span><span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    s <span class="op">=</span> <span class="fu">s</span><span class="op">(</span><span class="va">ranking</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["ranking"],"name":[1],"type":["chr"],"align":["left"]},{"label":["s"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"xxxxxxxx","2":"1,0000000"},{"1":"xxxxxx-x","2":"0,9375000"},{"1":"xxxxx-xx","2":"0,9285714"},{"1":"xxxx-xxx","2":"0,9196429"},{"1":"xxx-xxxx","2":"0,9107143"},{"1":"xx-xxxxx","2":"0,9017857"},{"1":"x-xxxxxx","2":"0,8928571"},{"1":"-xxxxxxx","2":"0,8839286"},{"1":"xxxxx--x","2":"0,8660714"},{"1":"xxxx-x-x","2":"0,8571429"},{"1":"xxxx--xx","2":"0,8482143"},{"1":"xxx-xx-x","2":"0,8482143"},{"1":"xxx-x-xx","2":"0,8392857"},{"1":"xx-xxx-x","2":"0,8392857"},{"1":"xxx--xxx","2":"0,8303571"},{"1":"xx-xx-xx","2":"0,8303571"},{"1":"x-xxxx-x","2":"0,8303571"},{"1":"xx-x-xxx","2":"0,8214286"},{"1":"x-xxx-xx","2":"0,8214286"},{"1":"-xxxxx-x","2":"0,8214286"},{"1":"xx--xxxx","2":"0,8125000"},{"1":"x-xx-xxx","2":"0,8125000"},{"1":"-xxxx-xx","2":"0,8125000"},{"1":"x-x-xxxx","2":"0,8035714"},{"1":"-xxx-xxx","2":"0,8035714"},{"1":"x--xxxxx","2":"0,7946429"},{"1":"-xx-xxxx","2":"0,7946429"},{"1":"xxxx---x","2":"0,7857143"},{"1":"-x-xxxxx","2":"0,7857143"},{"1":"xxx-x--x","2":"0,7767857"},{"1":"--xxxxxx","2":"0,7767857"},{"1":"xxx--x-x","2":"0,7678571"},{"1":"xx-xx--x","2":"0,7678571"},{"1":"xxx---xx","2":"0,7589286"},{"1":"xx-x-x-x","2":"0,7589286"},{"1":"x-xxx--x","2":"0,7589286"},{"1":"xx-x--xx","2":"0,7500000"},{"1":"xx--xx-x","2":"0,7500000"},{"1":"x-xx-x-x","2":"0,7500000"},{"1":"-xxxx--x","2":"0,7500000"},{"1":"xx--x-xx","2":"0,7410714"},{"1":"x-xx--xx","2":"0,7410714"},{"1":"x-x-xx-x","2":"0,7410714"},{"1":"-xxx-x-x","2":"0,7410714"},{"1":"xx---xxx","2":"0,7321429"},{"1":"x-x-x-xx","2":"0,7321429"},{"1":"x--xxx-x","2":"0,7321429"},{"1":"-xxx--xx","2":"0,7321429"},{"1":"-xx-xx-x","2":"0,7321429"},{"1":"x-x--xxx","2":"0,7232143"},{"1":"x--xx-xx","2":"0,7232143"},{"1":"-xx-x-xx","2":"0,7232143"},{"1":"-x-xxx-x","2":"0,7232143"},{"1":"x--x-xxx","2":"0,7142857"},{"1":"-xx--xxx","2":"0,7142857"},{"1":"-x-xx-xx","2":"0,7142857"},{"1":"--xxxx-x","2":"0,7142857"},{"1":"x---xxxx","2":"0,7053571"},{"1":"-x-x-xxx","2":"0,7053571"},{"1":"--xxx-xx","2":"0,7053571"},{"1":"xxx----x","2":"0,6964286"},{"1":"-x--xxxx","2":"0,6964286"},{"1":"--xx-xxx","2":"0,6964286"},{"1":"xx-x---x","2":"0,6875000"},{"1":"--x-xxxx","2":"0,6875000"},{"1":"xx--x--x","2":"0,6785714"},{"1":"x-xx---x","2":"0,6785714"},{"1":"---xxxxx","2":"0,6785714"},{"1":"xx---x-x","2":"0,6696429"},{"1":"x-x-x--x","2":"0,6696429"},{"1":"-xxx---x","2":"0,6696429"},{"1":"xx----xx","2":"0,6607143"},{"1":"x-x--x-x","2":"0,6607143"},{"1":"x--xx--x","2":"0,6607143"},{"1":"-xx-x--x","2":"0,6607143"},{"1":"x-x---xx","2":"0,6517857"},{"1":"x--x-x-x","2":"0,6517857"},{"1":"-xx--x-x","2":"0,6517857"},{"1":"-x-xx--x","2":"0,6517857"},{"1":"x--x--xx","2":"0,6428571"},{"1":"x---xx-x","2":"0,6428571"},{"1":"-xx---xx","2":"0,6428571"},{"1":"-x-x-x-x","2":"0,6428571"},{"1":"--xxx--x","2":"0,6428571"},{"1":"x---x-xx","2":"0,6339286"},{"1":"-x-x--xx","2":"0,6339286"},{"1":"-x--xx-x","2":"0,6339286"},{"1":"--xx-x-x","2":"0,6339286"},{"1":"x----xxx","2":"0,6250000"},{"1":"-x--x-xx","2":"0,6250000"},{"1":"--xx--xx","2":"0,6250000"},{"1":"--x-xx-x","2":"0,6250000"},{"1":"-x---xxx","2":"0,6160714"},{"1":"--x-x-xx","2":"0,6160714"},{"1":"---xxx-x","2":"0,6160714"},{"1":"--x--xxx","2":"0,6071429"},{"1":"---xx-xx","2":"0,6071429"},{"1":"xx-----x","2":"0,5982143"},{"1":"---x-xxx","2":"0,5982143"},{"1":"x-x----x","2":"0,5892857"},{"1":"----xxxx","2":"0,5892857"},{"1":"x--x---x","2":"0,5803571"},{"1":"-xx----x","2":"0,5803571"},{"1":"x---x--x","2":"0,5714286"},{"1":"-x-x---x","2":"0,5714286"},{"1":"x----x-x","2":"0,5625000"},{"1":"-x--x--x","2":"0,5625000"},{"1":"--xx---x","2":"0,5625000"},{"1":"x-----xx","2":"0,5535714"},{"1":"-x---x-x","2":"0,5535714"},{"1":"--x-x--x","2":"0,5535714"},{"1":"-x----xx","2":"0,5446429"},{"1":"--x--x-x","2":"0,5446429"},{"1":"---xx--x","2":"0,5446429"},{"1":"--x---xx","2":"0,5357143"},{"1":"---x-x-x","2":"0,5357143"},{"1":"---x--xx","2":"0,5267857"},{"1":"----xx-x","2":"0,5267857"},{"1":"----x-xx","2":"0,5178571"},{"1":"-----xxx","2":"0,5089286"},{"1":"x------x","2":"0,4910714"},{"1":"-x-----x","2":"0,4821429"},{"1":"--x----x","2":"0,4732143"},{"1":"---x---x","2":"0,4642857"},{"1":"----x--x","2":"0,4553571"},{"1":"-----x-x","2":"0,4464286"},{"1":"------xx","2":"0,4375000"},{"1":"-------x","2":"0,3750000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Perceba que pode haver empates: <code>xxxx--xx</code> e <code>xxx-xx-x</code> têm o mesmo valor de <span class="math inline">\(s\)</span>. É razoável achar que estes dois <em>rankings</em> têm a mesma qualidade.</p>
+
+
+<!-- -->
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("^(?:http:|https:)\/\/fnaufel\.github\.io/2024\-DWARFF\-Romulo");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+          // default icon
+          link.classList.add("external");
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./gerar-listas-e-rankings.html" class="pagination-link  aria-label=" e="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Listas e <em>rankings</em></span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>{{&lt; include _math.qmd &gt;}}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="in">source('_setup.R')</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">source('funcoes.R')</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># O *ranking* concorda com a lista? Posições</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ como medida de concordância</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os $k$ elementos da lista e outros).</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>Uma pergunta natural sobre a qualidade do *ranking* produzido é</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Quantas posições do *ranking* são necessárias para incluir todos os $k$ elementos da lista?</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>A resposta é $p$, a posição, no *ranking*, do elemento da lista com pior classificação.</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>Aliás, é por isso que convencionamos, no capítulo anterior, que nossos *rankings* sempre terminam com um elemento da lista.</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>Um exemplo:</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A lista contém $k = 5$ elementos.</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_1$ é <span class="in">`xx-x-xx`</span>, com $p = 7$.</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_2$ é <span class="in">`-xxxxx`</span>, com $p = 6$.</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>Embora comparar *rankings* através de seus valores de $p$ seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>Por exemplo, é discutível se os dois rankings <span class="in">`xx---x`</span> e <span class="in">`---xxx`</span> devem ser considerados igualmente bons; no entanto, ambos têm $p = 6$.</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ e as posições dos elementos da lista</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contando posições `-`</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as seguintes características:</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Se $r$ não contiver "<span class="in">`-`</span>", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, <span class="in">`xxxxx`</span>). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac k p + \cdots</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>  onde as reticências representam termos que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir os termos restantes para que sejam iguais a zero.</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Os termos restantes devem ter valores maiores quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "<span class="in">`-`</span>", melhor ele será. Uma quantidade natural seria</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{\sum_{i = 1, p}i} </span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p + 1) / 2}</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p + 1)}</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  onde $\operatorname{soma<span class="sc">\_</span>}$ é a soma das posições ocupadas por "<span class="in">`_`</span>" em $r$.</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  Como queríamos, quando $r$ for um *ranking* perfeito, $\operatorname{soma<span class="sc">\_</span>} = 0$, e então $s(r) = 1$.</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mas também queremos que somente *rankings* perfeitos tenham $s(r) = 1$. Para isso, considere que um *ranking* mais próximo do perfeito é da forma</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>  <span class="in">`x...x-x`</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>  Ou seja, $k = p - 1$ e $\operatorname{soma<span class="sc">\_</span>} = p - 1$.</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>  Vamos multiplicar a segunda parcela por $\alpha$ de forma que $s(r) &lt; 1$ para este *ranking* quase perfeito:</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>  Então</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>    s(r) &lt; 1 </span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha &lt; \frac1p <span class="sc">\\</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>    &amp;\iff 2 \alpha (p - 1) &lt; p + 1 <span class="sc">\\</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha &lt; \frac12 \cdot \frac{p + 1}{p - 1} <span class="sc">\\</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2)</span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>  o que dá</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>  s(r) </span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot \alpha <span class="sc">\\</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot </span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>    \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2) <span class="sc">\\</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>    \frac1m &amp; (m &gt; 2) <span class="sc">\\</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>    \frac2m &amp; (m &gt; 2)</span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>  Dependendo do valor de $m &gt; 2$ escolhido, teremos medidas diferentes.</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Vamos escolher $m = 4$. Nossa função fica</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>  s(r) = </span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    \frac k p + \frac{\operatorname{soma<span class="sc">\_</span>}}{2p(p - 1)}</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="in">s &lt;- function(ranking) {</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="in">  if (!is_tibble(ranking)) {</span></span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a><span class="in">    ranking &lt;- criar_df(ranking)</span></span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="in">  p &lt;- nrow(ranking)</span></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a><span class="in">  nomes &lt;- ranking %&gt;% pull(nome)</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="in">  k &lt;- sum(nomes == 'x')</span></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="in">  soma_ &lt;- ranking %&gt;% </span></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="in">    filter(nome == '-') %&gt;% </span></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="in">    pull(pos_ranking) %&gt;% </span></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="in">    sum()</span></span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a><span class="in">  (k / p) + (soma_ / (2 * p * (p - 1)))</span></span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a><span class="in">s &lt;- Vectorize(s)</span></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>Para $p = 8$, alguns exemplos:</span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a><span class="in">s(</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a><span class="in">  c(</span></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a><span class="in">    'xxxxxxxx',</span></span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a><span class="in">    'xxxxxx-x',</span></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="in">    '-xxxxxxx'</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* de comprimento $8$, com suas pontuações:</span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a><span class="in">df &lt;- criar_df_rankings(8) %&gt;% </span></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a><span class="in">    s = s(ranking)</span></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a><span class="in">  ) %&gt;% </span></span>
+<span id="cb5-162"><a href="#cb5-162" aria-hidden="true" tabindex="-1"></a><span class="in">  arrange(desc(s))</span></span>
+<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="in">df</span></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>Perceba que pode haver empates: <span class="in">`xxxx--xx`</span> e <span class="in">`xxx-xx-x`</span> têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/edit/master/usando-posicoes.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/blob/master/usando-posicoes.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></div></div></footer></body></html>

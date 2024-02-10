@@ -20,6 +20,7 @@ book:
   chapters:
     - index.qmd
     - gerar-listas-e-rankings.qmd
+    - usando-posicoes.qmd
 #    - references.qmd
 
 bibliography: bibliography.bib
