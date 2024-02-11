@@ -197,7 +197,7 @@
 
 \title{Comparando listas e rankings}
 \author{Fernando Náufel}
-\date{11/02/2024 12:34}
+\date{11/02/2024 14:08}
 
 \begin{document}
 \maketitle
@@ -742,6 +742,42 @@ têm o mesmo valor de $s$. É razoável achar que estes dois
 \subsection{\texorpdfstring{Comparando \emph{rankings} com valores
 diferentes de
 $p$}{Comparando rankings com valores diferentes de }}\label{comparando-rankings-com-valores-diferentes-de-p}
+
+Como a lista é dada e fixa, só faz sentido, na prática, comparar
+\emph{rankings} com o mesmo valor de $k$.
+
+Vamos examinar, para uma lista com $k = 15$, alguns \emph{rankings}
+possíveis com $p$ variando de $15$ a $20$ (só os $100$ melhores):
+
+\begin{verbatim}
+# A tibble: 100 x 3
+  ranking              s     p
+  <chr>            <dbl> <int>
+1 xxxxxxxxxxxxxxx  1        15
+2 xxxxxxxxxxxxxx-x 0.988    16
+3 xxxxxxxxxxxxx-xx 0.984    16
+4 xxxxxxxxxxxx-xxx 0.981    16
+5 xxxxxxxxxxx-xxxx 0.978    16
+6 xxxxxxxxxx-xxxxx 0.974    16
+# i 94 more rows
+\end{verbatim}
+
+Os $100$ melhores \emph{rankings} têm valores diferentes de $p$:
+
+\begin{verbatim}
+# A tibble: 5 x 2
+      p quantidade
+  <int>      <int>
+1    15          1
+2    16         15
+3    17         49
+4    18         31
+5    19          4
+\end{verbatim}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{usando-posicoes_files/figure-pdf/unnamed-chunk-7-1.pdf}
+\end{center}
 
 
 

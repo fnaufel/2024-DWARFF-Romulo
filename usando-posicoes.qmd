@@ -4,11 +4,15 @@
 ```{r setup, include=FALSE}
 source('_setup.R')
 source('funcoes.R')
+library(gghalves)
+library(glue)
+conflict_prefer('lag', 'dplyr')
+conflict_prefer('lead', 'dplyr')
 ```
 
 # O *ranking* concorda com a lista? Posições
 
-## Usando $p$ como medida de concordância
+## Usando $p$ como medida de concordância {#usando-p}
 
 Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.
 
@@ -33,6 +37,8 @@ Um exemplo:
 * O *ranking* $r_2$ é `-xxxxx`, com $p = 6$.
 
 Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.
+
+Ou seja, quanto menor o valor de $p$, melhor o *ranking*.
 
 Embora comparar *rankings* através de seus valores de $p$ seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.
 
@@ -155,5 +161,105 @@ df
 Perceba que pode haver empates: `xxxx--xx` e `xxx-xx-x` têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.
 
 
-### Comparando *rankings* com valores diferentes de $p$
+### Comparando *rankings* com valores diferentes de $p$ 
+
+Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.
+
+```{r cache=TRUE}
+p <- 15:20
+k <- 15
+
+df <- map(p, ~ criar_df_rankings(.x, k)) %>% 
+  bind_rows() %>% 
+  mutate(
+    s = s(ranking),
+    p = nchar(ranking)
+  ) %>% 
+  arrange(desc(s))
+```
+
+Vamos examinar, para uma lista com $k = 15$, os *rankings* possíveis com $p$ variando de $15$ a $20$. 
+
+São $`r nrow(df)`$ *rankings*. Eis os $100$ melhores:
+
+```{r}
+df %>% head(100)
+```
+
+Ao compararmos dois *rankings* com mesmo valor de $p$, nossa intuição coincide com os valores calculados por $s()$: por exemplo, `xxxxxxxxxxxxxx-x` é melhor que `xxxxxxxxxxxxx-xx` (ambos com $p = 16$).
+
+Mas existem vários casos em que um *ranking* com $p$ maior é considerado melhor do que um *ranking* com $p$ menor, o que vai contra [a intuição apresentada antes](#usando-p).
+
+O gráfico abaixo mostra os *scores* atribuídos para os $100$ melhores *rankings*, separados por valores de $p$:
+
+```{r}
+df %>%
+  head(100) %>% 
+  ggplot() +
+    geom_half_boxplot(
+      aes(x = p, y = s, group = p, fill = factor(p)),
+      show.legend = FALSE,
+      side = 'r'
+    ) +
+    geom_half_point(
+      aes(x = p, y = s, group = p),
+      side = 'l',
+      alpha = .3,
+      transformation = position_jitter(height = 0, width = .15)
+    ) +
+    scale_y_continuous(limits = c(.935, NA)) +
+    labs(
+      title = 'Scores dos 100 melhores rankings',
+      subtitle = 'k = 15,  p = 15 a 19',
+      y = 'score'
+    )
+```
+
+Na lista abaixo, cada *ranking* da esquerda tem *score* melhor que o *ranking* à sua direita. Os números entre parênteses são os valores de $p$:
+
+```{r}
+df_temp <- df %>% 
+  mutate(
+    id = 1:nrow(df),
+    p_seguinte = lead(p),
+    p_anterior = lag(p)
+  ) %>% 
+  filter(
+    p > p_seguinte | p < p_anterior
+  ) %>% 
+  select(id, everything())
+
+df_1 <- df_temp %>% 
+  slice(seq(1, nrow(df), 2)) %>% 
+  rename(id1 = id, rk1 = ranking, s1 = s, p1 = p) %>% 
+  select(
+    id1, rk1, s1, p1
+  )
+
+df_2 <- df_temp %>% 
+  slice(seq(2, nrow(df), 2)) %>% 
+  rename(id2 = id, rk2 = ranking, s2 = s, p2 = p) %>% 
+  select(
+    id2, rk2, s2, p2
+  )
+
+df_pares <- df_1 %>% 
+  bind_cols(df_2) %>% 
+  select(id1, id2, rk1, rk2, p1, p2, s1, s2)
+```
+
+```{r}
+df_pares %>% 
+  glue_data(
+    '{format(rk1, width = 15)} ({p1}) > {format(rk2, width = 15)} ({p2})'
+  ) 
+```
+
+::: {.callout-caution title="Mudar $s()$?"}
+
+Parece que alguns destes pares são discutíveis.
+
+Talvez devamos mudar a função $s()$ para produzir valores menores quando $p$ for maior.
+
+:::
 
