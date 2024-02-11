@@ -52,7 +52,7 @@ embed_yt <- function(code) {
 
 # Options -----------------------------------------------------------------
 
-options(dplyr.print_min = 6, dplyr.print_max = 6)
+options(dplyr.print_min = 6, dplyr.print_max = Inf)
 options(crayon.enabled = FALSE) # Supress crayon output
 options(
   # Avoid scientific notation

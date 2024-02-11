@@ -156,4 +156,59 @@ df_string(df)
     \frac k p + \frac{\operatorname{soma\_}}{2p(p - 1)}
   $$
 
+---
+
+Mas existem vários casos em que um *ranking* com $p$ maior é considerado melhor do que um *ranking* com $p$ menor, o que vai contra [a intuição apresentada antes](#usando-p).
+
+
+
+Na lista abaixo, cada *ranking* da esquerda tem *score* melhor que o *ranking* à sua direita. Os números entre parênteses são os valores de $p$:
+
+```{r}
+df_temp <- df %>% 
+  mutate(
+    id = 1:nrow(df),
+    p_seguinte = lead(p),
+    p_anterior = lag(p)
+  ) %>% 
+  filter(
+    p > p_seguinte | p < p_anterior
+  ) %>% 
+  select(id, everything())
+
+df_1 <- df_temp %>% 
+  slice(seq(1, nrow(df), 2)) %>% 
+  rename(id1 = id, rk1 = ranking, s1 = s, p1 = p) %>% 
+  select(
+    id1, rk1, s1, p1
+  )
+
+df_2 <- df_temp %>% 
+  slice(seq(2, nrow(df), 2)) %>% 
+  rename(id2 = id, rk2 = ranking, s2 = s, p2 = p) %>% 
+  select(
+    id2, rk2, s2, p2
+  )
+
+df_pares <- df_1 %>% 
+  bind_cols(df_2) %>% 
+  select(id1, id2, rk1, rk2, p1, p2, s1, s2)
+```
+
+```{r}
+df_pares %>% 
+  glue_data(
+    '{format(rk1, width = 15)} ({p1}) > {format(rk2, width = 15)} ({p2})'
+  ) 
+```
+
+::: {.callout-caution title="Mudar $s()$?"}
+
+Parece que alguns destes pares são discutíveis.
+
+Talvez devamos mudar a função $s()$ para produzir valores menores quando $p$ for maior.
+
+:::
+
+
 

@@ -4,6 +4,7 @@
 ```{r setup, include=FALSE}
 source('_setup.R')
 source('funcoes.R')
+library(gt)
 ```
 
 # Listas e *rankings*
@@ -73,7 +74,7 @@ df <- expand_grid(
   )
 ```
 
-```{r cache=TRUE}
+```{r}
 df %>% 
   pivot_wider(
     names_from = k,

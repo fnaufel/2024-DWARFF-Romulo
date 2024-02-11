@@ -57,6 +57,7 @@ format:
     number-depth: 2
     fig-pos: htb
     keep-tex: true
+    df-print: tibble
     filters: 
       - filters/dollar.lua
       - filters/hl.lua

@@ -314,19 +314,17 @@ s(r)
 \end{aligned}
 \]</span></p>
 <p>Dependendo do valor de <span class="math inline">\(m &gt; 2\)</span> escolhido, teremos medidas diferentes.</p>
-<p>A função abaixo usa o <em>default</em> de <span class="math inline">\(m = 2{,}5\)</span>, mas valores diferentes podem ser passados.</p>
+<p>A função abaixo usa o <em>default</em> de <span class="math inline">\(m = 10\)</span>, mas valores diferentes podem ser passados.</p>
 </li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ranking</span>, <span class="va">m</span> <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ranking</span>, <span class="va">m</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  </span>
 <span>  <span class="co"># Vetor de caracteres</span></span>
 <span>  <span class="va">ranking</span> <span class="op">&lt;-</span> <span class="fu">str_split</span><span class="op">(</span><span class="va">ranking</span>, <span class="st">''</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span>  </span>
-<span>  <span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ranking</span> <span class="op">==</span> <span class="st">'x'</span><span class="op">)</span></span>
 <span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ranking</span><span class="op">)</span></span>
-<span>  <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fl">3</span>, <span class="va">p</span><span class="op">)</span></span>
-<span>  </span>
+<span>  <span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">ranking</span> <span class="op">==</span> <span class="st">'x'</span><span class="op">)</span></span>
 <span>  <span class="va">soma_</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">ranking</span> <span class="op">==</span> <span class="st">'-'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="op">(</span><span class="va">k</span> <span class="op">/</span> <span class="va">p</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">soma_</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">m</span> <span class="op">*</span> <span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="va">p</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -346,22 +344,15 @@ s(r)
 <span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> xxxxxxxx  xxxxxx-x  -xxxxxxx 
-1,0000000 0,9583333 0,8869048 </code></pre>
+1,0000000 0,9000000 0,8785714 </code></pre>
 </div>
 </div>
 <p>Todos os <em>rankings</em> de comprimento <span class="math inline">\(8\)</span>, com suas pontuações:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">criar_df_rankings</span><span class="op">(</span><span class="fl">8</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    s <span class="op">=</span> <span class="fu">s</span><span class="op">(</span><span class="va">ranking</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">s</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">df</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["chr"],"align":["left"]},{"label":["s"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"xxxxxxxx","2":"1,0000000"},{"1":"xxxxxx-x","2":"0,9583333"},{"1":"xxxxx-xx","2":"0,9464286"},{"1":"xxxx-xxx","2":"0,9345238"},{"1":"xxx-xxxx","2":"0,9226190"},{"1":"xx-xxxxx","2":"0,9107143"},{"1":"xxxxx--x","2":"0,9047619"},{"1":"x-xxxxxx","2":"0,8988095"},{"1":"xxxx-x-x","2":"0,8928571"},{"1":"-xxxxxxx","2":"0,8869048"},{"1":"xxxx--xx","2":"0,8809524"},{"1":"xxx-xx-x","2":"0,8809524"},{"1":"xxx-x-xx","2":"0,8690476"},{"1":"xx-xxx-x","2":"0,8690476"},{"1":"xxx--xxx","2":"0,8571429"},{"1":"xx-xx-xx","2":"0,8571429"},{"1":"x-xxxx-x","2":"0,8571429"},{"1":"xx-x-xxx","2":"0,8452381"},{"1":"x-xxx-xx","2":"0,8452381"},{"1":"-xxxxx-x","2":"0,8452381"},{"1":"xxxx---x","2":"0,8392857"},{"1":"xx--xxxx","2":"0,8333333"},{"1":"x-xx-xxx","2":"0,8333333"},{"1":"-xxxx-xx","2":"0,8333333"},{"1":"xxx-x--x","2":"0,8273810"},{"1":"x-x-xxxx","2":"0,8214286"},{"1":"-xxx-xxx","2":"0,8214286"},{"1":"xxx--x-x","2":"0,8154762"},{"1":"xx-xx--x","2":"0,8154762"},{"1":"x--xxxxx","2":"0,8095238"},{"1":"-xx-xxxx","2":"0,8095238"},{"1":"xxx---xx","2":"0,8035714"},{"1":"xx-x-x-x","2":"0,8035714"},{"1":"x-xxx--x","2":"0,8035714"},{"1":"-x-xxxxx","2":"0,7976190"},{"1":"xx-x--xx","2":"0,7916667"},{"1":"xx--xx-x","2":"0,7916667"},{"1":"x-xx-x-x","2":"0,7916667"},{"1":"-xxxx--x","2":"0,7916667"},{"1":"--xxxxxx","2":"0,7857143"},{"1":"xx--x-xx","2":"0,7797619"},{"1":"x-xx--xx","2":"0,7797619"},{"1":"x-x-xx-x","2":"0,7797619"},{"1":"-xxx-x-x","2":"0,7797619"},{"1":"xx---xxx","2":"0,7678571"},{"1":"x-x-x-xx","2":"0,7678571"},{"1":"x--xxx-x","2":"0,7678571"},{"1":"-xxx--xx","2":"0,7678571"},{"1":"-xx-xx-x","2":"0,7678571"},{"1":"xxx----x","2":"0,7619048"},{"1":"x-x--xxx","2":"0,7559524"},{"1":"x--xx-xx","2":"0,7559524"},{"1":"-xx-x-xx","2":"0,7559524"},{"1":"-x-xxx-x","2":"0,7559524"},{"1":"xx-x---x","2":"0,7500000"},{"1":"x--x-xxx","2":"0,7440476"},{"1":"-xx--xxx","2":"0,7440476"},{"1":"-x-xx-xx","2":"0,7440476"},{"1":"--xxxx-x","2":"0,7440476"},{"1":"xx--x--x","2":"0,7380952"},{"1":"x-xx---x","2":"0,7380952"},{"1":"x---xxxx","2":"0,7321429"},{"1":"-x-x-xxx","2":"0,7321429"},{"1":"--xxx-xx","2":"0,7321429"},{"1":"xx---x-x","2":"0,7261905"},{"1":"x-x-x--x","2":"0,7261905"},{"1":"-xxx---x","2":"0,7261905"},{"1":"-x--xxxx","2":"0,7202381"},{"1":"--xx-xxx","2":"0,7202381"},{"1":"xx----xx","2":"0,7142857"},{"1":"x-x--x-x","2":"0,7142857"},{"1":"x--xx--x","2":"0,7142857"},{"1":"-xx-x--x","2":"0,7142857"},{"1":"--x-xxxx","2":"0,7083333"},{"1":"x-x---xx","2":"0,7023810"},{"1":"x--x-x-x","2":"0,7023810"},{"1":"-xx--x-x","2":"0,7023810"},{"1":"-x-xx--x","2":"0,7023810"},{"1":"---xxxxx","2":"0,6964286"},{"1":"x--x--xx","2":"0,6904762"},{"1":"x---xx-x","2":"0,6904762"},{"1":"-xx---xx","2":"0,6904762"},{"1":"-x-x-x-x","2":"0,6904762"},{"1":"--xxx--x","2":"0,6904762"},{"1":"x---x-xx","2":"0,6785714"},{"1":"-x-x--xx","2":"0,6785714"},{"1":"-x--xx-x","2":"0,6785714"},{"1":"--xx-x-x","2":"0,6785714"},{"1":"xx-----x","2":"0,6726190"},{"1":"x----xxx","2":"0,6666667"},{"1":"-x--x-xx","2":"0,6666667"},{"1":"--xx--xx","2":"0,6666667"},{"1":"--x-xx-x","2":"0,6666667"},{"1":"x-x----x","2":"0,6607143"},{"1":"-x---xxx","2":"0,6547619"},{"1":"--x-x-xx","2":"0,6547619"},{"1":"---xxx-x","2":"0,6547619"},{"1":"x--x---x","2":"0,6488095"},{"1":"-xx----x","2":"0,6488095"},{"1":"--x--xxx","2":"0,6428571"},{"1":"---xx-xx","2":"0,6428571"},{"1":"x---x--x","2":"0,6369048"},{"1":"-x-x---x","2":"0,6369048"},{"1":"---x-xxx","2":"0,6309524"},{"1":"x----x-x","2":"0,6250000"},{"1":"-x--x--x","2":"0,6250000"},{"1":"--xx---x","2":"0,6250000"},{"1":"----xxxx","2":"0,6190476"},{"1":"x-----xx","2":"0,6130952"},{"1":"-x---x-x","2":"0,6130952"},{"1":"--x-x--x","2":"0,6130952"},{"1":"-x----xx","2":"0,6011905"},{"1":"--x--x-x","2":"0,6011905"},{"1":"---xx--x","2":"0,6011905"},{"1":"--x---xx","2":"0,5892857"},{"1":"---x-x-x","2":"0,5892857"},{"1":"---x--xx","2":"0,5773810"},{"1":"----xx-x","2":"0,5773810"},{"1":"x------x","2":"0,5714286"},{"1":"----x-xx","2":"0,5654762"},{"1":"-x-----x","2":"0,5595238"},{"1":"-----xxx","2":"0,5535714"},{"1":"--x----x","2":"0,5476190"},{"1":"---x---x","2":"0,5357143"},{"1":"----x--x","2":"0,5238095"},{"1":"-----x-x","2":"0,5119048"},{"1":"------xx","2":"0,5000000"},{"1":"-------x","2":"0,4583333"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["ranking"],"name":[1],"type":["chr"],"align":["left"]},{"label":["s"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"xxxxxxxx","2":"1,0000000"},{"1":"xxxxxx-x","2":"0,9000000"},{"1":"xxxxx-xx","2":"0,8964286"},{"1":"xxxx-xxx","2":"0,8928571"},{"1":"xxx-xxxx","2":"0,8892857"},{"1":"xx-xxxxx","2":"0,8857143"},{"1":"x-xxxxxx","2":"0,8821429"},{"1":"-xxxxxxx","2":"0,8785714"},{"1":"xxxxx--x","2":"0,7964286"},{"1":"xxxx-x-x","2":"0,7928571"},{"1":"xxxx--xx","2":"0,7892857"},{"1":"xxx-xx-x","2":"0,7892857"},{"1":"xxx-x-xx","2":"0,7857143"},{"1":"xx-xxx-x","2":"0,7857143"},{"1":"xxx--xxx","2":"0,7821429"},{"1":"xx-xx-xx","2":"0,7821429"},{"1":"x-xxxx-x","2":"0,7821429"},{"1":"xx-x-xxx","2":"0,7785714"},{"1":"x-xxx-xx","2":"0,7785714"},{"1":"-xxxxx-x","2":"0,7785714"},{"1":"xx--xxxx","2":"0,7750000"},{"1":"x-xx-xxx","2":"0,7750000"},{"1":"-xxxx-xx","2":"0,7750000"},{"1":"x-x-xxxx","2":"0,7714286"},{"1":"-xxx-xxx","2":"0,7714286"},{"1":"x--xxxxx","2":"0,7678571"},{"1":"-xx-xxxx","2":"0,7678571"},{"1":"-x-xxxxx","2":"0,7642857"},{"1":"--xxxxxx","2":"0,7607143"},{"1":"xxxx---x","2":"0,6892857"},{"1":"xxx-x--x","2":"0,6857143"},{"1":"xxx--x-x","2":"0,6821429"},{"1":"xx-xx--x","2":"0,6821429"},{"1":"xxx---xx","2":"0,6785714"},{"1":"xx-x-x-x","2":"0,6785714"},{"1":"x-xxx--x","2":"0,6785714"},{"1":"xx-x--xx","2":"0,6750000"},{"1":"xx--xx-x","2":"0,6750000"},{"1":"x-xx-x-x","2":"0,6750000"},{"1":"-xxxx--x","2":"0,6750000"},{"1":"xx--x-xx","2":"0,6714286"},{"1":"x-xx--xx","2":"0,6714286"},{"1":"x-x-xx-x","2":"0,6714286"},{"1":"-xxx-x-x","2":"0,6714286"},{"1":"xx---xxx","2":"0,6678571"},{"1":"x-x-x-xx","2":"0,6678571"},{"1":"x--xxx-x","2":"0,6678571"},{"1":"-xxx--xx","2":"0,6678571"},{"1":"-xx-xx-x","2":"0,6678571"},{"1":"x-x--xxx","2":"0,6642857"},{"1":"x--xx-xx","2":"0,6642857"},{"1":"-xx-x-xx","2":"0,6642857"},{"1":"-x-xxx-x","2":"0,6642857"},{"1":"x--x-xxx","2":"0,6607143"},{"1":"-xx--xxx","2":"0,6607143"},{"1":"-x-xx-xx","2":"0,6607143"},{"1":"--xxxx-x","2":"0,6607143"},{"1":"x---xxxx","2":"0,6571429"},{"1":"-x-x-xxx","2":"0,6571429"},{"1":"--xxx-xx","2":"0,6571429"},{"1":"-x--xxxx","2":"0,6535714"},{"1":"--xx-xxx","2":"0,6535714"},{"1":"--x-xxxx","2":"0,6500000"},{"1":"---xxxxx","2":"0,6464286"},{"1":"xxx----x","2":"0,5785714"},{"1":"xx-x---x","2":"0,5750000"},{"1":"xx--x--x","2":"0,5714286"},{"1":"x-xx---x","2":"0,5714286"},{"1":"xx---x-x","2":"0,5678571"},{"1":"x-x-x--x","2":"0,5678571"},{"1":"-xxx---x","2":"0,5678571"},{"1":"xx----xx","2":"0,5642857"},{"1":"x-x--x-x","2":"0,5642857"},{"1":"x--xx--x","2":"0,5642857"},{"1":"-xx-x--x","2":"0,5642857"},{"1":"x-x---xx","2":"0,5607143"},{"1":"x--x-x-x","2":"0,5607143"},{"1":"-xx--x-x","2":"0,5607143"},{"1":"-x-xx--x","2":"0,5607143"},{"1":"x--x--xx","2":"0,5571429"},{"1":"x---xx-x","2":"0,5571429"},{"1":"-xx---xx","2":"0,5571429"},{"1":"-x-x-x-x","2":"0,5571429"},{"1":"--xxx--x","2":"0,5571429"},{"1":"x---x-xx","2":"0,5535714"},{"1":"-x-x--xx","2":"0,5535714"},{"1":"-x--xx-x","2":"0,5535714"},{"1":"--xx-x-x","2":"0,5535714"},{"1":"x----xxx","2":"0,5500000"},{"1":"-x--x-xx","2":"0,5500000"},{"1":"--xx--xx","2":"0,5500000"},{"1":"--x-xx-x","2":"0,5500000"},{"1":"-x---xxx","2":"0,5464286"},{"1":"--x-x-xx","2":"0,5464286"},{"1":"---xxx-x","2":"0,5464286"},{"1":"--x--xxx","2":"0,5428571"},{"1":"---xx-xx","2":"0,5428571"},{"1":"---x-xxx","2":"0,5392857"},{"1":"----xxxx","2":"0,5357143"},{"1":"xx-----x","2":"0,4642857"},{"1":"x-x----x","2":"0,4607143"},{"1":"x--x---x","2":"0,4571429"},{"1":"-xx----x","2":"0,4571429"},{"1":"x---x--x","2":"0,4535714"},{"1":"-x-x---x","2":"0,4535714"},{"1":"x----x-x","2":"0,4500000"},{"1":"-x--x--x","2":"0,4500000"},{"1":"--xx---x","2":"0,4500000"},{"1":"x-----xx","2":"0,4464286"},{"1":"-x---x-x","2":"0,4464286"},{"1":"--x-x--x","2":"0,4464286"},{"1":"-x----xx","2":"0,4428571"},{"1":"--x--x-x","2":"0,4428571"},{"1":"---xx--x","2":"0,4428571"},{"1":"--x---xx","2":"0,4392857"},{"1":"---x-x-x","2":"0,4392857"},{"1":"---x--xx","2":"0,4357143"},{"1":"----xx-x","2":"0,4357143"},{"1":"----x-xx","2":"0,4321429"},{"1":"-----xxx","2":"0,4285714"},{"1":"x------x","2":"0,3464286"},{"1":"-x-----x","2":"0,3428571"},{"1":"--x----x","2":"0,3392857"},{"1":"---x---x","2":"0,3357143"},{"1":"----x--x","2":"0,3321429"},{"1":"-----x-x","2":"0,3285714"},{"1":"------xx","2":"0,3250000"},{"1":"-------x","2":"0,2250000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -376,14 +367,12 @@ s(r)
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["chr"],"align":["left"]},{"label":["s"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"xxxxxxxxxxxxxxx","2":"1,0000000","3":"15"},{"1":"xxxxxxxxxxxxxx-x","2":"0,9875000","3":"16"},{"1":"xxxxxxxxxxxxx-xx","2":"0,9841667","3":"16"},{"1":"xxxxxxxxxxxx-xxx","2":"0,9808333","3":"16"},{"1":"xxxxxxxxxxx-xxxx","2":"0,9775000","3":"16"},{"1":"xxxxxxxxxx-xxxxx","2":"0,9741667","3":"16"},{"1":"xxxxxxxxxxxxxx--x","2":"0,9735294","3":"17"},{"1":"xxxxxxxxx-xxxxxx","2":"0,9708333","3":"16"},{"1":"xxxxxxxxxxxxx-x-x","2":"0,9705882","3":"17"},{"1":"xxxxxxxxxxxxx--xx","2":"0,9676471","3":"17"},{"1":"xxxxxxxxxxxx-xx-x","2":"0,9676471","3":"17"},{"1":"xxxxxxxx-xxxxxxx","2":"0,9675000","3":"16"},{"1":"xxxxxxxxxxxx-x-xx","2":"0,9647059","3":"17"},{"1":"xxxxxxxxxxx-xxx-x","2":"0,9647059","3":"17"},{"1":"xxxxxxx-xxxxxxxx","2":"0,9641667","3":"16"},{"1":"xxxxxxxxxxxx--xxx","2":"0,9617647","3":"17"},{"1":"xxxxxxxxxxx-xx-xx","2":"0,9617647","3":"17"},{"1":"xxxxxxxxxx-xxxx-x","2":"0,9617647","3":"17"},{"1":"xxxxxx-xxxxxxxxx","2":"0,9608333","3":"16"},{"1":"xxxxxxxxxxxxxx---x","2":"0,9588235","3":"18"},{"1":"xxxxxxxxxxx-x-xxx","2":"0,9588235","3":"17"},{"1":"xxxxxxxxxx-xxx-xx","2":"0,9588235","3":"17"},{"1":"xxxxxxxxx-xxxxx-x","2":"0,9588235","3":"17"},{"1":"xxxxx-xxxxxxxxxx","2":"0,9575000","3":"16"},{"1":"xxxxxxxxxxxxx-x--x","2":"0,9562092","3":"18"},{"1":"xxxxxxxxxxx--xxxx","2":"0,9558824","3":"17"},{"1":"xxxxxxxxxx-xx-xxx","2":"0,9558824","3":"17"},{"1":"xxxxxxxxx-xxxx-xx","2":"0,9558824","3":"17"},{"1":"xxxxxxxx-xxxxxx-x","2":"0,9558824","3":"17"},{"1":"xxxx-xxxxxxxxxxx","2":"0,9541667","3":"16"},{"1":"xxxxxxxxxxxxx--x-x","2":"0,9535948","3":"18"},{"1":"xxxxxxxxxxxx-xx--x","2":"0,9535948","3":"18"},{"1":"xxxxxxxxxx-x-xxxx","2":"0,9529412","3":"17"},{"1":"xxxxxxxxx-xxx-xxx","2":"0,9529412","3":"17"},{"1":"xxxxxxxx-xxxxx-xx","2":"0,9529412","3":"17"},{"1":"xxxxxxx-xxxxxxx-x","2":"0,9529412","3":"17"},{"1":"xxxxxxxxxxxxx---xx","2":"0,9509804","3":"18"},{"1":"xxxxxxxxxxxx-x-x-x","2":"0,9509804","3":"18"},{"1":"xxxxxxxxxxx-xxx--x","2":"0,9509804","3":"18"},{"1":"xxx-xxxxxxxxxxxx","2":"0,9508333","3":"16"},{"1":"xxxxxxxxxx--xxxxx","2":"0,9500000","3":"17"},{"1":"xxxxxxxxx-xx-xxxx","2":"0,9500000","3":"17"},{"1":"xxxxxxxx-xxxx-xxx","2":"0,9500000","3":"17"},{"1":"xxxxxxx-xxxxxx-xx","2":"0,9500000","3":"17"},{"1":"xxxxxx-xxxxxxxx-x","2":"0,9500000","3":"17"},{"1":"xxxxxxxxxxxx-x--xx","2":"0,9483660","3":"18"},{"1":"xxxxxxxxxxxx--xx-x","2":"0,9483660","3":"18"},{"1":"xxxxxxxxxxx-xx-x-x","2":"0,9483660","3":"18"},{"1":"xxxxxxxxxx-xxxx--x","2":"0,9483660","3":"18"},{"1":"xx-xxxxxxxxxxxxx","2":"0,9475000","3":"16"},{"1":"xxxxxxxxx-x-xxxxx","2":"0,9470588","3":"17"},{"1":"xxxxxxxx-xxx-xxxx","2":"0,9470588","3":"17"},{"1":"xxxxxxx-xxxxx-xxx","2":"0,9470588","3":"17"},{"1":"xxxxxx-xxxxxxx-xx","2":"0,9470588","3":"17"},{"1":"xxxxx-xxxxxxxxx-x","2":"0,9470588","3":"17"},{"1":"xxxxxxxxxxxx--x-xx","2":"0,9457516","3":"18"},{"1":"xxxxxxxxxxx-xx--xx","2":"0,9457516","3":"18"},{"1":"xxxxxxxxxxx-x-xx-x","2":"0,9457516","3":"18"},{"1":"xxxxxxxxxx-xxx-x-x","2":"0,9457516","3":"18"},{"1":"xxxxxxxxx-xxxxx--x","2":"0,9457516","3":"18"},{"1":"x-xxxxxxxxxxxxxx","2":"0,9441667","3":"16"},{"1":"xxxxxxxxx--xxxxxx","2":"0,9441176","3":"17"},{"1":"xxxxxxxx-xx-xxxxx","2":"0,9441176","3":"17"},{"1":"xxxxxxx-xxxx-xxxx","2":"0,9441176","3":"17"},{"1":"xxxxxx-xxxxxx-xxx","2":"0,9441176","3":"17"},{"1":"xxxxx-xxxxxxxx-xx","2":"0,9441176","3":"17"},{"1":"xxxx-xxxxxxxxxx-x","2":"0,9441176","3":"17"},{"1":"xxxxxxxxxxxxxx----x","2":"0,9438596","3":"19"},{"1":"xxxxxxxxxxxx---xxx","2":"0,9431373","3":"18"},{"1":"xxxxxxxxxxx-x-x-xx","2":"0,9431373","3":"18"},{"1":"xxxxxxxxxxx--xxx-x","2":"0,9431373","3":"18"},{"1":"xxxxxxxxxx-xxx--xx","2":"0,9431373","3":"18"},{"1":"xxxxxxxxxx-xx-xx-x","2":"0,9431373","3":"18"},{"1":"xxxxxxxxx-xxxx-x-x","2":"0,9431373","3":"18"},{"1":"xxxxxxxx-xxxxxx--x","2":"0,9431373","3":"18"},{"1":"xxxxxxxxxxxxx-x---x","2":"0,9415205","3":"19"},{"1":"xxxxxxxx-x-xxxxxx","2":"0,9411765","3":"17"},{"1":"xxxxxxx-xxx-xxxxx","2":"0,9411765","3":"17"},{"1":"xxxxxx-xxxxx-xxxx","2":"0,9411765","3":"17"},{"1":"xxxxx-xxxxxxx-xxx","2":"0,9411765","3":"17"},{"1":"xxxx-xxxxxxxxx-xx","2":"0,9411765","3":"17"},{"1":"xxx-xxxxxxxxxxx-x","2":"0,9411765","3":"17"},{"1":"-xxxxxxxxxxxxxxx","2":"0,9408333","3":"16"},{"1":"xxxxxxxxxxx-x--xxx","2":"0,9405229","3":"18"},{"1":"xxxxxxxxxxx--xx-xx","2":"0,9405229","3":"18"},{"1":"xxxxxxxxxx-xx-x-xx","2":"0,9405229","3":"18"},{"1":"xxxxxxxxxx-x-xxx-x","2":"0,9405229","3":"18"},{"1":"xxxxxxxxx-xxxx--xx","2":"0,9405229","3":"18"},{"1":"xxxxxxxxx-xxx-xx-x","2":"0,9405229","3":"18"},{"1":"xxxxxxxx-xxxxx-x-x","2":"0,9405229","3":"18"},{"1":"xxxxxxx-xxxxxxx--x","2":"0,9405229","3":"18"},{"1":"xxxxxxxxxxxxx--x--x","2":"0,9391813","3":"19"},{"1":"xxxxxxxxxxxx-xx---x","2":"0,9391813","3":"19"},{"1":"xxxxxxxx--xxxxxxx","2":"0,9382353","3":"17"},{"1":"xxxxxxx-xx-xxxxxx","2":"0,9382353","3":"17"},{"1":"xxxxxx-xxxx-xxxxx","2":"0,9382353","3":"17"},{"1":"xxxxx-xxxxxx-xxxx","2":"0,9382353","3":"17"},{"1":"xxxx-xxxxxxxx-xxx","2":"0,9382353","3":"17"},{"1":"xxx-xxxxxxxxxx-xx","2":"0,9382353","3":"17"},{"1":"xx-xxxxxxxxxxxx-x","2":"0,9382353","3":"17"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["ranking"],"name":[1],"type":["chr"],"align":["left"]},{"label":["s"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"xxxxxxxxxxxxxxx","2":"1,0000000","3":"15"},{"1":"xxxxxxxxxxxxxx-x","2":"0,9500000","3":"16"},{"1":"xxxxxxxxxxxxx-xx","2":"0,9491667","3":"16"},{"1":"xxxxxxxxxxxx-xxx","2":"0,9483333","3":"16"},{"1":"xxxxxxxxxxx-xxxx","2":"0,9475000","3":"16"},{"1":"xxxxxxxxxx-xxxxx","2":"0,9466667","3":"16"},{"1":"xxxxxxxxx-xxxxxx","2":"0,9458333","3":"16"},{"1":"xxxxxxxx-xxxxxxx","2":"0,9450000","3":"16"},{"1":"xxxxxxx-xxxxxxxx","2":"0,9441667","3":"16"},{"1":"xxxxxx-xxxxxxxxx","2":"0,9433333","3":"16"},{"1":"xxxxx-xxxxxxxxxx","2":"0,9425000","3":"16"},{"1":"xxxx-xxxxxxxxxxx","2":"0,9416667","3":"16"},{"1":"xxx-xxxxxxxxxxxx","2":"0,9408333","3":"16"},{"1":"xx-xxxxxxxxxxxxx","2":"0,9400000","3":"16"},{"1":"x-xxxxxxxxxxxxxx","2":"0,9391667","3":"16"},{"1":"-xxxxxxxxxxxxxxx","2":"0,9383333","3":"16"},{"1":"xxxxxxxxxxxxxx--x","2":"0,9051471","3":"17"},{"1":"xxxxxxxxxxxxx-x-x","2":"0,9044118","3":"17"},{"1":"xxxxxxxxxxxxx--xx","2":"0,9036765","3":"17"},{"1":"xxxxxxxxxxxx-xx-x","2":"0,9036765","3":"17"},{"1":"xxxxxxxxxxxx-x-xx","2":"0,9029412","3":"17"},{"1":"xxxxxxxxxxx-xxx-x","2":"0,9029412","3":"17"},{"1":"xxxxxxxxxxxx--xxx","2":"0,9022059","3":"17"},{"1":"xxxxxxxxxxx-xx-xx","2":"0,9022059","3":"17"},{"1":"xxxxxxxxxx-xxxx-x","2":"0,9022059","3":"17"},{"1":"xxxxxxxxxxx-x-xxx","2":"0,9014706","3":"17"},{"1":"xxxxxxxxxx-xxx-xx","2":"0,9014706","3":"17"},{"1":"xxxxxxxxx-xxxxx-x","2":"0,9014706","3":"17"},{"1":"xxxxxxxxxxx--xxxx","2":"0,9007353","3":"17"},{"1":"xxxxxxxxxx-xx-xxx","2":"0,9007353","3":"17"},{"1":"xxxxxxxxx-xxxx-xx","2":"0,9007353","3":"17"},{"1":"xxxxxxxx-xxxxxx-x","2":"0,9007353","3":"17"},{"1":"xxxxxxxxxx-x-xxxx","2":"0,9000000","3":"17"},{"1":"xxxxxxxxx-xxx-xxx","2":"0,9000000","3":"17"},{"1":"xxxxxxxx-xxxxx-xx","2":"0,9000000","3":"17"},{"1":"xxxxxxx-xxxxxxx-x","2":"0,9000000","3":"17"},{"1":"xxxxxxxxxx--xxxxx","2":"0,8992647","3":"17"},{"1":"xxxxxxxxx-xx-xxxx","2":"0,8992647","3":"17"},{"1":"xxxxxxxx-xxxx-xxx","2":"0,8992647","3":"17"},{"1":"xxxxxxx-xxxxxx-xx","2":"0,8992647","3":"17"},{"1":"xxxxxx-xxxxxxxx-x","2":"0,8992647","3":"17"},{"1":"xxxxxxxxx-x-xxxxx","2":"0,8985294","3":"17"},{"1":"xxxxxxxx-xxx-xxxx","2":"0,8985294","3":"17"},{"1":"xxxxxxx-xxxxx-xxx","2":"0,8985294","3":"17"},{"1":"xxxxxx-xxxxxxx-xx","2":"0,8985294","3":"17"},{"1":"xxxxx-xxxxxxxxx-x","2":"0,8985294","3":"17"},{"1":"xxxxxxxxx--xxxxxx","2":"0,8977941","3":"17"},{"1":"xxxxxxxx-xx-xxxxx","2":"0,8977941","3":"17"},{"1":"xxxxxxx-xxxx-xxxx","2":"0,8977941","3":"17"},{"1":"xxxxxx-xxxxxx-xxx","2":"0,8977941","3":"17"},{"1":"xxxxx-xxxxxxxx-xx","2":"0,8977941","3":"17"},{"1":"xxxx-xxxxxxxxxx-x","2":"0,8977941","3":"17"},{"1":"xxxxxxxx-x-xxxxxx","2":"0,8970588","3":"17"},{"1":"xxxxxxx-xxx-xxxxx","2":"0,8970588","3":"17"},{"1":"xxxxxx-xxxxx-xxxx","2":"0,8970588","3":"17"},{"1":"xxxxx-xxxxxxx-xxx","2":"0,8970588","3":"17"},{"1":"xxxx-xxxxxxxxx-xx","2":"0,8970588","3":"17"},{"1":"xxx-xxxxxxxxxxx-x","2":"0,8970588","3":"17"},{"1":"xxxxxxxx--xxxxxxx","2":"0,8963235","3":"17"},{"1":"xxxxxxx-xx-xxxxxx","2":"0,8963235","3":"17"},{"1":"xxxxxx-xxxx-xxxxx","2":"0,8963235","3":"17"},{"1":"xxxxx-xxxxxx-xxxx","2":"0,8963235","3":"17"},{"1":"xxxx-xxxxxxxx-xxx","2":"0,8963235","3":"17"},{"1":"xxx-xxxxxxxxxx-xx","2":"0,8963235","3":"17"},{"1":"xx-xxxxxxxxxxxx-x","2":"0,8963235","3":"17"},{"1":"xxxxxxx-x-xxxxxxx","2":"0,8955882","3":"17"},{"1":"xxxxxx-xxx-xxxxxx","2":"0,8955882","3":"17"},{"1":"xxxxx-xxxxx-xxxxx","2":"0,8955882","3":"17"},{"1":"xxxx-xxxxxxx-xxxx","2":"0,8955882","3":"17"},{"1":"xxx-xxxxxxxxx-xxx","2":"0,8955882","3":"17"},{"1":"xx-xxxxxxxxxxx-xx","2":"0,8955882","3":"17"},{"1":"x-xxxxxxxxxxxxx-x","2":"0,8955882","3":"17"},{"1":"xxxxxxx--xxxxxxxx","2":"0,8948529","3":"17"},{"1":"xxxxxx-xx-xxxxxxx","2":"0,8948529","3":"17"},{"1":"xxxxx-xxxx-xxxxxx","2":"0,8948529","3":"17"},{"1":"xxxx-xxxxxx-xxxxx","2":"0,8948529","3":"17"},{"1":"xxx-xxxxxxxx-xxxx","2":"0,8948529","3":"17"},{"1":"xx-xxxxxxxxxx-xxx","2":"0,8948529","3":"17"},{"1":"x-xxxxxxxxxxxx-xx","2":"0,8948529","3":"17"},{"1":"-xxxxxxxxxxxxxx-x","2":"0,8948529","3":"17"},{"1":"xxxxxx-x-xxxxxxxx","2":"0,8941176","3":"17"},{"1":"xxxxx-xxx-xxxxxxx","2":"0,8941176","3":"17"},{"1":"xxxx-xxxxx-xxxxxx","2":"0,8941176","3":"17"},{"1":"xxx-xxxxxxx-xxxxx","2":"0,8941176","3":"17"},{"1":"xx-xxxxxxxxx-xxxx","2":"0,8941176","3":"17"},{"1":"x-xxxxxxxxxxx-xxx","2":"0,8941176","3":"17"},{"1":"-xxxxxxxxxxxxx-xx","2":"0,8941176","3":"17"},{"1":"xxxxxx--xxxxxxxxx","2":"0,8933824","3":"17"},{"1":"xxxxx-xx-xxxxxxxx","2":"0,8933824","3":"17"},{"1":"xxxx-xxxx-xxxxxxx","2":"0,8933824","3":"17"},{"1":"xxx-xxxxxx-xxxxxx","2":"0,8933824","3":"17"},{"1":"xx-xxxxxxxx-xxxxx","2":"0,8933824","3":"17"},{"1":"x-xxxxxxxxxx-xxxx","2":"0,8933824","3":"17"},{"1":"-xxxxxxxxxxxx-xxx","2":"0,8933824","3":"17"},{"1":"xxxxx-x-xxxxxxxxx","2":"0,8926471","3":"17"},{"1":"xxxx-xxx-xxxxxxxx","2":"0,8926471","3":"17"},{"1":"xxx-xxxxx-xxxxxxx","2":"0,8926471","3":"17"},{"1":"xx-xxxxxxx-xxxxxx","2":"0,8926471","3":"17"},{"1":"x-xxxxxxxxx-xxxxx","2":"0,8926471","3":"17"},{"1":"-xxxxxxxxxxx-xxxx","2":"0,8926471","3":"17"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
-<p>Ao compararmos dois <em>rankings</em> com mesmo valor de <span class="math inline">\(p\)</span>, nossa intuição coincide com os valores calculados por <span class="math inline">\(s()\)</span>: por exemplo, <code>xxxxxxxxxxxxxx-x</code> é melhor que <code>xxxxxxxxxxxxx-xx</code> (ambos com <span class="math inline">\(p = 16\)</span>).</p>
-<p>Mas existem vários casos em que um <em>ranking</em> com <span class="math inline">\(p\)</span> maior é considerado melhor do que um <em>ranking</em> com <span class="math inline">\(p\)</span> menor, o que vai contra <a href="#usando-p">a intuição apresentada antes</a>.</p>
-<p>O gráfico abaixo mostra os <em>scores</em> atribuídos para os <span class="math inline">\(100\)</span> melhores <em>rankings</em>, separados por valores de <span class="math inline">\(p\)</span>:</p>
+<p>Os gráficos abaixo mostram os <em>scores</em> atribuídos para todos os <em>rankings</em> com <span class="math inline">\(k = 15\)</span> e <span class="math inline">\(p\)</span> variando de <span class="math inline">\(15\)</span> a <span class="math inline">\(20\)</span>, separados por valores de <span class="math inline">\(p\)</span>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -392,121 +381,20 @@ s(r)
 </div>
 </div>
 </div>
-<p>Na lista abaixo, cada <em>ranking</em> da esquerda tem <em>score</em> melhor que o <em>ranking</em> à sua direita. Os números entre parênteses são os valores de <span class="math inline">\(p\)</span>:</p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code>xxxxxxxxxxxxxx--x    (17) &gt; xxxxxxxxx-xxxxxx    (16)
-xxxxxxxxxxxx-xx-x    (17) &gt; xxxxxxxx-xxxxxxx    (16)
-xxxxxxxxxxx-xxx-x    (17) &gt; xxxxxxx-xxxxxxxx    (16)
-xxxxxxxxxx-xxxx-x    (17) &gt; xxxxxx-xxxxxxxxx    (16)
-xxxxxxxxxxxxxx---x   (18) &gt; xxxxxxxxxxx-x-xxx   (17)
-xxxxxxxxx-xxxxx-x    (17) &gt; xxxxx-xxxxxxxxxx    (16)
-xxxxxxxxxxxxx-x--x   (18) &gt; xxxxxxxxxxx--xxxx   (17)
-xxxxxxxx-xxxxxx-x    (17) &gt; xxxx-xxxxxxxxxxx    (16)
-xxxxxxxxxxxx-xx--x   (18) &gt; xxxxxxxxxx-x-xxxx   (17)
-xxxxxxxxxxx-xxx--x   (18) &gt; xxx-xxxxxxxxxxxx    (16)
-xxxxxxxxxx-xxxx--x   (18) &gt; xx-xxxxxxxxxxxxx    (16)
-xxxxxxxxx-xxxxx--x   (18) &gt; x-xxxxxxxxxxxxxx    (16)
-xxxxxxxxxxxxxx----x  (19) &gt; xxxxxxxxxxxx---xxx  (18)
-xxxxxxxxxxxxx-x---x  (19) &gt; xxxxxxxx-x-xxxxxx   (17)
-xxx-xxxxxxxxxxx-x    (17) &gt; -xxxxxxxxxxxxxxx    (16)
-xxxxxxxxxxxx-xx---x  (19) &gt; xxxxxxxx--xxxxxxx   (17)
-xxxxxxxxxxx-xxx---x  (19) &gt; xxxxxxx-x-xxxxxxx   (17)
-xxxxxxxxxx-xxxx---x  (19) &gt; xxxxxxxxxx-x--xxxx  (18)
-xxxx-xxxxxxxxxx--x   (18) &gt; xxxxxxx--xxxxxxxx   (17)
-xxxxxxxxx-xxxxx---x  (19) &gt; xxxxxxxxxx--x-xxxx  (18)
-xxxxxxxx-xxxxxx---x  (19) &gt; xxxxxx-x-xxxxxxxx   (17)
-xxxxxxxxxxxxxx-----x (20) &gt; xxxxxxxxxxxx---x-xx (19)
-xxxxxxx-xxxxxxx---x  (19) &gt; xxxxxxxxxx---xxxxx  (18)
-xxxxxxxxxxxxx-x----x (20) &gt; xxxxxx--xxxxxxxxx   (17)
-xxxxxx-xxxxxxxx---x  (19) &gt; xxxxxxxxx-x--xxxxx  (18)
-xxxxxxxxxxxx-xx----x (20) &gt; xxxxx-x-xxxxxxxxx   (17)
-xxxxxxxxxxx-xxx----x (20) &gt; xxxxxxxxx--x-xxxxx  (18)
--xxxxxxxxxxxxxx--x   (18) &gt; xxxxx--xxxxxxxxxx   (17)
-xxxxxxxxxx-xxxx----x (20) &gt; xxxxxxxxxxx--x--xxx (19)
-xxxx-xxxxxxxxxx---x  (19) &gt; xxxxxxxxx---xxxxxx  (18)
-xxxxxxxxx-xxxxx----x (20) &gt; xxxxxxxxxxx---x-xxx (19)
-xxx-xxxxxxxxxxx---x  (19) &gt; xxxx-x-xxxxxxxxxx   (17)
-xxxxxxxx-xxxxxx----x (20) &gt; xxxxxxxxxxx----xxxx (19)
-xx-xxxxxxxxxxxx---x  (19) &gt; xxxx--xxxxxxxxxxx   (17)
-xxxxxxx-xxxxxxx----x (20) &gt; xxxxxxxxxx-x---xxxx (19)
-xxxxxx-xxxxxxxx----x (20) &gt; xxxxxxxx---xxxxxxx  (18)
--xxxxxxxxxx-xxxx-x   (18) &gt; xxx-x-xxxxxxxxxxx   (17)
-xxxxx-xxxxxxxxx----x (20) &gt; xxxxxxx-x--xxxxxxx  (18)
--xxxxxxxxx-xxxxx-x   (18) &gt; xxx--xxxxxxxxxxxx   (17)
-xxxx-xxxxxxxxxx----x (20) &gt; xxxxxxx--x-xxxxxxx  (18)
--xxxxxxxxxxxx-xx--x  (19) &gt; xx-x-xxxxxxxxxxxx   (17)
-xxx-xxxxxxxxxxx----x (20) &gt; xxxxxxxxx-x---xxxxx (19)
--xxxxxxxxxxx-xxx--x  (19) &gt; xxxxxxx---xxxxxxxx  (18)
-xx-xxxxxxxxxxxx----x (20) &gt; xx--xxxxxxxxxxxxx   (17)
-x-xxxxxxxxxxxxx----x (20) &gt; xxxxxx-x--xxxxxxxx  (18)
--xxxxxx-xxxxxxxx-x   (18) &gt; x-x-xxxxxxxxxxxxx   (17)
--xxxxxxxxxxxxxx----x (20) &gt; xxxxxxxxx---x-xxxxx (19)
--xxxxxxxxx-xxxxx--x  (19) &gt; xxxxxx--x-xxxxxxxx  (18)
--xxxxxxxxxxxxx-x---x (20) &gt; xxxxxxxxx----xxxxxx (19)
--xxxxxxxx-xxxxxx--x  (19) &gt; x--xxxxxxxxxxxxxx   (17)
--xxxxxxxxxxxx-xx---x (20) &gt; xxxxxxxx-x---xxxxxx (19)
--xxxxxxx-xxxxxxx--x  (19) &gt; -x-xxxxxxxxxxxxxx   (17)
--xxxxxxxxxxx-xxx---x (20) &gt; xxxxxxxx--x--xxxxxx (19)
--xxxxxx-xxxxxxxx--x  (19) &gt; --xxxxxxxxxxxxxxx   (17)
--xxxxxxxxxx-xxxx---x (20) &gt; xxxxx--x-xxxxxxxxx  (18)
--xxxxxxxxx-xxxxx---x (20) &gt; xxxxx---xxxxxxxxxx  (18)
--xxxxxxxx-xxxxxx---x (20) &gt; xxxx-x--xxxxxxxxxx  (18)
--xxxxxxx-xxxxxxx---x (20) &gt; xxxxxxx--x--xxxxxxx (19)
--xx-xxxxxxxxxxxx--x  (19) &gt; xxxx--x-xxxxxxxxxx  (18)
--xxxxxx-xxxxxxxx---x (20) &gt; xxxxxxx---x-xxxxxxx (19)
--xxxxx-xxxxxxxxx---x (20) &gt; xxxx---xxxxxxxxxxx  (18)
--xxxx-xxxxxxxxxx---x (20) &gt; xxxxxxx----xxxxxxxx (19)
---xxxxxxxxxxxxxx--x  (19) &gt; xxx-x--xxxxxxxxxxx  (18)
--xxx-xxxxxxxxxxx---x (20) &gt; xxxxxx-x---xxxxxxxx (19)
---xxxxxxxxxxxxx-x-x  (19) &gt; xxx--x-xxxxxxxxxxx  (18)
--xx-xxxxxxxxxxxx---x (20) &gt; xxxxxx--x--xxxxxxxx (19)
---xxxxxxxxxxxx-xx-x  (19) &gt; xxx---xxxxxxxxxxxx  (18)
--x-xxxxxxxxxxxxx---x (20) &gt; xxxxxx---x-xxxxxxxx (19)
---xxxxxxxxxxxxxx---x (20) &gt; xx-x--xxxxxxxxxxxx  (18)
---xxxxxxxxxxxxx-x--x (20) &gt; xx--x-xxxxxxxxxxxx  (18)
---xxxxxxxxxxxx-xx--x (20) &gt; xx---xxxxxxxxxxxxx  (18)
---xxxxxxxxxxx-xxx--x (20) &gt; x-x--xxxxxxxxxxxxx  (18)
---xxxxxxxxxx-xxxx--x (20) &gt; xxxxx----xxxxxxxxxx (19)
---xxxxxx-xxxxxxxx-x  (19) &gt; x--x-xxxxxxxxxxxxx  (18)
---xxxxxxxx-xxxxxx--x (20) &gt; xxxx-x---xxxxxxxxxx (19)
---xxxxx-xxxxxxxxx-x  (19) &gt; x---xxxxxxxxxxxxxx  (18)
---xxxxxxx-xxxxxxx--x (20) &gt; xxxx--x--xxxxxxxxxx (19)
---xxxx-xxxxxxxxxx-x  (19) &gt; -x--xxxxxxxxxxxxxx  (18)
---xxxxxx-xxxxxxxx--x (20) &gt; xxxx---x-xxxxxxxxxx (19)
---xxx-xxxxxxxxxxx-x  (19) &gt; --x-xxxxxxxxxxxxxx  (18)
---xxxxx-xxxxxxxxx--x (20) &gt; xxxx----xxxxxxxxxxx (19)
---xx-xxxxxxxxxxxx-x  (19) &gt; ---xxxxxxxxxxxxxxx  (18)
---xxxx-xxxxxxxxxx--x (20) &gt; xxx-x---xxxxxxxxxxx (19)
---xxx-xxxxxxxxxxx--x (20) &gt; xxx--x--xxxxxxxxxxx (19)
---xx-xxxxxxxxxxxx--x (20) &gt; xxx---x-xxxxxxxxxxx (19)
---x-xxxxxxxxxxxxx--x (20) &gt; xxx----xxxxxxxxxxxx (19)
----xxxxxxxxxxxxxx--x (20) &gt; xx-x---xxxxxxxxxxxx (19)
----xxxxxxxxxxxx-xx-x (20) &gt; xx--x--xxxxxxxxxxxx (19)
----xxxxxxxxxxx-xxx-x (20) &gt; xx---x-xxxxxxxxxxxx (19)
----xxxxxxxxxx-xxxx-x (20) &gt; xx----xxxxxxxxxxxxx (19)
----xxxxxxxxx-xxxxx-x (20) &gt; x-x---xxxxxxxxxxxxx (19)
----xxxxxxxx-xxxxxx-x (20) &gt; x--x--xxxxxxxxxxxxx (19)
----xxxxxxx-xxxxxxx-x (20) &gt; x---x-xxxxxxxxxxxxx (19)
----xxxxxx-xxxxxxxx-x (20) &gt; x----xxxxxxxxxxxxxx (19)
----xxxxx-xxxxxxxxx-x (20) &gt; -x---xxxxxxxxxxxxxx (19)
----xxxx-xxxxxxxxxx-x (20) &gt; --x--xxxxxxxxxxxxxx (19)
----xx-xxxxxxxxxxxx-x (20) &gt; ---x-xxxxxxxxxxxxxx (19)
----x-xxxxxxxxxxxxx-x (20) &gt; ----xxxxxxxxxxxxxxx (19)</code></pre>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="usando-posicoes_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
-<div class="callout callout-style-default callout-caution callout-titled" title="Mudar $s()$?">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Mudar <span class="math inline">\(s()\)</span>?
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="usando-posicoes_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Parece que alguns destes pares são discutíveis.</p>
-<p>Talvez devamos mudar a função <span class="math inline">\(s()\)</span> para produzir valores menores quando <span class="math inline">\(p\)</span> for maior.</p>
 </div>
 </div>
 
@@ -978,271 +866,255 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-next">
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>{{&lt; include _math.qmd &gt;}}</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">source('_setup.R')</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="in">source('funcoes.R')</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="in">library(gghalves)</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="in">library(glue)</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lag', 'dplyr')</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lead', 'dplyr')</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># O *ranking* concorda com a lista? Posições</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ como medida de concordância {#usando-p}</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os $k$ elementos da lista e outros).</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>Uma pergunta natural sobre a qualidade do *ranking* produzido é</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Quantas posições do *ranking* são necessárias para incluir todos os $k$ elementos da lista?</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>A resposta é $p$, a posição, no *ranking*, do elemento da lista com pior classificação.</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>Aliás, é por isso que convencionamos, no capítulo anterior, que nossos *rankings* sempre terminam com um elemento da lista.</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>Um exemplo:</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A lista contém $k = 5$ elementos.</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_1$ é <span class="in">`xx-x-xx`</span>, com $p = 7$.</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_2$ é <span class="in">`-xxxxx`</span>, com $p = 6$.</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>Ou seja, quanto menor o valor de $p$, melhor o *ranking*.</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>Embora comparar *rankings* através de seus valores de $p$ seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>Por exemplo, é discutível se os dois rankings <span class="in">`xx---x`</span> e <span class="in">`---xxx`</span> devem ser considerados igualmente bons; no entanto, ambos têm $p = 6$.</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ e as posições dos elementos da lista</span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contando posições `-`</span></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as seguintes características:</span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Se $r$ não contiver "<span class="in">`-`</span>", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, <span class="in">`xxxxx`</span>). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac k p + \cdots</span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>  onde as reticências representam termos que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir os termos restantes para que sejam iguais a zero.</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Os termos restantes devem ter valores maiores quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "<span class="in">`-`</span>", melhor ele será. Uma quantidade natural seria</span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{\sum_{i = 1, p}i} </span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p + 1) / 2}</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>  \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p + 1)}</span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>  onde $\operatorname{soma<span class="sc">\_</span>}$ é a soma das posições ocupadas por "<span class="in">`_`</span>" em $r$.</span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  Como queríamos, quando $r$ for um *ranking* perfeito, $\operatorname{soma<span class="sc">\_</span>} = 0$, e então $s(r) = 1$.</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mas também queremos que somente *rankings* perfeitos tenham $s(r) = 1$. Para isso, considere que um *ranking* mais próximo do perfeito é da forma</span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>  <span class="in">`x...x-x`</span></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>  Ou seja, $k = p - 1$ e $\operatorname{soma<span class="sc">\_</span>} = p - 1$.</span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>  Vamos multiplicar a segunda parcela por $\alpha$ de forma que $s(r) &lt; 1$ para este *ranking* quase perfeito:</span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha</span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>  Então</span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>    s(r) &lt; 1 </span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha &lt; \frac1p <span class="sc">\\</span></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>    &amp;\iff 2 \alpha (p - 1) &lt; p + 1 <span class="sc">\\</span></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha &lt; \frac12 \cdot \frac{p + 1}{p - 1} <span class="sc">\\</span></span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2)</span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>  o que dá</span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>  s(r) </span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot \alpha <span class="sc">\\</span></span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot </span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>    \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2) <span class="sc">\\</span></span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>    \frac1m &amp; (m &gt; 2) <span class="sc">\\</span></span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>    \frac2m &amp; (m &gt; 2)</span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>  Dependendo do valor de $m &gt; 2$ escolhido, teremos medidas diferentes.</span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>  A função abaixo usa o *default* de $m = 2{,}5$, mas valores diferentes podem ser passados.</span>
-<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="in">s &lt;- function(ranking, m = NULL) {</span></span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="in">  # Vetor de caracteres</span></span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="in">  ranking &lt;- str_split(ranking, '')[[1]]</span></span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a><span class="in">  k &lt;- sum(ranking == 'x')</span></span>
-<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a><span class="in">  p &lt;- length(ranking)</span></span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="in">  m &lt;- min(3, p)</span></span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a><span class="in">  soma_ &lt;- sum(which(ranking == '-'))</span></span>
-<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a><span class="in">  (k / p) + ((2 * soma_) / (m * p * (p - 1)))</span></span>
-<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a><span class="in">s &lt;- Vectorize(s)</span></span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>Para $p = 8$, alguns exemplos:</span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a><span class="in">s(</span></span>
-<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a><span class="in">  c(</span></span>
-<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a><span class="in">    'xxxxxxxx',</span></span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a><span class="in">    'xxxxxx-x',</span></span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a><span class="in">    '-xxxxxxx'</span></span>
-<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* de comprimento $8$, com suas pontuações:</span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a><span class="in">df &lt;- criar_df_rankings(8) %&gt;% </span></span>
-<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
-<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a><span class="in">    s = s(ranking)</span></span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a><span class="in">  ) %&gt;% </span></span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a><span class="in">  arrange(desc(s))</span></span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a><span class="in">df</span></span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>Perceba que pode haver empates: <span class="in">`xxxx--xx`</span> e <span class="in">`xxx-xx-x`</span> têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.</span>
-<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparando *rankings* com valores diferentes de $p$ </span></span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a>Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.</span>
-<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a><span class="in">p &lt;- 15:20</span></span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a><span class="in">k &lt;- 15</span></span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="in">df &lt;- map(p, ~ criar_df_rankings(.x, k)) %&gt;% </span></span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a><span class="in">  bind_rows() %&gt;% </span></span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a><span class="in">    s = s(ranking),</span></span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="in">    p = nchar(ranking)</span></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="in">  ) %&gt;% </span></span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a><span class="in">  arrange(desc(s))</span></span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>Vamos examinar, para uma lista com $k = 15$, os *rankings* possíveis com $p$ variando de $15$ a $20$. </span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a>São $<span class="in">`r nrow(df)`</span>$ *rankings*. Eis os $100$ melhores:</span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">100</span>)</span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a>Ao compararmos dois *rankings* com mesmo valor de $p$, nossa intuição coincide com os valores calculados por $s()$: por exemplo, <span class="in">`xxxxxxxxxxxxxx-x`</span> é melhor que <span class="in">`xxxxxxxxxxxxx-xx`</span> (ambos com $p = 16$).</span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a>Mas existem vários casos em que um *ranking* com $p$ maior é considerado melhor do que um *ranking* com $p$ menor, o que vai contra <span class="co">[</span><span class="ot">a intuição apresentada antes</span><span class="co">](#usando-p)</span>.</span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a>O gráfico abaixo mostra os *scores* atribuídos para os $100$ melhores *rankings*, separados por valores de $p$:</span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_half_boxplot</span>(</span>
-<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> s, <span class="at">group =</span> p, <span class="at">fill =</span> <span class="fu">factor</span>(p)),</span>
-<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a>      <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>      <span class="at">side =</span> <span class="st">'r'</span></span>
-<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_half_point</span>(</span>
-<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> s, <span class="at">group =</span> p),</span>
-<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>      <span class="at">side =</span> <span class="st">'l'</span>,</span>
-<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a>      <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
-<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a>      <span class="at">transformation =</span> <span class="fu">position_jitter</span>(<span class="at">height =</span> <span class="dv">0</span>, <span class="at">width =</span> .<span class="dv">15</span>)</span>
-<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(.<span class="dv">935</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
-<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores dos 100 melhores rankings'</span>,</span>
-<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'k = 15,  p = 15 a 19'</span>,</span>
-<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span></span>
-<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a>Na lista abaixo, cada *ranking* da esquerda tem *score* melhor que o *ranking* à sua direita. Os números entre parênteses são os valores de $p$:</span>
-<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a>df_temp <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df),</span>
-<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_seguinte =</span> <span class="fu">lead</span>(p),</span>
-<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_anterior =</span> <span class="fu">lag</span>(p)</span>
-<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a>    p <span class="sc">&gt;</span> p_seguinte <span class="sc">|</span> p <span class="sc">&lt;</span> p_anterior</span>
-<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, <span class="fu">everything</span>())</span>
-<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>df_1 <span class="ot">&lt;-</span> df_temp <span class="sc">%&gt;%</span> </span>
-<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(df), <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id1 =</span> id, <span class="at">rk1 =</span> ranking, <span class="at">s1 =</span> s, <span class="at">p1 =</span> p) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>    id1, rk1, s1, p1</span>
-<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>df_2 <span class="ot">&lt;-</span> df_temp <span class="sc">%&gt;%</span> </span>
-<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">seq</span>(<span class="dv">2</span>, <span class="fu">nrow</span>(df), <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">id2 =</span> id, <span class="at">rk2 =</span> ranking, <span class="at">s2 =</span> s, <span class="at">p2 =</span> p) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
-<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>    id2, rk2, s2, p2</span>
-<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a>df_pares <span class="ot">&lt;-</span> df_1 <span class="sc">%&gt;%</span> </span>
-<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(df_2) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id1, id2, rk1, rk2, p1, p2, s1, s2)</span>
-<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a>df_pares <span class="sc">%&gt;%</span> </span>
-<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glue_data</span>(</span>
-<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a>    <span class="st">'{format(rk1, width = 15)} ({p1}) &gt; {format(rk2, width = 15)} ({p2})'</span></span>
-<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution title="Mudar $s()$?"}</span>
-<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a>Parece que alguns destes pares são discutíveis.</span>
-<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a>Talvez devamos mudar a função $s()$ para produzir valores menores quando $p$ for maior.</span>
-<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a>:::</span>
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>{{&lt; include _math.qmd &gt;}}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="in">source('_setup.R')</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">source('funcoes.R')</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">library(gghalves)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="in">library(glue)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lag', 'dplyr')</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lead', 'dplyr')</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># O *ranking* concorda com a lista? Posições</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ como medida de concordância {#usando-p}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os $k$ elementos da lista e outros).</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>Uma pergunta natural sobre a qualidade do *ranking* produzido é</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Quantas posições do *ranking* são necessárias para incluir todos os $k$ elementos da lista?</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>A resposta é $p$, a posição, no *ranking*, do elemento da lista com pior classificação.</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>Aliás, é por isso que convencionamos, no capítulo anterior, que nossos *rankings* sempre terminam com um elemento da lista.</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>Um exemplo:</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A lista contém $k = 5$ elementos.</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_1$ é <span class="in">`xx-x-xx`</span>, com $p = 7$.</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_2$ é <span class="in">`-xxxxx`</span>, com $p = 6$.</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>Ou seja, quanto menor o valor de $p$, melhor o *ranking*.</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>Embora comparar *rankings* através de seus valores de $p$ seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>Por exemplo, é discutível se os dois rankings <span class="in">`xx---x`</span> e <span class="in">`---xxx`</span> devem ser considerados igualmente bons; no entanto, ambos têm $p = 6$.</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ e as posições dos elementos da lista</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contando posições `-`</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as seguintes características:</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Se $r$ não contiver "<span class="in">`-`</span>", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, <span class="in">`xxxxx`</span>). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac k p + \cdots</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  onde as reticências representam termos que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir os termos restantes para que sejam iguais a zero.</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Os termos restantes devem ter valores maiores quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "<span class="in">`-`</span>", melhor ele será. Uma quantidade natural seria</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{\sum_{i = 1, p}i} </span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p + 1) / 2}</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>  \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p + 1)}</span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>  onde $\operatorname{soma<span class="sc">\_</span>}$ é a soma das posições ocupadas por "<span class="in">`_`</span>" em $r$.</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>  Como queríamos, quando $r$ for um *ranking* perfeito, $\operatorname{soma<span class="sc">\_</span>} = 0$, e então $s(r) = 1$.</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mas também queremos que somente *rankings* perfeitos tenham $s(r) = 1$. Para isso, considere que um *ranking* mais próximo do perfeito é da forma</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>  <span class="in">`x...x-x`</span></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>  Ou seja, $k = p - 1$ e $\operatorname{soma<span class="sc">\_</span>} = p - 1$.</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>  Vamos multiplicar a segunda parcela por $\alpha$ de forma que $s(r) &lt; 1$ para este *ranking* quase perfeito:</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha</span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>  Então</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    s(r) &lt; 1 </span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha &lt; \frac1p <span class="sc">\\</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>    &amp;\iff 2 \alpha (p - 1) &lt; p + 1 <span class="sc">\\</span></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha &lt; \frac12 \cdot \frac{p + 1}{p - 1} <span class="sc">\\</span></span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2)</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a>  o que dá</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>  s(r) </span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot \alpha <span class="sc">\\</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot </span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>    \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2) <span class="sc">\\</span></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>    \frac1m &amp; (m &gt; 2) <span class="sc">\\</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a>    \frac2m &amp; (m &gt; 2)</span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>  Dependendo do valor de $m &gt; 2$ escolhido, teremos medidas diferentes.</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>  A função abaixo usa o *default* de $m = 10$, mas valores diferentes podem ser passados.</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a><span class="in">s &lt;- function(ranking, m = 10) {</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="in">  # Vetor de caracteres</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="in">  ranking &lt;- str_split(ranking, '')[[1]]</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="in">  p &lt;- length(ranking)</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="in">  k &lt;- sum(ranking == 'x')</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="in">  soma_ &lt;- sum(which(ranking == '-'))</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="in">  (k / p) + ((2 * soma_) / (m * p * (p - 1)))</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="in">s &lt;- Vectorize(s)</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>Para $p = 8$, alguns exemplos:</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="in">s(</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="in">  c(</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a><span class="in">    'xxxxxxxx',</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a><span class="in">    'xxxxxx-x',</span></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a><span class="in">    '-xxxxxxx'</span></span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* de comprimento $8$, com suas pontuações:</span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">criar_df_rankings</span>(<span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">s</span>(ranking)</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(s))</span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>Perceba que pode haver empates: <span class="in">`xxxx--xx`</span> e <span class="in">`xxx-xx-x`</span> têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.</span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparando *rankings* com valores diferentes de $p$ </span></span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.</span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">20</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">15</span></span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">map</span>(p, <span class="sc">~</span> <span class="fu">criar_df_rankings</span>(.x, k)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">s</span>(ranking),</span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">nchar</span>(ranking)</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(s))</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>Vamos examinar, para uma lista com $k = 15$, os *rankings* possíveis com $p$ variando de $15$ a $20$. </span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>São $<span class="in">`r nrow(df)`</span>$ *rankings*. Eis os $100$ melhores:</span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">100</span>)</span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>Os gráficos abaixo mostram os *scores* atribuídos para todos os *rankings* com $k = 15$ e $p$ variando de $15$ a $20$, separados por valores de $p$:</span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(</span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> s, <span class="at">group =</span> p, <span class="at">fill =</span> <span class="fu">factor</span>(p)),</span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a>      <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 15,  p = 15 a 20'</span>,</span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span></span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p <span class="sc">&lt;</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(p) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(s) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(id, s, <span class="at">color =</span> <span class="fu">factor</span>(p)),</span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(breaks = NULL) +</span></span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(.<span class="dv">875</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">'p'</span>,</span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">'ranking'</span>,</span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span>,</span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 15,  p = 15 a 17'</span></span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p <span class="sc">&gt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(p) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(s) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(id, s, <span class="at">color =</span> <span class="fu">factor</span>(p)),</span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(breaks = NULL) +</span></span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(.<span class="dv">75</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">'p'</span>,</span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">'ranking'</span>,</span>
+<span id="cb4-257"><a href="#cb4-257" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span>,</span>
+<span id="cb4-258"><a href="#cb4-258" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 15,  p = 18 a 20'</span></span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

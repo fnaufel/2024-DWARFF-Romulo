@@ -12,7 +12,7 @@ rk <- function(v) {
   
   # Verificar se posicoes contêm só números entre 1 e p, sem repetições
   stopifnot(
-    'Valores precisam ser inteiros positivos, sem repetições.' =
+    '\nValores precisam ser inteiros positivos, sem repetições.' =
     all(v == as.integer(v)) & 
       all(v > 0) &
       identical(v, unique(v))
@@ -32,7 +32,7 @@ rk <- function(v) {
 criar_df <- function(ranking) {
   
   stopifnot(
-    'Argumento deve conter apenas "x" e "-", terminando com "x".' =
+    '\nArgumento deve conter apenas "x" e "-", terminando com "x".' =
     str_detect(ranking, '[-x]+') & endsWith(ranking, 'x')
   )
   
@@ -132,7 +132,7 @@ criar_df_rankings <- function(p, k = NULL) {
   
   if (!is.null(k)) {
     stopifnot(
-      'p deve ser maior ou igual a k' = p >= k
+      '\np deve ser maior ou igual a k' = p >= k
     )
   }
   
