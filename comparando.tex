@@ -197,7 +197,7 @@
 
 \title{Comparando listas e rankings}
 \author{Fernando Náufel}
-\date{10/02/2024 19:06}
+\date{11/02/2024 12:34}
 
 \begin{document}
 \maketitle
@@ -421,70 +421,11 @@ Error in rk(c(5, -7, 3, 1)): Valores precisam ser inteiros positivos, sem repeti
 
 \section{Outras funções}\label{outras-funuxe7uxf5es}
 
-\subsection{\texorpdfstring{Converter para
-\emph{tibble}}{Converter para tibble}}\label{converter-para-tibble}
-
-Para calcular a correlação entre a lista e o \emph{ranking}, vamos
-precisar ordenar a lista de alguma forma, pois, se todos os elementos da
-lista estiverem empatados (i.e., se todos tiverem o mesmo valor de
-posição), vamos cair em um caso em que o desvio-padrão é $0$ (quando o
-\emph{ranking} só contiver jogadores da lista).
-
-Dado um \emph{ranking}, a maneira mais conveniente de ordenar a lista
-afetando a correlação de forma previsível é concordando com o
-\emph{ranking}! Isto vai ficar mais claro mais adiante.
-
-Além disso, os elementos que não estavam na lista mas estão no
-\emph{ranking}, se existirem, também precisam entrar na \emph{tibble}.
-
-Eles vão entrar todos empatados no fim da lista, como no exemplo mais
-abaixo.
-
-A função \texttt{criar\_df()} recebe o \emph{string} correspondente a um
-\emph{ranking} e retorna uma \emph{tibble} com as colunas \texttt{nome},
-\texttt{pos\_lista} e \texttt{pos\_ranking}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{r }\OtherTok{=} \StringTok{\textquotesingle{}x{-}x{-}x{-}xx\textquotesingle{}}
-\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{criar\_df}\NormalTok{(r)}
-\NormalTok{df}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 8 x 3
-  nome  pos_lista pos_ranking
-  <chr>     <dbl>       <int>
-1 x             1           1
-2 -             7           2
-3 x             2           3
-4 -             7           4
-5 x             3           5
-6 -             7           6
-# i 2 more rows
-\end{verbatim}
-
-A partir da \emph{tibble}, o \emph{string} do \emph{ranking} pode ser
-recuperado com
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{df\_string}\NormalTok{(df)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] "x-x-x-xx"
-\end{verbatim}
-
 \subsection{\texorpdfstring{Criar
 \emph{plot}}{Criar plot}}\label{criar-plot}
 
-A função \texttt{criar\_plot} recebe um \emph{ranking}, na forma de
-\emph{string} ou de \emph{tibble}.
-
-A função gera um gráfico de pontos, com um ponto para cada elemento.
+A função \texttt{criar\_plot} recebe um \emph{ranking} e gera um gráfico
+de pontos, com um ponto para cada elemento.
 
 No eixo $x$, a posição do elemento na lista.
 
@@ -507,7 +448,7 @@ regressão linear via mínimos quadrados. O \emph{default} é
 \end{Shaded}
 
 \begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-10-1.pdf}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-8-1.pdf}
 \end{center}
 
 \begin{Shaded}
@@ -517,7 +458,7 @@ regressão linear via mínimos quadrados. O \emph{default} é
 \end{Shaded}
 
 \begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-11-1.pdf}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-9-1.pdf}
 \end{center}
 
 \begin{Shaded}
@@ -527,7 +468,7 @@ regressão linear via mínimos quadrados. O \emph{default} é
 \end{Shaded}
 
 \begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-12-1.pdf}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-10-1.pdf}
 \end{center}
 
 \subsection{\texorpdfstring{Criar uma tibble com todos os
@@ -724,34 +665,23 @@ $s(r)$ com as seguintes características:
   \]
 
   Dependendo do valor de $m > 2$ escolhido, teremos medidas diferentes.
-\item
-  Vamos escolher $m = 4$. Nossa função fica
 
-  \[
-  s(r) = 
-    \frac k p + \frac{\operatorname{soma\_}}{2p(p - 1)}
-  \]
+  A função abaixo usa o \emph{default} de $m = 2{,}5$, mas valores
+  diferentes podem ser passados.
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{s }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ranking) \{}
+\NormalTok{s }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ranking, }\AttributeTok{m =} \FloatTok{2.5}\NormalTok{) \{}
   
-  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{is\_tibble}\NormalTok{(ranking)) \{}
-\NormalTok{    ranking }\OtherTok{\textless{}{-}} \FunctionTok{criar\_df}\NormalTok{(ranking)}
-\NormalTok{  \}}
+  \CommentTok{\# Vetor de caracteres}
+\NormalTok{  ranking }\OtherTok{\textless{}{-}} \FunctionTok{str\_split}\NormalTok{(ranking, }\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)[[}\DecValTok{1}\NormalTok{]]}
   
-\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(ranking)}
-  
-\NormalTok{  nomes }\OtherTok{\textless{}{-}}\NormalTok{ ranking }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{pull}\NormalTok{(nome)}
-\NormalTok{  k }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(nomes }\SpecialCharTok{==} \StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{)}
-  
-\NormalTok{  soma\_ }\OtherTok{\textless{}{-}}\NormalTok{ ranking }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{filter}\NormalTok{(nome }\SpecialCharTok{==} \StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{pull}\NormalTok{(pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} 
-    \FunctionTok{sum}\NormalTok{()}
-  
-\NormalTok{  (k }\SpecialCharTok{/}\NormalTok{ p) }\SpecialCharTok{+}\NormalTok{ (soma\_ }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ p }\SpecialCharTok{*}\NormalTok{ (p }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)))}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ranking)}
+\NormalTok{  k }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(ranking }\SpecialCharTok{==} \StringTok{\textquotesingle{}x\textquotesingle{}}\NormalTok{)}
+\NormalTok{  soma\_ }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{which}\NormalTok{(ranking }\SpecialCharTok{==} \StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{))}
+
+\NormalTok{  (k }\SpecialCharTok{/}\NormalTok{ p) }\SpecialCharTok{+}\NormalTok{ ((}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ soma\_) }\SpecialCharTok{/}\NormalTok{ (m }\SpecialCharTok{*}\NormalTok{ p }\SpecialCharTok{*}\NormalTok{ (p }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)))}
 
 \NormalTok{\}}
 
@@ -775,7 +705,7 @@ Para $p = 8$, alguns exemplos:
 
 \begin{verbatim}
  xxxxxxxx  xxxxxx-x  -xxxxxxx 
-1,0000000 0,9375000 0,8839286 
+1,0000000 0,9750000 0,8892857 
 \end{verbatim}
 
 Todos os \emph{rankings} de comprimento $8$, com suas pontuações:
@@ -797,17 +727,21 @@ Todos os \emph{rankings} de comprimento $8$, com suas pontuações:
   ranking      s
   <chr>    <dbl>
 1 xxxxxxxx 1    
-2 xxxxxx-x 0.938
-3 xxxxx-xx 0.929
-4 xxxx-xxx 0.920
-5 xxx-xxxx 0.911
-6 xx-xxxxx 0.902
+2 xxxxxx-x 0.975
+3 xxxxx-xx 0.961
+4 xxxx-xxx 0.946
+5 xxxxx--x 0.936
+6 xxx-xxxx 0.932
 # i 122 more rows
 \end{verbatim}
 
 Perceba que pode haver empates: \texttt{xxxx-\/-xx} e \texttt{xxx-xx-x}
 têm o mesmo valor de $s$. É razoável achar que estes dois
 \emph{rankings} têm a mesma qualidade.
+
+\subsection{\texorpdfstring{Comparando \emph{rankings} com valores
+diferentes de
+$p$}{Comparando rankings com valores diferentes de }}\label{comparando-rankings-com-valores-diferentes-de-p}
 
 
 

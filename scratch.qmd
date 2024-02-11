@@ -121,3 +121,39 @@ s <- function(ranking) {
 
 ```
 
+
+# Converter para *tibble*
+
+Para calcular a correlação entre a lista e o *ranking*, vamos precisar ordenar a lista de alguma forma, pois, se todos os elementos da lista estiverem empatados (i.e., se todos tiverem o mesmo valor de posição), vamos cair em um caso em que o desvio-padrão é $0$ (quando o *ranking* só contiver jogadores da lista).
+
+Dado um *ranking*, a maneira mais conveniente de ordenar a lista afetando a correlação de forma previsível é concordando com o *ranking*! Isto vai ficar mais claro mais adiante.
+
+Além disso, os elementos que não estavam na lista mas estão no *ranking*, se existirem, também precisam entrar na *tibble*.
+
+Eles vão entrar todos empatados no fim da lista, como no exemplo mais abaixo.
+
+A função `criar_df()` recebe o *string* correspondente a um *ranking* e retorna uma *tibble* com as colunas `nome`, `pos_lista` e `pos_ranking`.
+
+```{r echo=TRUE}
+r = 'x-x-x-xx'
+df <- criar_df(r)
+df
+```
+
+A partir da *tibble*, o *string* do *ranking* pode ser recuperado com
+
+```{r echo=TRUE}
+df_string(df)
+```
+
+
+# s
+
+* Vamos escolher $m = 4$. Nossa função fica
+
+  $$
+  s(r) = 
+    \frac k p + \frac{\operatorname{soma\_}}{2p(p - 1)}
+  $$
+
+

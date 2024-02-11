@@ -107,39 +107,26 @@ Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as
   $$
 
   Dependendo do valor de $m > 2$ escolhido, teremos medidas diferentes.
-
-* Vamos escolher $m = 4$. Nossa função fica
-
-  $$
-  s(r) = 
-    \frac k p + \frac{\operatorname{soma\_}}{2p(p - 1)}
-  $$
-
-
+  
+  A função abaixo usa o *default* de $m = 2{,}5$, mas valores diferentes podem ser passados.
 
 ```{r echo=TRUE}
-s <- function(ranking) {
+s <- function(ranking, m = 2.5) {
   
-  if (!is_tibble(ranking)) {
-    ranking <- criar_df(ranking)
-  }
+  # Vetor de caracteres
+  ranking <- str_split(ranking, '')[[1]]
   
-  p <- nrow(ranking)
-  
-  nomes <- ranking %>% pull(nome)
-  k <- sum(nomes == 'x')
-  
-  soma_ <- ranking %>% 
-    filter(nome == '-') %>% 
-    pull(pos_ranking) %>% 
-    sum()
-  
-  (k / p) + (soma_ / (2 * p * (p - 1)))
+  p <- length(ranking)
+  k <- sum(ranking == 'x')
+  soma_ <- sum(which(ranking == '-'))
+
+  (k / p) + ((2 * soma_) / (m * p * (p - 1)))
 
 }
 
 s <- Vectorize(s)
 ```
+
 
 Para $p = 8$, alguns exemplos:
 
@@ -166,3 +153,7 @@ df
 ```
 
 Perceba que pode haver empates: `xxxx--xx` e `xxx-xx-x` têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.
+
+
+### Comparando *rankings* com valores diferentes de $p$
+
