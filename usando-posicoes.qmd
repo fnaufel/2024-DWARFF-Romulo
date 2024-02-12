@@ -3,7 +3,7 @@
 
 ```{r setup, include=FALSE}
 source('_setup.R')
-source('funcoes.R')
+source('rankings.R')
 library(gghalves)
 library(glue)
 conflict_prefer('lag', 'dplyr')
@@ -117,31 +117,40 @@ Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as
   A função abaixo usa o *default* de $m = 10$, mas valores diferentes podem ser passados.
 
 ```{r echo=TRUE}
-s <- function(ranking, m = 10) {
+s1 <- function(um_rk, m) {
   
-  # Vetor de caracteres
-  ranking <- str_split(ranking, '')[[1]]
-  
-  p <- length(ranking)
-  k <- sum(ranking == 'x')
-  soma_ <- sum(which(ranking == '-'))
+  p <- um_rk$p
+  k <- um_rk$k
+  soma_ <- sum(um_rk$no)
 
   (k / p) + ((2 * soma_) / (m * p * (p - 1)))
 
 }
 
-s <- Vectorize(s)
+s <- function(rk, m = 10) {
+
+  if (is.rk(rk)) {
+    s1(rk, m)
+  } else {
+    rk %>% map_dbl(s1, m)
+  }
+
+}
 ```
 
+```{r}
+r <- rk('xxx-x')
+s(r)
+```
 
 Para $p = 8$, alguns exemplos:
 
 ```{r echo=TRUE}
 s(
-  c(
-    'xxxxxxxx',
-    'xxxxxx-x',
-    '-xxxxxxx'
+  list(
+    rk('xxxxxxxx'),
+    rk('xxxxxx-x'),
+    rk('-xxxxxxx')
   )
 )
 ```
@@ -173,7 +182,7 @@ df <- map(p, ~ criar_df_rankings(.x, k)) %>%
   bind_rows() %>% 
   mutate(
     s = s(ranking),
-    p = nchar(ranking)
+    p = ranking %>% map_int(~ .$p)
   ) %>% 
   arrange(desc(s))
 ```

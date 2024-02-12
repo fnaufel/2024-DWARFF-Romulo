@@ -213,16 +213,16 @@ window.Quarto = {
   <li>
 <a href="#criando-rankings" id="toc-criando-rankings" class="nav-link" data-scroll-target="#criando-rankings"><span class="header-section-number">1.2</span> Criando <em>rankings</em></a>
   <ul class="collapse">
-<li><a href="#quantidade-de-rankings" id="toc-quantidade-de-rankings" class="nav-link" data-scroll-target="#quantidade-de-rankings">Quantidade de <em>rankings</em></a></li>
-  <li><a href="#sec-repr" id="toc-sec-repr" class="nav-link" data-scroll-target="#sec-repr">Representação</a></li>
-  <li><a href="#criar-um-ranking-a-partir-de-um-vetor" id="toc-criar-um-ranking-a-partir-de-um-vetor" class="nav-link" data-scroll-target="#criar-um-ranking-a-partir-de-um-vetor">Criar um <em>ranking</em> a partir de um vetor</a></li>
+<li><a href="#sec-repr" id="toc-sec-repr" class="nav-link" data-scroll-target="#sec-repr">Representação</a></li>
+  <li><a href="#quantidade-de-rankings" id="toc-quantidade-de-rankings" class="nav-link" data-scroll-target="#quantidade-de-rankings">Quantidade de <em>rankings</em></a></li>
+  <li><a href="#criando-um-ranking-a-partir-de-um-vetor" id="toc-criando-um-ranking-a-partir-de-um-vetor" class="nav-link" data-scroll-target="#criando-um-ranking-a-partir-de-um-vetor">Criando um <em>ranking</em> a partir de um vetor</a></li>
   </ul>
 </li>
   <li>
 <a href="#outras-fun%C3%A7%C3%B5es" id="toc-outras-funções" class="nav-link" data-scroll-target="#outras-fun%C3%A7%C3%B5es"><span class="header-section-number">1.3</span> Outras funções</a>
   <ul class="collapse">
-<li><a href="#criar-plot" id="toc-criar-plot" class="nav-link" data-scroll-target="#criar-plot">Criar <em>plot</em></a></li>
-  <li><a href="#criar-uma-tibble-com-todos-os-rankings" id="toc-criar-uma-tibble-com-todos-os-rankings" class="nav-link" data-scroll-target="#criar-uma-tibble-com-todos-os-rankings">Criar uma tibble com todos os <em>rankings</em></a></li>
+<li><a href="#mostrando-um-ranking-graficamente" id="toc-mostrando-um-ranking-graficamente" class="nav-link" data-scroll-target="#mostrando-um-ranking-graficamente">Mostrando um <em>ranking</em> graficamente</a></li>
+  <li><a href="#criando-uma-tibble-com-todos-os-rankings" id="toc-criando-uma-tibble-com-todos-os-rankings" class="nav-link" data-scroll-target="#criando-uma-tibble-com-todos-os-rankings">Criando uma <em>tibble</em> com todos os <em>rankings</em></a></li>
   </ul>
 </li>
   </ul><div class="toc-actions"><ul><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/edit/master/gerar-listas-e-rankings.qmd" class="toc-action"><i class="bi bi-github"></i>Editar essa página</a></li><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/blob/master/gerar-listas-e-rankings.qmd" class="toc-action"><i class="bi empty"></i>Ver o código fonte</a></li><li><a href="https://github.com/fnaufel/2024-DWARFF-Romulo/issues/new" class="toc-action"><i class="bi empty"></i>Criar uma issue</a></li></ul></div></nav>
@@ -257,7 +257,26 @@ window.Quarto = {
 </ul></section><section id="criando-rankings" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="criando-rankings">
 <span class="header-section-number">1.2</span> Criando <em>rankings</em>
 </h2>
-<section id="quantidade-de-rankings" class="level3"><h3 class="anchored" data-anchor-id="quantidade-de-rankings">Quantidade de <em>rankings</em>
+<section id="sec-repr" class="level3"><h3 class="anchored" data-anchor-id="sec-repr">Representação</h3>
+<p>Considere naturais <span class="math inline">\(k &gt; 0\)</span> e <span class="math inline">\(p \geq k\)</span>.</p>
+<p><span class="hl">Podemos representar um <em>ranking</em> através de um <em>string</em> contendo <span class="math inline">\(k\)</span> caracteres “<code>x</code>” e <span class="math inline">\(p - k\)</span> caracteres “<code>-</code>”</span>.</p>
+<p>“<code>x</code>” representa uma posição ocupada por um elemento da lista.</p>
+<p>“<code>-</code>” representa uma posição ocupada por um elemento que não está na lista.</p>
+<p>Você pode usar a função <code>rk()</code> para criar um <em>ranking</em>, passando um <em>string</em> da forma acima:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="st">'xx--x'</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ranking: [✔✔••✔] (p = 5, k = 3)</code></pre>
+</div>
+</div>
+<p>R vai mostrar o <em>ranking</em> com os valores de <span class="math inline">\(k\)</span> e <span class="math inline">\(p\)</span> e com caracteres unicode (por default). Se quiser ver o <em>ranking</em> com caracteres ASCII, use a função <code>print</code> com o argumento <code>unicode = FALSE</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">rk</span><span class="op">(</span><span class="st">'xx--x'</span><span class="op">)</span>, unicode <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ranking: [xx--x] (p = 5, k = 3)</code></pre>
+</div>
+</div>
+</section><section id="quantidade-de-rankings" class="level3"><h3 class="anchored" data-anchor-id="quantidade-de-rankings">Quantidade de <em>rankings</em>
 </h3>
 <p>Dados <span class="math inline">\(k &gt; 0\)</span> e <span class="math inline">\(p \geq k\)</span> fixos, quantos <em>rankings</em> existem?</p>
 <p>Para montar um <em>ranking</em>:</p>
@@ -269,11 +288,6 @@ window.Quarto = {
 <p><span class="math display">\[
 \binom{p - 1}{k - 1}
 \]</span></p>
-</section><section id="sec-repr" class="level3"><h3 class="anchored" data-anchor-id="sec-repr">Representação</h3>
-<p>Considere naturais <span class="math inline">\(k &gt; 0\)</span> e <span class="math inline">\(p \geq k\)</span>.</p>
-<p><span class="hl">Podemos representar um <em>ranking</em> através de um <em>string</em> contendo <span class="math inline">\(k\)</span> caracteres “<code>x</code>” e <span class="math inline">\(p - k\)</span> caracteres “<code>-</code>”</span>.</p>
-<p>“<code>x</code>” representa uma posição ocupada por um elemento da lista.</p>
-<p>“<code>-</code>” representa uma posição ocupada por um elemento que não está na lista.</p>
 <p>Por exemplo, para <span class="math inline">\(k = 3, p = 5\)</span>, os <span class="math inline">\(\binom{4}{2} = 6\)</span> <em>rankings</em> possíveis são</p>
 <ul>
 <li><code>xx--x</code></li>
@@ -286,23 +300,23 @@ window.Quarto = {
 <p>A tabela a seguir (na verdade, um pedaço do triângulo de Pascal) mostra as quantidades de <em>rankings</em> possíveis para alguns valores de <span class="math inline">\(k\)</span> e <span class="math inline">\(p\)</span>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div id="rclxqdlvrm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rclxqdlvrm table {
+<div id="tivqlxbbop" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tivqlxbbop table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rclxqdlvrm thead, #rclxqdlvrm tbody, #rclxqdlvrm tfoot, #rclxqdlvrm tr, #rclxqdlvrm td, #rclxqdlvrm th {
+#tivqlxbbop thead, #tivqlxbbop tbody, #tivqlxbbop tfoot, #tivqlxbbop tr, #tivqlxbbop td, #tivqlxbbop th {
   border-style: none;
 }
 
-#rclxqdlvrm p {
+#tivqlxbbop p {
   margin: 0;
   padding: 0;
 }
 
-#rclxqdlvrm .gt_table {
+#tivqlxbbop .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -328,12 +342,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_caption {
+#tivqlxbbop .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rclxqdlvrm .gt_title {
+#tivqlxbbop .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -345,7 +359,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#rclxqdlvrm .gt_subtitle {
+#tivqlxbbop .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -357,7 +371,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#rclxqdlvrm .gt_heading {
+#tivqlxbbop .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -369,13 +383,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_bottom_border {
+#tivqlxbbop .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_col_headings {
+#tivqlxbbop .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -390,7 +404,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_col_heading {
+#tivqlxbbop .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -410,7 +424,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#rclxqdlvrm .gt_column_spanner_outer {
+#tivqlxbbop .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -422,15 +436,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#rclxqdlvrm .gt_column_spanner_outer:first-child {
+#tivqlxbbop .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rclxqdlvrm .gt_column_spanner_outer:last-child {
+#tivqlxbbop .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rclxqdlvrm .gt_column_spanner {
+#tivqlxbbop .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -442,11 +456,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#rclxqdlvrm .gt_spanner_row {
+#tivqlxbbop .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rclxqdlvrm .gt_group_heading {
+#tivqlxbbop .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -472,7 +486,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#rclxqdlvrm .gt_empty_group_heading {
+#tivqlxbbop .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -487,15 +501,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#rclxqdlvrm .gt_from_md > :first-child {
+#tivqlxbbop .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rclxqdlvrm .gt_from_md > :last-child {
+#tivqlxbbop .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rclxqdlvrm .gt_row {
+#tivqlxbbop .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -514,7 +528,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#rclxqdlvrm .gt_stub {
+#tivqlxbbop .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -527,7 +541,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rclxqdlvrm .gt_stub_row_group {
+#tivqlxbbop .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -541,15 +555,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#rclxqdlvrm .gt_row_group_first td {
+#tivqlxbbop .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rclxqdlvrm .gt_row_group_first th {
+#tivqlxbbop .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rclxqdlvrm .gt_summary_row {
+#tivqlxbbop .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -559,16 +573,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rclxqdlvrm .gt_first_summary_row {
+#tivqlxbbop .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_first_summary_row.thick {
+#tivqlxbbop .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rclxqdlvrm .gt_last_summary_row {
+#tivqlxbbop .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -578,7 +592,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_grand_summary_row {
+#tivqlxbbop .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -588,7 +602,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rclxqdlvrm .gt_first_grand_summary_row {
+#tivqlxbbop .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -598,7 +612,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_last_grand_summary_row_top {
+#tivqlxbbop .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -608,11 +622,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_striped {
+#tivqlxbbop .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rclxqdlvrm .gt_table_body {
+#tivqlxbbop .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -621,7 +635,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_footnotes {
+#tivqlxbbop .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -635,7 +649,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_footnote {
+#tivqlxbbop .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -644,7 +658,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rclxqdlvrm .gt_sourcenotes {
+#tivqlxbbop .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -658,7 +672,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#rclxqdlvrm .gt_sourcenote {
+#tivqlxbbop .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -666,63 +680,63 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#rclxqdlvrm .gt_left {
+#tivqlxbbop .gt_left {
   text-align: left;
 }
 
-#rclxqdlvrm .gt_center {
+#tivqlxbbop .gt_center {
   text-align: center;
 }
 
-#rclxqdlvrm .gt_right {
+#tivqlxbbop .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rclxqdlvrm .gt_font_normal {
+#tivqlxbbop .gt_font_normal {
   font-weight: normal;
 }
 
-#rclxqdlvrm .gt_font_bold {
+#tivqlxbbop .gt_font_bold {
   font-weight: bold;
 }
 
-#rclxqdlvrm .gt_font_italic {
+#tivqlxbbop .gt_font_italic {
   font-style: italic;
 }
 
-#rclxqdlvrm .gt_super {
+#tivqlxbbop .gt_super {
   font-size: 65%;
 }
 
-#rclxqdlvrm .gt_footnote_marks {
+#tivqlxbbop .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rclxqdlvrm .gt_asterisk {
+#tivqlxbbop .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rclxqdlvrm .gt_indent_1 {
+#tivqlxbbop .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rclxqdlvrm .gt_indent_2 {
+#tivqlxbbop .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rclxqdlvrm .gt_indent_3 {
+#tivqlxbbop .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rclxqdlvrm .gt_indent_4 {
+#tivqlxbbop .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rclxqdlvrm .gt_indent_5 {
+#tivqlxbbop .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1154,74 +1168,55 @@ window.Quarto = {
 </div>
 </div>
 </div>
-</section><section id="criar-um-ranking-a-partir-de-um-vetor" class="level3"><h3 class="anchored" data-anchor-id="criar-um-ranking-a-partir-de-um-vetor">Criar um <em>ranking</em> a partir de um vetor</h3>
+</section><section id="criando-um-ranking-a-partir-de-um-vetor" class="level3"><h3 class="anchored" data-anchor-id="criando-um-ranking-a-partir-de-um-vetor">Criando um <em>ranking</em> a partir de um vetor</h3>
 <p>Em vez de especificar as <span class="math inline">\(p\)</span> posições do <em>ranking</em>, <span class="hl">pode ser mais compacto especificar as <span class="math inline">\(k\)</span> posições do <em>ranking</em> que são ocupadas por elementos da lista</span>.</p>
-<p>A função <code>rk()</code> faz isso, recebendo um vetor numérico com <span class="math inline">\(k\)</span> elementos e retornando um <em>string</em>.</p>
+<p>A função <code>rk()</code> também faz isso, recebendo um vetor numérico com <span class="math inline">\(k\)</span> elementos.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "x-x-x-x"</code></pre>
+<pre><code>ranking: [✔•✔•✔•✔] (p = 7, k = 4)</code></pre>
 </div>
 </div>
 <p>Observe que as posições não precisam ser passadas em ordem:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "x-x-x-x"</code></pre>
+<pre><code>ranking: [✔•✔•✔•✔] (p = 7, k = 4)</code></pre>
 </div>
 </div>
 <p>A função detecta vetores que não podem representar <em>rankings</em>:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in rk(c(3, 7, 3, 1)): 
+<pre><code>Error in validate_rk(x): 
 Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1.5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in rk(c(5, 7, 3, 1.5)): 
+<pre><code>Error in validate_rk(x): 
 Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 </div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">rk</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">7</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in rk(c(5, -7, 3, 1)): 
+<pre><code>Error in validate_rk(x): 
 Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 </div>
 </div>
 </section></section><section id="outras-funções" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="outras-funções">
 <span class="header-section-number">1.3</span> Outras funções</h2>
-<section id="criar-plot" class="level3"><h3 class="anchored" data-anchor-id="criar-plot">Criar <em>plot</em>
-</h3>
-<p>A função <code>criar_plot</code> recebe um <em>ranking</em> e gera um gráfico de pontos, com um ponto para cada elemento.</p>
+<section id="mostrando-um-ranking-graficamente" class="level3"><h3 class="anchored" data-anchor-id="mostrando-um-ranking-graficamente">Mostrando um <em>ranking</em> graficamente</h3>
+<p>A função <code>plot</code> recebe um <em>ranking</em> e gera um gráfico de pontos, com um ponto para cada elemento.</p>
 <p>No eixo <span class="math inline">\(x\)</span>, a posição do elemento na lista.</p>
 <p>No eixo <span class="math inline">\(y\)</span>, a posição do elemento no <em>ranking</em>.</p>
-<p>A função <code>criar_plot</code> pode receber um segundo argumento, opcional, especificando uma função para calcular o <em>score</em> deste <em>ranking</em> (i.e., alguma forma de correlação entre o <em>ranking</em> e a lista). O <em>score</em> vai ser mostrado no título do gráfico.</p>
-<p>O terceiro argumento especifica se deve ser incluída uma reta de regressão linear via mínimos quadrados. O <em>default</em> é <code>TRUE</code>.</p>
+<p>A função <code>plot</code> pode receber um argumento <code>fun</code>, opcional, especificando uma função para calcular o <em>score</em> deste <em>ranking</em> (i.e., alguma forma de correlação entre o <em>ranking</em> e a lista). O <em>score</em> vai ser mostrado no título do gráfico.</p>
+<p>O argumento <code>reta</code>, opcional, especifica se deve ser incluída uma reta de regressão linear via mínimos quadrados. O <em>default</em> é <code>TRUE</code>.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="st">'x-x-x-xx'</span></span>
-<span><span class="fu">criar_plot</span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="gerar-listas-e-rankings_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">criar_plot</span><span class="op">(</span><span class="va">r</span>, reta <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure"><p><img src="gerar-listas-e-rankings_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">criar_plot</span><span class="op">(</span><span class="va">r</span>, \<span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pos_lista</span>, <span class="va">df</span><span class="op">$</span><span class="va">pos_ranking</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">rk</span><span class="op">(</span><span class="st">'x-x-x-xx'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure"><p><img src="gerar-listas-e-rankings_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
@@ -1229,29 +1224,66 @@ Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 </div>
 </div>
 </div>
-</section><section id="criar-uma-tibble-com-todos-os-rankings" class="level3"><h3 class="anchored" data-anchor-id="criar-uma-tibble-com-todos-os-rankings">Criar uma tibble com todos os <em>rankings</em>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span>, reta <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="gerar-listas-e-rankings_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">r</span>, fun <span class="op">=</span> \<span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pos_lista</span>, <span class="va">df</span><span class="op">$</span><span class="va">pos_ranking</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">}</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><img src="gerar-listas-e-rankings_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A função passada em <code>fun</code> deve receber, como único argumento, uma <em>tibble</em> com uma linha para cada elemento, e as colunas</p>
+<ul>
+<li>
+<code>nome</code>: um vetor de caracteres contendo ‘<code>x</code>’ e ‘<code>-</code>’.</li>
+<li>
+<code>pos_lista</code>: um vetor numérico com a posição de cada elemento na lista, sendo que elementos do <em>ranking</em> que não pertencem à lista são adicionados à lista todos empatados no final.</li>
+<li>
+<code>pos_ranking</code>: um vetor numérico com a posição de cada elemento no <em>ranking</em>.</li>
+</ul></section><section id="criando-uma-tibble-com-todos-os-rankings" class="level3"><h3 class="anchored" data-anchor-id="criando-uma-tibble-com-todos-os-rankings">Criando uma <em>tibble</em> com todos os <em>rankings</em>
 </h3>
-<p>Dados valores de <span class="math inline">\(p\)</span> e <span class="math inline">\(k\)</span> (nesta ordem), a função <code>criar_df_rankings()</code> retorna uma <em>tibble</em> com todos os <span class="math inline">\(\binom{p - 1}{k - 1}\)</span> <em>rankings</em> possíveis.</p>
+<p>Dados valores de <span class="math inline">\(p\)</span> e <span class="math inline">\(k\)</span> (nesta ordem), a função <code>criar_df_rankings()</code> retorna uma <em>tibble</em> com todos os <span class="math inline">\(\binom{p - 1}{k - 1}\)</span> <em>rankings</em> possíveis, como objetos (S3) e como <em>strings</em>.</p>
 <p>Se for passado apenas o valor de <span class="math inline">\(p\)</span>, a função retorna uma <em>tibble</em> com todos os <em>rankings</em> possíveis de comprimento <span class="math inline">\(p\)</span> (com <span class="math inline">\(k\)</span> variando de <span class="math inline">\(1\)</span> até <span class="math inline">\(p\)</span>). Exercício: quantos são?</p>
 <p>Cada <em>ranking</em> é representado por um <em>string</em>, como descrito na <a href="#sec-repr">seção sobre a representação de <em>rankings</em></a>.</p>
 <p>Todos os <em>rankings</em> com <span class="math inline">\(p = 8\)</span> e <span class="math inline">\(k = 5\)</span>:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">criar_df_rankings</span><span class="op">(</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">criar_df_rankings</span><span class="op">(</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"xxxx---x"},{"1":"xxx-x--x"},{"1":"xxx--x-x"},{"1":"xxx---xx"},{"1":"xx-xx--x"},{"1":"xx-x-x-x"},{"1":"xx-x--xx"},{"1":"xx--xx-x"},{"1":"xx--x-xx"},{"1":"xx---xxx"},{"1":"x-xxx--x"},{"1":"x-xx-x-x"},{"1":"x-xx--xx"},{"1":"x-x-xx-x"},{"1":"x-x-x-xx"},{"1":"x-x--xxx"},{"1":"x--xxx-x"},{"1":"x--xx-xx"},{"1":"x--x-xxx"},{"1":"x---xxxx"},{"1":"-xxxx--x"},{"1":"-xxx-x-x"},{"1":"-xxx--xx"},{"1":"-xx-xx-x"},{"1":"-xx-x-xx"},{"1":"-xx--xxx"},{"1":"-x-xxx-x"},{"1":"-x-xx-xx"},{"1":"-x-x-xxx"},{"1":"-x--xxxx"},{"1":"--xxxx-x"},{"1":"--xxx-xx"},{"1":"--xx-xxx"},{"1":"--x-xxxx"},{"1":"---xxxxx"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: rk>","2":"xxxx---x"},{"1":"<S3: rk>","2":"xxx-x--x"},{"1":"<S3: rk>","2":"xxx--x-x"},{"1":"<S3: rk>","2":"xxx---xx"},{"1":"<S3: rk>","2":"xx-xx--x"},{"1":"<S3: rk>","2":"xx-x-x-x"},{"1":"<S3: rk>","2":"xx-x--xx"},{"1":"<S3: rk>","2":"xx--xx-x"},{"1":"<S3: rk>","2":"xx--x-xx"},{"1":"<S3: rk>","2":"xx---xxx"},{"1":"<S3: rk>","2":"x-xxx--x"},{"1":"<S3: rk>","2":"x-xx-x-x"},{"1":"<S3: rk>","2":"x-xx--xx"},{"1":"<S3: rk>","2":"x-x-xx-x"},{"1":"<S3: rk>","2":"x-x-x-xx"},{"1":"<S3: rk>","2":"x-x--xxx"},{"1":"<S3: rk>","2":"x--xxx-x"},{"1":"<S3: rk>","2":"x--xx-xx"},{"1":"<S3: rk>","2":"x--x-xxx"},{"1":"<S3: rk>","2":"x---xxxx"},{"1":"<S3: rk>","2":"-xxxx--x"},{"1":"<S3: rk>","2":"-xxx-x-x"},{"1":"<S3: rk>","2":"-xxx--xx"},{"1":"<S3: rk>","2":"-xx-xx-x"},{"1":"<S3: rk>","2":"-xx-x-xx"},{"1":"<S3: rk>","2":"-xx--xxx"},{"1":"<S3: rk>","2":"-x-xxx-x"},{"1":"<S3: rk>","2":"-x-xx-xx"},{"1":"<S3: rk>","2":"-x-x-xxx"},{"1":"<S3: rk>","2":"-x--xxxx"},{"1":"<S3: rk>","2":"--xxxx-x"},{"1":"<S3: rk>","2":"--xxx-xx"},{"1":"<S3: rk>","2":"--xx-xxx"},{"1":"<S3: rk>","2":"--x-xxxx"},{"1":"<S3: rk>","2":"---xxxxx"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 </div>
 <p>Todos os <em>rankings</em> com <span class="math inline">\(p = 5\)</span>:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">criar_df_rankings</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">criar_df_rankings</span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"----x"},{"1":"x---x"},{"1":"-x--x"},{"1":"--x-x"},{"1":"---xx"},{"1":"xx--x"},{"1":"x-x-x"},{"1":"x--xx"},{"1":"-xx-x"},{"1":"-x-xx"},{"1":"--xxx"},{"1":"xxx-x"},{"1":"xx-xx"},{"1":"x-xxx"},{"1":"-xxxx"},{"1":"xxxxx"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: rk>","2":"----x"},{"1":"<S3: rk>","2":"x---x"},{"1":"<S3: rk>","2":"-x--x"},{"1":"<S3: rk>","2":"--x-x"},{"1":"<S3: rk>","2":"---xx"},{"1":"<S3: rk>","2":"xx--x"},{"1":"<S3: rk>","2":"x-x-x"},{"1":"<S3: rk>","2":"x--xx"},{"1":"<S3: rk>","2":"-xx-x"},{"1":"<S3: rk>","2":"-x-xx"},{"1":"<S3: rk>","2":"--xxx"},{"1":"<S3: rk>","2":"xxx-x"},{"1":"<S3: rk>","2":"xx-xx"},{"1":"<S3: rk>","2":"x-xxx"},{"1":"<S3: rk>","2":"-xxxx"},{"1":"<S3: rk>","2":"xxxxx"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<p>Se você quiser a representação em <em>string</em> usando unicode, basta passar o argumento <code>unicode = TRUE</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">criar_df_rankings</span><span class="op">(</span><span class="fl">5</span>, unicode <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: rk>","2":"••••✔"},{"1":"<S3: rk>","2":"✔•••✔"},{"1":"<S3: rk>","2":"•✔••✔"},{"1":"<S3: rk>","2":"••✔•✔"},{"1":"<S3: rk>","2":"•••✔✔"},{"1":"<S3: rk>","2":"✔✔••✔"},{"1":"<S3: rk>","2":"✔•✔•✔"},{"1":"<S3: rk>","2":"✔••✔✔"},{"1":"<S3: rk>","2":"•✔✔•✔"},{"1":"<S3: rk>","2":"•✔•✔✔"},{"1":"<S3: rk>","2":"••✔✔✔"},{"1":"<S3: rk>","2":"✔✔✔•✔"},{"1":"<S3: rk>","2":"✔✔•✔✔"},{"1":"<S3: rk>","2":"✔•✔✔✔"},{"1":"<S3: rk>","2":"•✔✔✔✔"},{"1":"<S3: rk>","2":"✔✔✔✔✔"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1728,179 +1760,204 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>{{&lt; include _math.qmd &gt;}}</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="in">source('_setup.R')</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="in">source('funcoes.R')</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="in">library(gt)</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Listas e *rankings*</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>Vamos trabalhar com listas e *rankings* sujeitos às seguintes condições:</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A <span class="co">[</span><span class="ot">lista</span><span class="co">]</span>{.hl} tem $k$ elementos, $k &gt; 0$, <span class="co">[</span><span class="ot">não ordenados</span><span class="co">]</span>{.hl}.</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O <span class="co">[</span><span class="ot">*ranking*</span><span class="co">]</span>{.hl} tem $p$ elementos, $p \geq k$, <span class="co">[</span><span class="ot">ordenados</span><span class="co">]</span>{.hl}, <span class="co">[</span><span class="ot">sem empates</span><span class="co">]</span>{.hl}.</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Todos os elementos da lista também pertencem ao *ranking*.</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O último elemento do *ranking* sempre pertence à lista.</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>As identidades dos elementos do *ranking* não importam --- i.e., eles são indistinguíveis, a não ser por pertencerem ou não à lista (e pela ordem que ocupam no *ranking*, claro). </span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Criando *rankings*</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Quantidade de *rankings*</span></span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>Dados $k &gt; 0$ e $p \geq k$ fixos, quantos *rankings* existem?</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>Para montar um *ranking*:</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Sabemos que a última posição é ocupada por alguém da lista.</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Só resta escolher as posições dos $k - 1$ elementos restantes da lista dentre as $p - 1$ posições restantes no *ranking*, o que dá $\binom{p - 1}{k - 1}$ escolhas.</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>Assim, a quantidade total de *rankings* para $k$ e $p$ dados é</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>\binom{p - 1}{k - 1}</span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="fu">### Representação {#sec-repr}</span></span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>Considere naturais $k &gt; 0$ e $p \geq k$. </span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Podemos representar um *ranking* através de um *string* contendo $k$ caracteres "`x`" e $p - k$ caracteres "`-`"</span><span class="co">]</span>{.hl}.</span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>"<span class="in">`x`</span>" representa uma posição ocupada por um elemento da lista.</span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>"<span class="in">`-`</span>" representa uma posição ocupada por um elemento que não está na lista.</span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>Por exemplo, para $k = 3, p = 5$, os $\binom{4}{2} = 6$ *rankings* possíveis são</span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`xx--x`</span></span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`x-x-x`</span></span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`x--xx`</span></span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`-xx-x`</span></span>
-<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`-x-xx`</span></span>
-<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`--xxx`</span></span>
-<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>A tabela a seguir (na verdade, um pedaço do triângulo de Pascal) mostra as quantidades de *rankings* possíveis para alguns valores de $k$ e $p$:</span>
-<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
-<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a><span class="in">df &lt;- expand_grid(</span></span>
-<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a><span class="in">  k = 1:10,</span></span>
-<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a><span class="in">  p = 1:30</span></span>
-<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a><span class="in">) %&gt;% </span></span>
-<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="in">  filter(p &gt;= k) %&gt;% </span></span>
-<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
-<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a><span class="in">    n_rankings = choose(p - 1, k - 1)</span></span>
-<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> k,</span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sort =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> n_rankings,</span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="cn">NA</span></span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">'p'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_stubhead</span>(<span class="at">label =</span> <span class="fu">md</span>(<span class="st">'$p$'</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_spanner</span>(<span class="at">label =</span> <span class="fu">md</span>(<span class="st">'$k$'</span>), <span class="at">columns =</span> <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fmt_number</span>(<span class="at">sep_mark =</span> <span class="st">'.'</span>, <span class="at">dec_mark =</span> <span class="st">','</span>, <span class="at">decimals =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sub_missing</span>(<span class="at">missing_text =</span> <span class="st">''</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_style</span>(</span>
-<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">align =</span> <span class="st">'left'</span>),</span>
-<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cells_column_spanners</span>()</span>
-<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criar um *ranking* a partir de um vetor</span></span>
-<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a>Em vez de especificar as $p$ posições do *ranking*, [pode ser mais compacto especificar as $k$ posições do *ranking* que são ocupadas por elementos da lista]{.hl}.</span>
-<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a>A função <span class="in">`rk()`</span> faz isso, recebendo um vetor numérico com $k$ elementos e retornando um *string*.</span>
-<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(1, 3, 5, 7))</span></span>
-<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a>Observe que as posições não precisam ser passadas em ordem:</span>
-<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(3, 7, 5, 1))</span></span>
-<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a>A função detecta vetores que não podem representar *rankings*:</span>
-<span id="cb16-115"><a href="#cb16-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(3, 7, 3, 1))</span></span>
-<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(5, 7, 3, 1.5))</span></span>
-<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(5, -7, 3, 1))</span></span>
-<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Outras funções</span></span>
-<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criar *plot*</span></span>
-<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a>A função <span class="in">`criar_plot`</span> recebe um *ranking* e gera um gráfico de pontos, com um ponto para cada elemento. </span>
-<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a>No eixo $x$, a posição do elemento na lista.</span>
-<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a>No eixo $y$, a posição do elemento no *ranking*.</span>
-<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a>A função <span class="in">`criar_plot`</span> pode receber um segundo argumento, opcional, especificando uma função para calcular o *score* deste *ranking* (i.e., alguma forma de correlação entre o *ranking* e a lista). O *score* vai ser mostrado no título do gráfico.</span>
-<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a>O terceiro argumento especifica se deve ser incluída uma reta de regressão linear via mínimos quadrados. O *default* é <span class="in">`TRUE`</span>.</span>
-<span id="cb16-142"><a href="#cb16-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-143"><a href="#cb16-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-144"><a href="#cb16-144" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- 'x-x-x-xx'</span></span>
-<span id="cb16-145"><a href="#cb16-145" aria-hidden="true" tabindex="-1"></a><span class="in">criar_plot(r)</span></span>
-<span id="cb16-146"><a href="#cb16-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-148"><a href="#cb16-148" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-149"><a href="#cb16-149" aria-hidden="true" tabindex="-1"></a><span class="in">criar_plot(r, reta = FALSE)</span></span>
-<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a><span class="in">criar_plot(r, \(df) { cor(df$pos_lista, df$pos_ranking) %&gt;% round(2) })</span></span>
-<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criar uma tibble com todos os *rankings*</span></span>
-<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a>Dados valores de $p$ e $k$ (nesta ordem), a função <span class="in">`criar_df_rankings()`</span> retorna uma *tibble* com todos os $\binom{p - 1}{k - 1}$ *rankings* possíveis.</span>
-<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a>Se for passado apenas o valor de $p$, a função retorna uma *tibble* com todos os *rankings* possíveis de comprimento $p$ (com $k$ variando de $1$ até $p$). Exercício: quantos são?</span>
-<span id="cb16-162"><a href="#cb16-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-163"><a href="#cb16-163" aria-hidden="true" tabindex="-1"></a>Cada *ranking* é representado por um *string*, como descrito na [seção sobre a representação de *rankings*](#sec-repr).</span>
-<span id="cb16-164"><a href="#cb16-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-165"><a href="#cb16-165" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 8$ e $k = 5$:</span>
-<span id="cb16-166"><a href="#cb16-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-167"><a href="#cb16-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-168"><a href="#cb16-168" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(8, 5)</span></span>
-<span id="cb16-169"><a href="#cb16-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-170"><a href="#cb16-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-171"><a href="#cb16-171" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 5$:</span>
-<span id="cb16-172"><a href="#cb16-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-173"><a href="#cb16-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb16-174"><a href="#cb16-174" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(5)</span></span>
-<span id="cb16-175"><a href="#cb16-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>{{&lt; include _math.qmd &gt;}}</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include=FALSE}</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="in">source('_setup.R')</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="in">source('rankings.R')</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="in">library(gt)</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Listas e *rankings*</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">## Problema</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>Vamos trabalhar com listas e *rankings* sujeitos às seguintes condições:</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A <span class="co">[</span><span class="ot">lista</span><span class="co">]</span>{.hl} tem $k$ elementos, $k &gt; 0$, <span class="co">[</span><span class="ot">não ordenados</span><span class="co">]</span>{.hl}.</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O <span class="co">[</span><span class="ot">*ranking*</span><span class="co">]</span>{.hl} tem $p$ elementos, $p \geq k$, <span class="co">[</span><span class="ot">ordenados</span><span class="co">]</span>{.hl}, <span class="co">[</span><span class="ot">sem empates</span><span class="co">]</span>{.hl}.</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Todos os elementos da lista também pertencem ao *ranking*.</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O último elemento do *ranking* sempre pertence à lista.</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>As identidades dos elementos do *ranking* não importam --- i.e., eles são indistinguíveis, a não ser por pertencerem ou não à lista (e pela ordem que ocupam no *ranking*, claro). </span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Criando *rankings*</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Representação {#sec-repr}</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>Considere naturais $k &gt; 0$ e $p \geq k$. </span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Podemos representar um *ranking* através de um *string* contendo $k$ caracteres "`x`" e $p - k$ caracteres "`-`"</span><span class="co">]</span>{.hl}.</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>"<span class="in">`x`</span>" representa uma posição ocupada por um elemento da lista.</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>"<span class="in">`-`</span>" representa uma posição ocupada por um elemento que não está na lista.</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>Você pode usar a função <span class="in">`rk()`</span> para criar um *ranking*, passando um *string* da forma acima:</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a><span class="in">rk('xx--x')</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>R vai mostrar o *ranking* com os valores de $k$ e $p$ e com caracteres unicode (por default). Se quiser ver o *ranking* com caracteres ASCII, use a função <span class="in">`print`</span> com o argumento <span class="in">`unicode = FALSE`</span>:</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a><span class="in">print(rk('xx--x'), unicode = FALSE)</span></span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### Quantidade de *rankings*</span></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>Dados $k &gt; 0$ e $p \geq k$ fixos, quantos *rankings* existem?</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>Para montar um *ranking*:</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Sabemos que a última posição é ocupada por alguém da lista.</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Só resta escolher as posições dos $k - 1$ elementos restantes da lista dentre as $p - 1$ posições restantes no *ranking*, o que dá $\binom{p - 1}{k - 1}$ escolhas.</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>Assim, a quantidade total de *rankings* para $k$ e $p$ dados é</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>\binom{p - 1}{k - 1}</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>Por exemplo, para $k = 3, p = 5$, os $\binom{4}{2} = 6$ *rankings* possíveis são</span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`xx--x`</span></span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`x-x-x`</span></span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`x--xx`</span></span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`-xx-x`</span></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`-x-xx`</span></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a><span class="ss">  * </span><span class="in">`--xxx`</span></span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a>A tabela a seguir (na verdade, um pedaço do triângulo de Pascal) mostra as quantidades de *rankings* possíveis para alguns valores de $k$ e $p$:</span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r cache=TRUE}</span></span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a><span class="in">df &lt;- expand_grid(</span></span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a><span class="in">  k = 1:10,</span></span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a><span class="in">  p = 1:30</span></span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a><span class="in">) %&gt;% </span></span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a><span class="in">  filter(p &gt;= k) %&gt;% </span></span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a><span class="in">    n_rankings = choose(p - 1, k - 1)</span></span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> k,</span>
+<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sort =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> n_rankings,</span>
+<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_fill =</span> <span class="cn">NA</span></span>
+<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">'p'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_stubhead</span>(<span class="at">label =</span> <span class="fu">md</span>(<span class="st">'$p$'</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_spanner</span>(<span class="at">label =</span> <span class="fu">md</span>(<span class="st">'$k$'</span>), <span class="at">columns =</span> <span class="fu">everything</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fmt_number</span>(<span class="at">sep_mark =</span> <span class="st">'.'</span>, <span class="at">dec_mark =</span> <span class="st">','</span>, <span class="at">decimals =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sub_missing</span>(<span class="at">missing_text =</span> <span class="st">''</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_style</span>(</span>
+<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cell_text</span>(<span class="at">align =</span> <span class="st">'left'</span>),</span>
+<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cells_column_spanners</span>()</span>
+<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criando um *ranking* a partir de um vetor</span></span>
+<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a>Em vez de especificar as $p$ posições do *ranking*, [pode ser mais compacto especificar as $k$ posições do *ranking* que são ocupadas por elementos da lista]{.hl}.</span>
+<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a>A função <span class="in">`rk()`</span> também faz isso, recebendo um vetor numérico com $k$ elementos.</span>
+<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(1, 3, 5, 7))</span></span>
+<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a>Observe que as posições não precisam ser passadas em ordem:</span>
+<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(3, 7, 5, 1))</span></span>
+<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a>A função detecta vetores que não podem representar *rankings*:</span>
+<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(3, 7, 3, 1))</span></span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(5, 7, 3, 1.5))</span></span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a><span class="in">rk(c(5, -7, 3, 1))</span></span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Outras funções</span></span>
+<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a><span class="fu">### Mostrando um *ranking* graficamente</span></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a>A função <span class="in">`plot`</span> recebe um *ranking* e gera um gráfico de pontos, com um ponto para cada elemento. </span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a>No eixo $x$, a posição do elemento na lista.</span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a>No eixo $y$, a posição do elemento no *ranking*.</span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a>A função <span class="in">`plot`</span> pode receber um argumento <span class="in">`fun`</span>, opcional, especificando uma função para calcular o *score* deste *ranking* (i.e., alguma forma de correlação entre o *ranking* e a lista). O *score* vai ser mostrado no título do gráfico.</span>
+<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a>O argumento <span class="in">`reta`</span>, opcional, especifica se deve ser incluída uma reta de regressão linear via mínimos quadrados. O *default* é <span class="in">`TRUE`</span>.</span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- rk('x-x-x-xx')</span></span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a><span class="in">plot(r)</span></span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a><span class="in">plot(r, reta = FALSE)</span></span>
+<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a><span class="in">plot(r, fun = \(df) { cor(df$pos_lista, df$pos_ranking) %&gt;% round(2) })</span></span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a>A função passada em <span class="in">`fun`</span> deve receber, como único argumento, uma *tibble* com uma linha para cada elemento, e as colunas </span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`nome`</span>: um vetor de caracteres contendo '<span class="in">`x`</span>' e '<span class="in">`-`</span>'.</span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`pos_lista`</span>: um vetor numérico com a posição de cada elemento na lista, sendo que elementos do *ranking* que não pertencem à lista são adicionados à lista todos empatados no final.</span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`pos_ranking`</span>: um vetor numérico com a posição de cada elemento no *ranking*.</span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criando uma *tibble* com todos os *rankings*</span></span>
+<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a>Dados valores de $p$ e $k$ (nesta ordem), a função <span class="in">`criar_df_rankings()`</span> retorna uma *tibble* com todos os $\binom{p - 1}{k - 1}$ *rankings* possíveis, como objetos (S3) e como *strings*.</span>
+<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a>Se for passado apenas o valor de $p$, a função retorna uma *tibble* com todos os *rankings* possíveis de comprimento $p$ (com $k$ variando de $1$ até $p$). Exercício: quantos são?</span>
+<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a>Cada *ranking* é representado por um *string*, como descrito na [seção sobre a representação de *rankings*](#sec-repr).</span>
+<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 8$ e $k = 5$:</span>
+<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(8, 5)</span></span>
+<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-190"><a href="#cb21-190" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 5$:</span>
+<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(5)</span></span>
+<span id="cb21-194"><a href="#cb21-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-195"><a href="#cb21-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-196"><a href="#cb21-196" aria-hidden="true" tabindex="-1"></a>Se você quiser a representação em *string* usando unicode, basta passar o argumento <span class="in">`unicode = TRUE`</span>:</span>
+<span id="cb21-197"><a href="#cb21-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-198"><a href="#cb21-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-199"><a href="#cb21-199" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(5, unicode = TRUE)</span></span>
+<span id="cb21-200"><a href="#cb21-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
