@@ -16,7 +16,7 @@ conflict_prefer('lead', 'dplyr')
 
 Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.
 
-Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os $k$ elementos da lista e outros).
+Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que incluem os $k$ elementos da lista).
 
 Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.
 
@@ -49,7 +49,7 @@ Por exemplo, é discutível se os dois rankings `xx---x` e `---xxx` devem ser co
 
 ### Contando posições `-`
 
-Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as seguintes características:
+Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ --- $s$ de *score* --- com as seguintes características:
 
 * Se $r$ não contiver "`-`", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, `xxxxx`). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma
 
@@ -57,9 +57,9 @@ Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as
   s(r) = \frac k p + \cdots
   $$
 
-  onde as reticências representam termos que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir os termos restantes para que sejam iguais a zero.
+  onde as reticências representam uma parcela que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir a parcela restante para que seja igual a zero.
 
-* Os termos restantes devem ter valores maiores quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "`-`", melhor ele será. Uma quantidade natural seria
+* A parcela restante deve ter valor maior quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "`-`", melhor ele será. Uma quantidade natural seria
 
   $$
   \frac{\operatorname{soma\_}}{\sum_{i = 1, p}i} 
@@ -114,9 +114,9 @@ Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as
 
   Dependendo do valor de $m > 2$ escolhido, teremos medidas diferentes.
   
-  A função abaixo usa o *default* de $m = 10$, mas valores diferentes podem ser passados.
+  A função que implementamos usa o *default* de $m = 10$, mas valores diferentes podem ser passados.
 
-```{r echo=TRUE}
+```{r}
 s1 <- function(um_rk, m) {
   
   p <- um_rk$p
@@ -138,7 +138,7 @@ s <- function(rk, m = 10) {
 }
 ```
 
-```{r}
+```{r echo=TRUE}
 r <- rk('xxx-x')
 s(r)
 ```
@@ -155,7 +155,7 @@ s(
 )
 ```
 
-Todos os *rankings* de comprimento $8$, com suas pontuações:
+Eis todos os *rankings* de comprimento $8$, com suas pontuações:
 
 ```{r}
 df <- criar_df_rankings(8) %>% 

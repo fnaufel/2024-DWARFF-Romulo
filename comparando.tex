@@ -197,7 +197,7 @@
 
 \title{Comparando listas e rankings}
 \author{Fernando Náufel}
-\date{12/02/2024 16:27}
+\date{13/02/2024 18:18}
 
 \begin{document}
 \maketitle
@@ -280,22 +280,21 @@ passando um \emph{string} da forma acima:
 \end{Shaded}
 
 \begin{verbatim}
-ranking: [✔✔••✔] (p = 5, k = 3)
+ranking: [xx--x] (p = 5, k = 3)
 \end{verbatim}
 
-R vai mostrar o \emph{ranking} com os valores de $k$ e $p$ e com
-caracteres unicode (por default). Se quiser ver o \emph{ranking} com
-caracteres ASCII, use a função \texttt{print} com o argumento
-\texttt{unicode\ =\ FALSE}:
+R vai mostrar o \emph{ranking} com os valores de $k$ e $p$. Se quiser
+ver o \emph{ranking} com caracteres Unicode, use a função \texttt{print}
+com o argumento \texttt{unicode\ =\ TRUE}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xx{-}{-}x\textquotesingle{}}\NormalTok{), }\AttributeTok{unicode =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xx{-}{-}x\textquotesingle{}}\NormalTok{), }\AttributeTok{unicode =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-ranking: [xx--x] (p = 5, k = 3)
+ranking: [✔✔••✔] (p = 5, k = 3)
 \end{verbatim}
 
 \subsection{\texorpdfstring{Quantidade de
@@ -390,7 +389,7 @@ Em vez de especificar as $p$ posições do \emph{ranking}, {\hl{pode ser
 mais compacto especificar as $k$ posições do \emph{ranking} que são
 ocupadas por elementos da lista}}.
 
-A função \texttt{rk()} também faz isso, recebendo um vetor numérico com
+Para isso, a função \texttt{rk()} também aceita um vetor numérico com
 $k$ elementos.
 
 \begin{Shaded}
@@ -400,7 +399,7 @@ $k$ elementos.
 \end{Shaded}
 
 \begin{verbatim}
-ranking: [✔•✔•✔•✔] (p = 7, k = 4)
+ranking: [x-x-x-x] (p = 7, k = 4)
 \end{verbatim}
 
 Observe que as posições não precisam ser passadas em ordem:
@@ -412,7 +411,7 @@ Observe que as posições não precisam ser passadas em ordem:
 \end{Shaded}
 
 \begin{verbatim}
-ranking: [✔•✔•✔•✔] (p = 7, k = 4)
+ranking: [x-x-x-x] (p = 7, k = 4)
 \end{verbatim}
 
 A função detecta vetores que não podem representar \emph{rankings}:
@@ -462,15 +461,6 @@ No eixo $x$, a posição do elemento na lista.
 
 No eixo $y$, a posição do elemento no \emph{ranking}.
 
-A função \texttt{plot} pode receber um argumento \texttt{fun}, opcional,
-especificando uma função para calcular o \emph{score} deste
-\emph{ranking} (i.e., alguma forma de correlação entre o \emph{ranking}
-e a lista). O \emph{score} vai ser mostrado no título do gráfico.
-
-O argumento \texttt{reta}, opcional, especifica se deve ser incluída uma
-reta de regressão linear via mínimos quadrados. O \emph{default} é
-\texttt{TRUE}.
-
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}x{-}x{-}x{-}xx\textquotesingle{}}\NormalTok{)}
@@ -482,6 +472,10 @@ reta de regressão linear via mínimos quadrados. O \emph{default} é
 \includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-10-1.pdf}
 \end{center}
 
+O argumento \texttt{reta}, opcional, especifica se deve ser incluída uma
+reta de regressão linear via mínimos quadrados. O \emph{default} é
+\texttt{TRUE}.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{plot}\NormalTok{(r, }\AttributeTok{reta =} \ConstantTok{FALSE}\NormalTok{)}
@@ -492,15 +486,10 @@ reta de regressão linear via mínimos quadrados. O \emph{default} é
 \includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-11-1.pdf}
 \end{center}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(r, }\AttributeTok{fun =}\NormalTok{ \textbackslash{}(df) \{ }\FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{pos\_lista, df}\SpecialCharTok{$}\NormalTok{pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{round}\NormalTok{(}\DecValTok{2}\NormalTok{) \})}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-12-1.pdf}
-\end{center}
+A função \texttt{plot} pode receber um argumento \texttt{fun}, opcional,
+especificando uma função para calcular o \emph{score} deste
+\emph{ranking} (i.e., alguma forma de correlação entre o \emph{ranking}
+e a lista). O \emph{score} vai ser mostrado no título do gráfico.
 
 A função passada em \texttt{fun} deve receber, como único argumento, uma
 \emph{tibble} com uma linha para cada elemento, e as colunas
@@ -519,6 +508,21 @@ A função passada em \texttt{fun} deve receber, como único argumento, uma
   elemento no \emph{ranking}.
 \end{itemize}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}
+\NormalTok{  r, }
+  \AttributeTok{fun =}\NormalTok{ \textbackslash{}(df) \{ }
+    \FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{pos\_lista, df}\SpecialCharTok{$}\NormalTok{pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{round}\NormalTok{(}\DecValTok{2}\NormalTok{) }
+\NormalTok{  \}}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{gerar-listas-e-rankings_files/figure-pdf/unnamed-chunk-12-1.pdf}
+\end{center}
+
 \subsection{\texorpdfstring{Criando uma \emph{tibble} com todos os
 \emph{rankings}}{Criando uma tibble com todos os rankings}}\label{criando-uma-tibble-com-todos-os-rankings}
 
@@ -526,13 +530,6 @@ Dados valores de $p$ e $k$ (nesta ordem), a função
 \texttt{criar\_df\_rankings()} retorna uma \emph{tibble} com todos os
 $\binom{p - 1}{k - 1}$ \emph{rankings} possíveis, como objetos (S3) e
 como \emph{strings}.
-
-Se for passado apenas o valor de $p$, a função retorna uma \emph{tibble}
-com todos os \emph{rankings} possíveis de comprimento $p$ (com $k$
-variando de $1$ até $p$). Exercício: quantos são?
-
-Cada \emph{ranking} é representado por um \emph{string}, como descrito
-na \hyperref[sec-repr]{seção sobre a representação de \emph{rankings}}.
 
 Todos os \emph{rankings} com $p = 8$ e $k = 5$:
 
@@ -582,6 +579,10 @@ Todos os \emph{rankings} com $p = 8$ e $k = 5$:
 34 <rk>    --x-xxxx   
 35 <rk>    ---xxxxx   
 \end{verbatim}
+
+Se for passado apenas o valor de $p$, a função retorna uma \emph{tibble}
+com todos os \emph{rankings} possíveis de comprimento $p$ (com $k$
+variando de $1$ até $p$). Exercício: quantos são?
 
 Todos os \emph{rankings} com $p = 5$:
 
@@ -656,8 +657,8 @@ Imagine que a lista de $k$ elementos foi definida por uma autoridade,
 usando critérios que não conhecemos.
 
 Em uma tentativa de descobrir esses critérios, construímos um modelo
-para avaliar todos os elementos da população (que inclui os $k$
-elementos da lista e outros).
+para avaliar todos os elementos da população (que incluem os $k$
+elementos da lista).
 
 Nosso modelo produz um \emph{ranking} de todos os elementos. Para
 facilitar, vamos supor que não há empates no \emph{ranking}.
@@ -705,7 +706,7 @@ lista}{Usando  e as posições dos elementos da lista}}\label{usando-p-e-as-posi
 \texttt{-}}{Contando posições -}}\label{contando-posiuxe7uxf5es--}
 
 Dado um \emph{ranking} $r$ com $k$ e $p$, queremos definir uma função
-$s(r)$ com as seguintes características:
+$s(r)$ --- $s$ de \emph{score} --- com as seguintes características:
 
 \begin{itemize}
 \item
@@ -718,11 +719,11 @@ $s(r)$ com as seguintes características:
   s(r) = \frac k p + \cdots
   \]
 
-  onde as reticências representam termos que ainda vamos definir. Se $r$
-  for um \emph{ranking} perfeito, a parcela $k/p$ será $1$, e vamos
-  definir os termos restantes para que sejam iguais a zero.
+  onde as reticências representam uma parcela que ainda vamos definir.
+  Se $r$ for um \emph{ranking} perfeito, a parcela $k/p$ será $1$, e
+  vamos definir a parcela restante para que seja igual a zero.
 \item
-  Os termos restantes devem ter valores maiores quanto melhor for o
+  A parcela restante deve ter valor maior quanto melhor for o
   \emph{ranking}. Quanto mais próximos do fim do \emph{ranking}
   estiverem os caracteres ``\texttt{-}'', melhor ele será. Uma
   quantidade natural seria
@@ -785,31 +786,14 @@ $s(r)$ com as seguintes características:
 
   Dependendo do valor de $m > 2$ escolhido, teremos medidas diferentes.
 
-  A função abaixo usa o \emph{default} de $m = 10$, mas valores
-  diferentes podem ser passados.
+  A função que implementamos usa o \emph{default} de $m = 10$, mas
+  valores diferentes podem ser passados.
 \end{itemize}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{s1 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(um\_rk, m) \{}
-  
-\NormalTok{  p }\OtherTok{\textless{}{-}}\NormalTok{ um\_rk}\SpecialCharTok{$}\NormalTok{p}
-\NormalTok{  k }\OtherTok{\textless{}{-}}\NormalTok{ um\_rk}\SpecialCharTok{$}\NormalTok{k}
-\NormalTok{  soma\_ }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(um\_rk}\SpecialCharTok{$}\NormalTok{no)}
-
-\NormalTok{  (k }\SpecialCharTok{/}\NormalTok{ p) }\SpecialCharTok{+}\NormalTok{ ((}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ soma\_) }\SpecialCharTok{/}\NormalTok{ (m }\SpecialCharTok{*}\NormalTok{ p }\SpecialCharTok{*}\NormalTok{ (p }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)))}
-
-\NormalTok{\}}
-
-\NormalTok{s }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(rk, }\AttributeTok{m =} \DecValTok{10}\NormalTok{) \{}
-
-  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{is.rk}\NormalTok{(rk)) \{}
-    \FunctionTok{s1}\NormalTok{(rk, m)}
-\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{    rk }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{map\_dbl}\NormalTok{(s1, m)}
-\NormalTok{  \}}
-
-\NormalTok{\}}
+\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xxx{-}x\textquotesingle{}}\NormalTok{)}
+\FunctionTok{s}\NormalTok{(r)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -835,7 +819,7 @@ Para $p = 8$, alguns exemplos:
 [1] 1,0000000 0,9000000 0,8785714
 \end{verbatim}
 
-Todos os \emph{rankings} de comprimento $8$, com suas pontuações:
+Eis todos os \emph{rankings} de comprimento $8$, com suas pontuações:
 
 \begin{verbatim}
 # A tibble: 128 x 3
@@ -1107,6 +1091,355 @@ por valores de $p$:
 
 \begin{center}
 \includegraphics[width=1\textwidth,height=\textheight]{usando-posicoes_files/figure-pdf/unnamed-chunk-9-1.pdf}
+\end{center}
+
+\bookmarksetup{startatroot}
+
+\chapter{\texorpdfstring{O \emph{ranking} concorda com a lista?
+Correlação}{O ranking concorda com a lista? Correlação}}\label{o-ranking-concorda-com-a-lista-correlauxe7uxe3o}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xxx{-}x\textquotesingle{}}\NormalTok{)}
+\FunctionTok{s}\NormalTok{(r)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0,9
+\end{verbatim}
+
+Para $p = 8$, alguns exemplos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{s}\NormalTok{(}
+  \FunctionTok{list}\NormalTok{(}
+    \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xxxxxxxx\textquotesingle{}}\NormalTok{),}
+    \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xxxxxx{-}x\textquotesingle{}}\NormalTok{),}
+    \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}{-}xxxxxxx\textquotesingle{}}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1,0000000 0,9761905 0,3333333
+\end{verbatim}
+
+Eis todos os \emph{rankings} de comprimento $8$, com suas pontuações:
+
+\begin{verbatim}
+# A tibble: 128 x 3
+    ranking ranking_str       s
+    <list>  <chr>         <dbl>
+  1 <rk>    xxxxxxxx     1     
+  2 <rk>    xxxxxx-x     0.976 
+  3 <rk>    xxxxx-xx     0.929 
+  4 <rk>    xxxxx--x     0.922 
+  5 <rk>    xxxx-x-x     0.862 
+  6 <rk>    xxxx-xxx     0.857 
+  7 <rk>    xxxx---x     0.830 
+  8 <rk>    xxxx--xx     0.802 
+  9 <rk>    xxx-xx-x     0.778 
+ 10 <rk>    xxx-xxxx     0.762 
+ 11 <rk>    xxx-x--x     0.756 
+ 12 <rk>    xxx-x-xx     0.719 
+ 13 <rk>    xxx----x     0.685 
+ 14 <rk>    xxx--x-x     0.683 
+ 15 <rk>    xx-xxx-x     0.671 
+ 16 <rk>    xx-xx--x     0.659 
+ 17 <rk>    xx-xxxxx     0.643 
+ 18 <rk>    xxx--xxx     0.635 
+ 19 <rk>    xx-xx-xx     0.611 
+ 20 <rk>    xxx---xx     0.610 
+ 21 <rk>    xx-x---x     0.596 
+ 22 <rk>    xx-x-x-x     0.586 
+ 23 <rk>    x-xxxx-x     0.539 
+ 24 <rk>    x-xxx--x     0.537 
+ 25 <rk>    xx-x-xxx     0.527 
+ 26 <rk>    xx-x--xx     0.512 
+ 27 <rk>    xx--x--x     0.507 
+ 28 <rk>    x-xxxxxx     0.5   
+ 29 <rk>    xx--xx-x     0.488 
+ 30 <rk>    x-xx---x     0.482 
+ 31 <rk>    x-xxx-xx     0.479 
+ 32 <rk>    xx-----x     0.464 
+ 33 <rk>    x-xx-x-x     0.464 
+ 34 <rk>    xx--xxxx     0.419 
+ 35 <rk>    xx---x-x     0.419 
+ 36 <rk>    xx--x-xx     0.415 
+ 37 <rk>    x-xx-xxx     0.395 
+ 38 <rk>    x-x-x--x     0.393 
+ 39 <rk>    x-xx--xx     0.390 
+ 40 <rk>    -xxxx--x     0.390 
+ 41 <rk>    -xxxxx-x     0.383 
+ 42 <rk>    x-x-xx-x     0.366 
+ 43 <rk>    x-x----x     0.355 
+ 44 <rk>    -xxx---x     0.342 
+ 45 <rk>    -xxxxxxx     0.333 
+ 46 <rk>    xx----xx     0.330 
+ 47 <rk>    -xxxx-xx     0.323 
+ 48 <rk>    xx---xxx     0.317 
+ 49 <rk>    -xxx-x-x     0.317 
+ 50 <rk>    x-x--x-x     0.304 
+ 51 <rk>    x-x-x-xx     0.293 
+ 52 <rk>    x-x-xxxx     0.287 
+ 53 <rk>    x--xx--x     0.279 
+ 54 <rk>    -xx-x--x     0.254 
+ 55 <rk>    x--x---x     0.245 
+ 56 <rk>    x--xxx-x     0.244 
+ 57 <rk>    -xxx--xx     0.244 
+ 58 <rk>    -xxx-xxx     0.240 
+ 59 <rk>    -xx-xx-x     0.220 
+ 60 <rk>    -xx----x     0.218 
+ 61 <rk>    x-x---xx     0.216 
+ 62 <rk>    x-x--xxx     0.195 
+ 63 <rk>    x--x-x-x     0.190 
+ 64 <rk>    x--xx-xx     0.171 
+ 65 <rk>    -xx--x-x     0.165 
+ 66 <rk>    x--xxxxx     0.156 
+ 67 <rk>    -xx-x-xx     0.146 
+ 68 <rk>    -x-xx--x     0.140 
+ 69 <rk>    x---x--x     0.136 
+ 70 <rk>    -xx-xxxx     0.132 
+ 71 <rk>    x------x     0.109 
+ 72 <rk>    -x-x---x     0.109 
+ 73 <rk>    x--x--xx     0.101 
+ 74 <rk>    -x-xxx-x     0.0976
+ 75 <rk>    x---xx-x     0.0761
+ 76 <rk>    -xx---xx     0.0761
+ 77 <rk>    x--x-xxx     0.0732
+ 78 <rk>    -x-x-x-x     0.0507
+ 79 <rk>    -xx--xxx     0.0488
+ 80 <rk>    x----x-x     0.0273
+ 81 <rk>    -x-xx-xx     0.0244
+ 82 <rk>    -x--x--x     0     
+ 83 <rk>    --xxx--x     0     
+ 84 <rk>    -x-xxxxx     0     
+ 85 <rk>    x---x-xx    -0.0127
+ 86 <rk>    --xx---x    -0.0273
+ 87 <rk>    -x-----x    -0.0312
+ 88 <rk>    -x-x--xx    -0.0381
+ 89 <rk>    x---xxxx    -0.0488
+ 90 <rk>    --xxxx-x    -0.0488
+ 91 <rk>    -x--xx-x    -0.0634
+ 92 <rk>    -x-x-xxx    -0.0732
+ 93 <rk>    x-----xx    -0.0818
+ 94 <rk>    --xx-x-x    -0.0888
+ 95 <rk>    -x---x-x    -0.109 
+ 96 <rk>    --xxx-xx    -0.122 
+ 97 <rk>    x----xxx    -0.127 
+ 98 <rk>    --x-x--x    -0.136 
+ 99 <rk>    -x--x-xx    -0.152 
+100 <rk>    --xxxxxx    -0.156 
+101 <rk>    --x----x    -0.171 
+102 <rk>    --xx--xx    -0.178 
+103 <rk>    -x--xxxx    -0.195 
+104 <rk>    --x-xx-x    -0.203 
+105 <rk>    -x----xx    -0.218 
+106 <rk>    --xx-xxx    -0.220 
+107 <rk>    --x--x-x    -0.245 
+108 <rk>    -x---xxx    -0.266 
+109 <rk>    ---xx--x    -0.273 
+110 <rk>    --x-x-xx    -0.292 
+111 <rk>    ---x---x    -0.312 
+112 <rk>    --x-xxxx    -0.342 
+113 <rk>    ---xxx-x    -0.342 
+114 <rk>    --x---xx    -0.355 
+115 <rk>    ---x-x-x    -0.382 
+116 <rk>    --x--xxx    -0.406 
+117 <rk>    ---xx-xx    -0.431 
+118 <rk>    ----x--x    -0.452 
+119 <rk>    ---xxxxx    -0.488 
+120 <rk>    ---x--xx    -0.491 
+121 <rk>    ----xx-x    -0.518 
+122 <rk>    ---x-xxx    -0.545 
+123 <rk>    -------x    -0.577 
+124 <rk>    -----x-x    -0.592 
+125 <rk>    ----x-xx    -0.627 
+126 <rk>    ----xxxx    -0.685 
+127 <rk>    ------xx    -0.733 
+128 <rk>    -----xxx    -0.764 
+\end{verbatim}
+
+Perceba que pode haver empates:
+
+\begin{verbatim}
+# A tibble: 15 x 2
+   ranking_str       s
+   <chr>         <dbl>
+ 1 x-xx--xx     0.390 
+ 2 -xxxx--x     0.390 
+ 3 xx---xxx     0.317 
+ 4 -xxx-x-x     0.317 
+ 5 x--xxx-x     0.244 
+ 6 -xxx--xx     0.244 
+ 7 x------x     0.109 
+ 8 -x-x---x     0.109 
+ 9 x---xx-x     0.0761
+10 -xx---xx     0.0761
+11 -x--x--x     0     
+12 --xxx--x     0     
+13 -x-xxxxx     0     
+14 x---xxxx    -0.0488
+15 --xxxx-x    -0.0488
+\end{verbatim}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-6-1.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-6-2.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-7-1.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-7-2.pdf}
+\end{center}
+
+\subsection{\texorpdfstring{Comparando \emph{rankings} com valores
+diferentes de
+$p$}{Comparando rankings com valores diferentes de }}\label{comparando-rankings-com-valores-diferentes-de-p-1}
+
+Como a lista é dada e fixa, só faz sentido, na prática, comparar
+\emph{rankings} com o mesmo valor de $k$.
+
+Vamos examinar, para uma lista com $k = 15$, os \emph{rankings}
+possíveis com $p$ variando de $15$ a $20$.
+
+São $15.504$ \emph{rankings}. Eis os $100$ melhores:
+
+\begin{verbatim}
+# A tibble: 100 x 4
+    ranking ranking_str              s     p
+    <list>  <chr>                <dbl> <int>
+  1 <rk>    xxxxxxxxxxxxxxx      1        15
+  2 <rk>    xxxxxxxxxxxxxx-x     0.997    16
+  3 <rk>    xxxxxxxxxxxxxx--x    0.992    17
+  4 <rk>    xxxxxxxxxxxxx-xx     0.991    16
+  5 <rk>    xxxxxxxxxxxxx-x-x    0.986    17
+  6 <rk>    xxxxxxxxxxxxxx---x   0.986    18
+  7 <rk>    xxxxxxxxxxxx-xxx     0.982    16
+  8 <rk>    xxxxxxxxxxxxx--xx    0.980    17
+  9 <rk>    xxxxxxxxxxxxx-x--x   0.979    18
+ 10 <rk>    xxxxxxxxxxxxxx----x  0.978    19
+ 11 <rk>    xxxxxxxxxxxx-xx-x    0.977    17
+ 12 <rk>    xxxxxxxxxxxxx--x-x   0.973    18
+ 13 <rk>    xxxxxxxxxxxxx-x---x  0.972    19
+ 14 <rk>    xxxxxxxxxxxx-x-xx    0.971    17
+ 15 <rk>    xxxxxxxxxxxx-xx--x   0.971    18
+ 16 <rk>    xxxxxxxxxxx-xxxx     0.971    16
+ 17 <rk>    xxxxxxxxxxxxxx-----x 0.970    20
+ 18 <rk>    xxxxxxxxxxxxx---xx   0.967    18
+ 19 <rk>    xxxxxxxxxxx-xxx-x    0.966    17
+ 20 <rk>    xxxxxxxxxxxxx--x--x  0.966    19
+ 21 <rk>    xxxxxxxxxxxx-x-x-x   0.965    18
+ 22 <rk>    xxxxxxxxxxxx-xx---x  0.964    19
+ 23 <rk>    xxxxxxxxxxxxx-x----x 0.964    20
+ 24 <rk>    xxxxxxxxxxxx--xxx    0.963    17
+ 25 <rk>    xxxxxxxxxxx-xxx--x   0.961    18
+ 26 <rk>    xxxxxxxxxxx-xx-xx    0.960    17
+ 27 <rk>    xxxxxxxxxxxxx---x-x  0.959    19
+ 28 <rk>    xxxxxxxxxxxx-x--xx   0.959    18
+ 29 <rk>    xxxxxxxxxxxx-x-x--x  0.958    19
+ 30 <rk>    xxxxxxxxxxxxx--x---x 0.958    20
+ 31 <rk>    xxxxxxxxxxxx--xx-x   0.957    18
+ 32 <rk>    xxxxxxxxxxxx-xx----x 0.956    20
+ 33 <rk>    xxxxxxxxxx-xxxxx     0.956    16
+ 34 <rk>    xxxxxxxxxxx-xx-x-x   0.955    18
+ 35 <rk>    xxxxxxxxxxx-xxx---x  0.954    19
+ 36 <rk>    xxxxxxxxxxxxx----xx  0.953    19
+ 37 <rk>    xxxxxxxxxx-xxxx-x    0.953    17
+ 38 <rk>    xxxxxxxxxxx-x-xxx    0.952    17
+ 39 <rk>    xxxxxxxxxxxx-x--x-x  0.952    19
+ 40 <rk>    xxxxxxxxxxxxx---x--x 0.952    20
+ 41 <rk>    xxxxxxxxxxxx--x-xx   0.950    18
+ 42 <rk>    xxxxxxxxxxxx-x-x---x 0.950    20
+ 43 <rk>    xxxxxxxxxxxx--xx--x  0.950    19
+ 44 <rk>    xxxxxxxxxxx-xx--xx   0.948    18
+ 45 <rk>    xxxxxxxxxx-xxxx--x   0.948    18
+ 46 <rk>    xxxxxxxxxxx-xx-x--x  0.948    19
+ 47 <rk>    xxxxxxxxxxx-xxx----x 0.947    20
+ 48 <rk>    xxxxxxxxxx-xxx-xx    0.947    17
+ 49 <rk>    xxxxxxxxxxx-x-xx-x   0.946    18
+ 50 <rk>    xxxxxxxxxxxxx----x-x 0.945    20
+ 51 <rk>    xxxxxxxxxxxx-x---xx  0.945    19
+ 52 <rk>    xxxxxxxxxxxx-x--x--x 0.944    20
+ 53 <rk>    xxxxxxxxxxxx--x-x-x  0.944    19
+ 54 <rk>    xxxxxxxxxx-xxxx---x  0.943    19
+ 55 <rk>    xxxxxxxxxxxx--xx---x 0.942    20
+ 56 <rk>    xxxxxxxxxxxx---xxx   0.942    18
+ 57 <rk>    xxxxxxxxxx-xxx-x-x   0.942    18
+ 58 <rk>    xxxxxxxxxxx-xx--x-x  0.942    19
+ 59 <rk>    xxxxxxxxxxx-xx-x---x 0.941    20
+ 60 <rk>    xxxxxxxxxxx--xxxx    0.941    17
+ 61 <rk>    xxxxxxxxxxx-x-xx--x  0.940    19
+ 62 <rk>    xxxxxxxxxxx-x-x-xx   0.940    18
+ 63 <rk>    xxxxxxxxxxxxx-----xx 0.939    20
+ 64 <rk>    xxxxxxxxx-xxxxxx     0.938    16
+ 65 <rk>    xxxxxxxxxx-xx-xxx    0.938    17
+ 66 <rk>    xxxxxxxxxxxx-x---x-x 0.938    20
+ 67 <rk>    xxxxxxxxxxxx--x--xx  0.937    19
+ 68 <rk>    xxxxxxxxx-xxxxx-x    0.937    17
+ 69 <rk>    xxxxxxxxxx-xxx-x--x  0.937    19
+ 70 <rk>    xxxxxxxxxxxx--x-x--x 0.936    20
+ 71 <rk>    xxxxxxxxxx-xxxx----x 0.936    20
+ 72 <rk>    xxxxxxxxxxx--xxx-x   0.936    18
+ 73 <rk>    xxxxxxxxxx-xxx--xx   0.936    18
+ 74 <rk>    xxxxxxxxxxxx---xx-x  0.936    19
+ 75 <rk>    xxxxxxxxxxx-xx---xx  0.936    19
+ 76 <rk>    xxxxxxxxxxx-xx--x--x 0.935    20
+ 77 <rk>    xxxxxxxxxxx-x-x-x-x  0.934    19
+ 78 <rk>    xxxxxxxxxx-xx-xx-x   0.934    18
+ 79 <rk>    xxxxxxxxx-xxxxx--x   0.934    18
+ 80 <rk>    xxxxxxxxxxx-x-xx---x 0.933    20
+ 81 <rk>    xxxxxxxxxxxx-x----xx 0.932    20
+ 82 <rk>    xxxxxxxxxxx-x--xxx   0.932    18
+ 83 <rk>    xxxxxxxxx-xxxx-xx    0.931    17
+ 84 <rk>    xxxxxxxxxxx--xxx--x  0.930    19
+ 85 <rk>    xxxxxxxxxx-xxx--x-x  0.930    19
+ 86 <rk>    xxxxxxxxxxxx--x--x-x 0.930    20
+ 87 <rk>    xxxxxxxxxx-xxx-x---x 0.930    20
+ 88 <rk>    xxxxxxxxxxx--xx-xx   0.930    18
+ 89 <rk>    xxxxxxxxxxxx---x-xx  0.930    19
+ 90 <rk>    xxxxxxxxx-xxxxx---x  0.930    19
+ 91 <rk>    xxxxxxxxxxxx---xx--x 0.929    20
+ 92 <rk>    xxxxxxxxxxx-xx---x-x 0.929    20
+ 93 <rk>    xxxxxxxxxx-xx-xx--x  0.929    19
+ 94 <rk>    xxxxxxxxxxx-x-x--xx  0.928    19
+ 95 <rk>    xxxxxxxxxx-xx-x-xx   0.928    18
+ 96 <rk>    xxxxxxxxx-xxxx-x-x   0.928    18
+ 97 <rk>    xxxxxxxxxxx-x-x-x--x 0.927    20
+ 98 <rk>    xxxxxxxxxx-x-xxxx    0.927    17
+ 99 <rk>    xxxxxxxxxxx-x--xx-x  0.926    19
+100 <rk>    xxxxxxxxxxxx--x---xx 0.924    20
+\end{verbatim}
+
+Os gráficos abaixo mostram os \emph{scores} atribuídos para todos os
+\emph{rankings} com $k = 15$ e $p$ variando de $15$ a $20$, separados
+por valores de $p$:
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-10-1.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-11-1.pdf}
+\end{center}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-12-1.pdf}
+\end{center}
+
+Negativos:
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-13-1.pdf}
 \end{center}
 
 

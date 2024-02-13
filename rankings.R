@@ -87,12 +87,27 @@ as.character.rk <- function(x, unicode = FALSE, ...) {
 }
 
 # print: imprime e.g., ranking: [✔••✔] (p = 4, k = 2)
-print.rk <- function(x, unicode = TRUE, ...) {
+print.rk <- function(x, unicode = FALSE, ...) {
   
   s <- as.character(x, unicode)
   cat(paste0('ranking: [', s, '] (p = ', x$p, ', k = ', x$k, ')'))
   
   invisible(x)
+  
+}
+
+# pillar_shaft
+pillar_shaft <- function(x, ...) {
+  
+  format(x)
+  
+}
+
+# format
+format.rk <- function(x, ...) {
+  
+  s <- as.character(x, unicode = FALSE)
+  paste0('ranking: [', s, '] (p = ', x$p, ', k = ', x$k, ')')
   
 }
 
@@ -114,12 +129,13 @@ plot.rk <- function(x, y = NULL, fun = NULL, reta = TRUE, ... ) {
       scale_y_continuous(breaks = 1:p, labels = 1:p, limits = c(1, p)) +
       labs(
         x = 'lista',
-        y = 'ranking'
+        y = 'ranking',
+        title = format(x)
       )
   
   if (!is.null(fun)) {
     score <- do.call(fun, list(df))
-    grafico <- grafico + labs(title = paste0('Score = ', score))
+    grafico <- grafico + labs(subtitle = paste0('Score = ', score))
   }
   
   if (reta) {
@@ -224,5 +240,5 @@ gerar_df_para_um_k <- function(p, k, unicode) {
     ) %>% 
     select(ranking, ranking_str) %>% 
     ungroup()
-    
+
 }

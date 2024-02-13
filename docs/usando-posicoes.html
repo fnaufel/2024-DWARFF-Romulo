@@ -60,6 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./spearman.html" rel="next">
 <link href="./gerar-listas-e-rankings.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -200,6 +201,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Posições</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spearman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlação</span></span></a>
+  </div>
+</li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
@@ -239,7 +246,7 @@ window.Quarto = {
 </header><section id="usando-p" class="level2" data-number="2.1"><h2 data-number="2.1" class="anchored" data-anchor-id="usando-p">
 <span class="header-section-number">2.1</span> Usando <span class="math inline">\(p\)</span> como medida de concordância</h2>
 <p>Imagine que a lista de <span class="math inline">\(k\)</span> elementos foi definida por uma autoridade, usando critérios que não conhecemos.</p>
-<p>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os <span class="math inline">\(k\)</span> elementos da lista e outros).</p>
+<p>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que incluem os <span class="math inline">\(k\)</span> elementos da lista).</p>
 <p>Nosso modelo produz um <em>ranking</em> de todos os elementos. Para facilitar, vamos supor que não há empates no <em>ranking</em>.</p>
 <p>Uma pergunta natural sobre a qualidade do <em>ranking</em> produzido é</p>
 <blockquote class="blockquote">
@@ -261,17 +268,17 @@ window.Quarto = {
 <span class="header-section-number">2.2</span> Usando <span class="math inline">\(p\)</span> e as posições dos elementos da lista</h2>
 <section id="contando-posições--" class="level3"><h3 class="anchored" data-anchor-id="contando-posições--">Contando posições <code>-</code>
 </h3>
-<p>Dado um <em>ranking</em> <span class="math inline">\(r\)</span> com <span class="math inline">\(k\)</span> e <span class="math inline">\(p\)</span>, queremos definir uma função <span class="math inline">\(s(r)\)</span> com as seguintes características:</p>
+<p>Dado um <em>ranking</em> <span class="math inline">\(r\)</span> com <span class="math inline">\(k\)</span> e <span class="math inline">\(p\)</span>, queremos definir uma função <span class="math inline">\(s(r)\)</span> — <span class="math inline">\(s\)</span> de <em>score</em> — com as seguintes características:</p>
 <ul>
 <li>
 <p>Se <span class="math inline">\(r\)</span> não contiver “<code>-</code>”, então <span class="math inline">\(s(r) = 1\)</span>. Neste caso, <span class="math inline">\(r\)</span> é um <em>ranking</em> perfeito, que coincide com a lista (por exempĺo, <code>xxxxx</code>). Em casos assim, <span class="math inline">\(k = p\)</span>. Vamos definir <span class="math inline">\(s\)</span> como sendo da forma</p>
 <p><span class="math display">\[
 s(r) = \frac k p + \cdots
 \]</span></p>
-<p>onde as reticências representam termos que ainda vamos definir. Se <span class="math inline">\(r\)</span> for um <em>ranking</em> perfeito, a parcela <span class="math inline">\(k/p\)</span> será <span class="math inline">\(1\)</span>, e vamos definir os termos restantes para que sejam iguais a zero.</p>
+<p>onde as reticências representam uma parcela que ainda vamos definir. Se <span class="math inline">\(r\)</span> for um <em>ranking</em> perfeito, a parcela <span class="math inline">\(k/p\)</span> será <span class="math inline">\(1\)</span>, e vamos definir a parcela restante para que seja igual a zero.</p>
 </li>
 <li>
-<p>Os termos restantes devem ter valores maiores quanto melhor for o <em>ranking</em>. Quanto mais próximos do fim do <em>ranking</em> estiverem os caracteres “<code>-</code>”, melhor ele será. Uma quantidade natural seria</p>
+<p>A parcela restante deve ter valor maior quanto melhor for o <em>ranking</em>. Quanto mais próximos do fim do <em>ranking</em> estiverem os caracteres “<code>-</code>”, melhor ele será. Uma quantidade natural seria</p>
 <p><span class="math display">\[
 \frac{\operatorname{soma\_}}{\sum_{i = 1, p}i}
 \quad=\quad
@@ -314,31 +321,12 @@ s(r)
 \end{aligned}
 \]</span></p>
 <p>Dependendo do valor de <span class="math inline">\(m &gt; 2\)</span> escolhido, teremos medidas diferentes.</p>
-<p>A função abaixo usa o <em>default</em> de <span class="math inline">\(m = 10\)</span>, mas valores diferentes podem ser passados.</p>
+<p>A função que implementamos usa o <em>default</em> de <span class="math inline">\(m = 10\)</span>, mas valores diferentes podem ser passados.</p>
 </li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">um_rk</span>, <span class="va">m</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  </span>
-<span>  <span class="va">p</span> <span class="op">&lt;-</span> <span class="va">um_rk</span><span class="op">$</span><span class="va">p</span></span>
-<span>  <span class="va">k</span> <span class="op">&lt;-</span> <span class="va">um_rk</span><span class="op">$</span><span class="va">k</span></span>
-<span>  <span class="va">soma_</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">um_rk</span><span class="op">$</span><span class="va">no</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="op">(</span><span class="va">k</span> <span class="op">/</span> <span class="va">p</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">soma_</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">m</span> <span class="op">*</span> <span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="va">p</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="va">s</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rk</span>, <span class="va">m</span> <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
-<span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu">is.rk</span><span class="op">(</span><span class="va">rk</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu">s1</span><span class="op">(</span><span class="va">rk</span>, <span class="va">m</span><span class="op">)</span></span>
-<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="va">rk</span> <span class="op">%&gt;%</span> <span class="fu">map_dbl</span><span class="op">(</span><span class="va">s1</span>, <span class="va">m</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span></span>
-<span><span class="op">}</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu">rk</span><span class="op">(</span><span class="st">'xxx-x'</span><span class="op">)</span></span>
+<span><span class="fu">s</span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0,84</code></pre>
 </div>
@@ -356,7 +344,7 @@ s(r)
 <pre><code>[1] 1,0000000 0,9000000 0,8785714</code></pre>
 </div>
 </div>
-<p>Todos os <em>rankings</em> de comprimento <span class="math inline">\(8\)</span>, com suas pontuações:</p>
+<p>Eis todos os <em>rankings</em> de comprimento <span class="math inline">\(8\)</span>, com suas pontuações:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div data-pagedtable="false">
@@ -873,6 +861,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./spearman.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>O *ranking* concorda com a lista? Correlação</span>">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlação</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>{{&lt; include _math.qmd &gt;}}</span>
@@ -892,7 +883,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que inclui os $k$ elementos da lista e outros).</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que incluem os $k$ elementos da lista).</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.</span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
@@ -925,7 +916,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contando posições `-`</span></span>
 <span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ com as seguintes características:</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ --- $s$ de *score* --- com as seguintes características:</span>
 <span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Se $r$ não contiver "<span class="in">`-`</span>", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, <span class="in">`xxxxx`</span>). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma</span>
 <span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
@@ -933,9 +924,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac k p + \cdots</span>
 <span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  $$</span>
 <span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  onde as reticências representam termos que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir os termos restantes para que sejam iguais a zero.</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  onde as reticências representam uma parcela que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir a parcela restante para que seja igual a zero.</span>
 <span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Os termos restantes devem ter valores maiores quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "<span class="in">`-`</span>", melhor ele será. Uma quantidade natural seria</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A parcela restante deve ter valor maior quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "<span class="in">`-`</span>", melhor ele será. Uma quantidade natural seria</span>
 <span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  $$</span>
 <span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{\sum_{i = 1, p}i} </span>
@@ -990,33 +981,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>  Dependendo do valor de $m &gt; 2$ escolhido, teremos medidas diferentes.</span>
 <span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>  A função abaixo usa o *default* de $m = 10$, mas valores diferentes podem ser passados.</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>  A função que implementamos usa o *default* de $m = 10$, mas valores diferentes podem ser passados.</span>
 <span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a><span class="in">s1 &lt;- function(um_rk, m) {</span></span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="in">  </span></span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="in">  p &lt;- um_rk$p</span></span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a><span class="in">  k &lt;- um_rk$k</span></span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a><span class="in">  soma_ &lt;- sum(um_rk$no)</span></span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a><span class="in">  (k / p) + ((2 * soma_) / (m * p * (p - 1)))</span></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="cf">function</span>(um_rk, m) {</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> um_rk<span class="sc">$</span>p</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> um_rk<span class="sc">$</span>k</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>  soma_ <span class="ot">&lt;-</span> <span class="fu">sum</span>(um_rk<span class="sc">$</span>no)</span>
 <span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>  (k <span class="sc">/</span> p) <span class="sc">+</span> ((<span class="dv">2</span> <span class="sc">*</span> soma_) <span class="sc">/</span> (m <span class="sc">*</span> p <span class="sc">*</span> (p <span class="sc">-</span> <span class="dv">1</span>)))</span>
 <span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a><span class="in">s &lt;- function(rk, m = 10) {</span></span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a><span class="in">  if (is.rk(rk)) {</span></span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a><span class="in">    s1(rk, m)</span></span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a><span class="in">  } else {</span></span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a><span class="in">    rk %&gt;% map_dbl(s1, m)</span></span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rk</span>(<span class="st">'xxx-x'</span>)</span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a><span class="fu">s</span>(r)</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="cf">function</span>(rk, <span class="at">m =</span> <span class="dv">10</span>) {</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.rk</span>(rk)) {</span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>    <span class="fu">s1</span>(rk, m)</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>    rk <span class="sc">%&gt;%</span> <span class="fu">map_dbl</span>(s1, m)</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- rk('xxx-x')</span></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a><span class="in">s(r)</span></span>
 <span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>Para $p = 8$, alguns exemplos:</span>
@@ -1031,7 +1022,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
 <span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* de comprimento $8$, com suas pontuações:</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>Eis todos os *rankings* de comprimento $8$, com suas pontuações:</span>
 <span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">criar_df_rankings</span>(<span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>

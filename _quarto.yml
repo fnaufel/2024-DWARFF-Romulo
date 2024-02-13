@@ -21,6 +21,7 @@ book:
     - index.qmd
     - gerar-listas-e-rankings.qmd
     - usando-posicoes.qmd
+    - spearman.qmd
 #    - references.qmd
 
 bibliography: bibliography.bib
