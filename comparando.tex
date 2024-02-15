@@ -197,7 +197,7 @@
 
 \title{Comparando listas e rankings}
 \author{Fernando Náufel}
-\date{13/02/2024 18:18}
+\date{15/02/2024 18:42}
 
 \begin{document}
 \maketitle
@@ -491,28 +491,15 @@ especificando uma função para calcular o \emph{score} deste
 \emph{ranking} (i.e., alguma forma de correlação entre o \emph{ranking}
 e a lista). O \emph{score} vai ser mostrado no título do gráfico.
 
-A função passada em \texttt{fun} deve receber, como único argumento, uma
-\emph{tibble} com uma linha para cada elemento, e as colunas
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{nome}: um vetor de caracteres contendo `\texttt{x}' e
-  `\texttt{-}'.
-\item
-  \texttt{pos\_lista}: um vetor numérico com a posição de cada elemento
-  na lista, sendo que elementos do \emph{ranking} que não pertencem à
-  lista são adicionados à lista todos empatados no final.
-\item
-  \texttt{pos\_ranking}: um vetor numérico com a posição de cada
-  elemento no \emph{ranking}.
-\end{itemize}
+A função passada em \texttt{fun} deve receber um objeto \texttt{rk} e
+retornar o \emph{score} numérico.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{plot}\NormalTok{(}
 \NormalTok{  r, }
-  \AttributeTok{fun =}\NormalTok{ \textbackslash{}(df) \{ }
+  \AttributeTok{fun =}\NormalTok{ \textbackslash{}(r) \{ }
+\NormalTok{    df }\OtherTok{\textless{}{-}} \FunctionTok{as\_tibble}\NormalTok{(r)}
     \FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{pos\_lista, df}\SpecialCharTok{$}\NormalTok{pos\_ranking) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{round}\NormalTok{(}\DecValTok{2}\NormalTok{) }
 \NormalTok{  \}}
 \NormalTok{)}
@@ -821,139 +808,140 @@ Para $p = 8$, alguns exemplos:
 
 Eis todos os \emph{rankings} de comprimento $8$, com suas pontuações:
 
-\begin{verbatim}
-# A tibble: 128 x 3
-    ranking ranking_str     s
-    <list>  <chr>       <dbl>
-  1 <rk>    xxxxxxxx    1    
-  2 <rk>    xxxxxx-x    0.9  
-  3 <rk>    xxxxx-xx    0.896
-  4 <rk>    xxxx-xxx    0.893
-  5 <rk>    xxx-xxxx    0.889
-  6 <rk>    xx-xxxxx    0.886
-  7 <rk>    x-xxxxxx    0.882
-  8 <rk>    -xxxxxxx    0.879
-  9 <rk>    xxxxx--x    0.796
- 10 <rk>    xxxx-x-x    0.793
- 11 <rk>    xxxx--xx    0.789
- 12 <rk>    xxx-xx-x    0.789
- 13 <rk>    xxx-x-xx    0.786
- 14 <rk>    xx-xxx-x    0.786
- 15 <rk>    xxx--xxx    0.782
- 16 <rk>    xx-xx-xx    0.782
- 17 <rk>    x-xxxx-x    0.782
- 18 <rk>    xx-x-xxx    0.779
- 19 <rk>    x-xxx-xx    0.779
- 20 <rk>    -xxxxx-x    0.779
- 21 <rk>    xx--xxxx    0.775
- 22 <rk>    x-xx-xxx    0.775
- 23 <rk>    -xxxx-xx    0.775
- 24 <rk>    x-x-xxxx    0.771
- 25 <rk>    -xxx-xxx    0.771
- 26 <rk>    x--xxxxx    0.768
- 27 <rk>    -xx-xxxx    0.768
- 28 <rk>    -x-xxxxx    0.764
- 29 <rk>    --xxxxxx    0.761
- 30 <rk>    xxxx---x    0.689
- 31 <rk>    xxx-x--x    0.686
- 32 <rk>    xxx--x-x    0.682
- 33 <rk>    xx-xx--x    0.682
- 34 <rk>    xxx---xx    0.679
- 35 <rk>    xx-x-x-x    0.679
- 36 <rk>    x-xxx--x    0.679
- 37 <rk>    xx-x--xx    0.675
- 38 <rk>    xx--xx-x    0.675
- 39 <rk>    x-xx-x-x    0.675
- 40 <rk>    -xxxx--x    0.675
- 41 <rk>    xx--x-xx    0.671
- 42 <rk>    x-xx--xx    0.671
- 43 <rk>    x-x-xx-x    0.671
- 44 <rk>    -xxx-x-x    0.671
- 45 <rk>    xx---xxx    0.668
- 46 <rk>    x-x-x-xx    0.668
- 47 <rk>    x--xxx-x    0.668
- 48 <rk>    -xxx--xx    0.668
- 49 <rk>    -xx-xx-x    0.668
- 50 <rk>    x-x--xxx    0.664
- 51 <rk>    x--xx-xx    0.664
- 52 <rk>    -xx-x-xx    0.664
- 53 <rk>    -x-xxx-x    0.664
- 54 <rk>    x--x-xxx    0.661
- 55 <rk>    -xx--xxx    0.661
- 56 <rk>    -x-xx-xx    0.661
- 57 <rk>    --xxxx-x    0.661
- 58 <rk>    x---xxxx    0.657
- 59 <rk>    -x-x-xxx    0.657
- 60 <rk>    --xxx-xx    0.657
- 61 <rk>    -x--xxxx    0.654
- 62 <rk>    --xx-xxx    0.654
- 63 <rk>    --x-xxxx    0.65 
- 64 <rk>    ---xxxxx    0.646
- 65 <rk>    xxx----x    0.579
- 66 <rk>    xx-x---x    0.575
- 67 <rk>    xx--x--x    0.571
- 68 <rk>    x-xx---x    0.571
- 69 <rk>    xx---x-x    0.568
- 70 <rk>    x-x-x--x    0.568
- 71 <rk>    -xxx---x    0.568
- 72 <rk>    xx----xx    0.564
- 73 <rk>    x-x--x-x    0.564
- 74 <rk>    x--xx--x    0.564
- 75 <rk>    -xx-x--x    0.564
- 76 <rk>    x-x---xx    0.561
- 77 <rk>    x--x-x-x    0.561
- 78 <rk>    -xx--x-x    0.561
- 79 <rk>    -x-xx--x    0.561
- 80 <rk>    x--x--xx    0.557
- 81 <rk>    x---xx-x    0.557
- 82 <rk>    -xx---xx    0.557
- 83 <rk>    -x-x-x-x    0.557
- 84 <rk>    --xxx--x    0.557
- 85 <rk>    x---x-xx    0.554
- 86 <rk>    -x-x--xx    0.554
- 87 <rk>    -x--xx-x    0.554
- 88 <rk>    --xx-x-x    0.554
- 89 <rk>    x----xxx    0.55 
- 90 <rk>    -x--x-xx    0.55 
- 91 <rk>    --xx--xx    0.55 
- 92 <rk>    --x-xx-x    0.55 
- 93 <rk>    -x---xxx    0.546
- 94 <rk>    --x-x-xx    0.546
- 95 <rk>    ---xxx-x    0.546
- 96 <rk>    --x--xxx    0.543
- 97 <rk>    ---xx-xx    0.543
- 98 <rk>    ---x-xxx    0.539
- 99 <rk>    ----xxxx    0.536
-100 <rk>    xx-----x    0.464
-101 <rk>    x-x----x    0.461
-102 <rk>    x--x---x    0.457
-103 <rk>    -xx----x    0.457
-104 <rk>    x---x--x    0.454
-105 <rk>    -x-x---x    0.454
-106 <rk>    x----x-x    0.45 
-107 <rk>    -x--x--x    0.45 
-108 <rk>    --xx---x    0.45 
-109 <rk>    x-----xx    0.446
-110 <rk>    -x---x-x    0.446
-111 <rk>    --x-x--x    0.446
-112 <rk>    -x----xx    0.443
-113 <rk>    --x--x-x    0.443
-114 <rk>    ---xx--x    0.443
-115 <rk>    --x---xx    0.439
-116 <rk>    ---x-x-x    0.439
-117 <rk>    ---x--xx    0.436
-118 <rk>    ----xx-x    0.436
-119 <rk>    ----x-xx    0.432
-120 <rk>    -----xxx    0.429
-121 <rk>    x------x    0.346
-122 <rk>    -x-----x    0.343
-123 <rk>    --x----x    0.339
-124 <rk>    ---x---x    0.336
-125 <rk>    ----x--x    0.332
-126 <rk>    -----x-x    0.329
-127 <rk>    ------xx    0.325
-128 <rk>    -------x    0.225
-\end{verbatim}
+\begin{longtable*}{lr}
+\toprule
+ranking\_str & s \\ 
+\midrule\addlinespace[2.5pt]
+xxxxxxxx & 1,0000000 \\ 
+xxxxxx-x & 0,9000000 \\ 
+xxxxx-xx & 0,8964286 \\ 
+xxxx-xxx & 0,8928571 \\ 
+xxx-xxxx & 0,8892857 \\ 
+xx-xxxxx & 0,8857143 \\ 
+x-xxxxxx & 0,8821429 \\ 
+-xxxxxxx & 0,8785714 \\ 
+xxxxx--x & 0,7964286 \\ 
+xxxx-x-x & 0,7928571 \\ 
+xxxx--xx & 0,7892857 \\ 
+xxx-xx-x & 0,7892857 \\ 
+xxx-x-xx & 0,7857143 \\ 
+xx-xxx-x & 0,7857143 \\ 
+xxx--xxx & 0,7821429 \\ 
+xx-xx-xx & 0,7821429 \\ 
+x-xxxx-x & 0,7821429 \\ 
+xx-x-xxx & 0,7785714 \\ 
+x-xxx-xx & 0,7785714 \\ 
+-xxxxx-x & 0,7785714 \\ 
+xx--xxxx & 0,7750000 \\ 
+x-xx-xxx & 0,7750000 \\ 
+-xxxx-xx & 0,7750000 \\ 
+x-x-xxxx & 0,7714286 \\ 
+-xxx-xxx & 0,7714286 \\ 
+x--xxxxx & 0,7678571 \\ 
+-xx-xxxx & 0,7678571 \\ 
+-x-xxxxx & 0,7642857 \\ 
+--xxxxxx & 0,7607143 \\ 
+xxxx---x & 0,6892857 \\ 
+xxx-x--x & 0,6857143 \\ 
+xxx--x-x & 0,6821429 \\ 
+xx-xx--x & 0,6821429 \\ 
+xxx---xx & 0,6785714 \\ 
+xx-x-x-x & 0,6785714 \\ 
+x-xxx--x & 0,6785714 \\ 
+xx-x--xx & 0,6750000 \\ 
+xx--xx-x & 0,6750000 \\ 
+x-xx-x-x & 0,6750000 \\ 
+-xxxx--x & 0,6750000 \\ 
+xx--x-xx & 0,6714286 \\ 
+x-xx--xx & 0,6714286 \\ 
+x-x-xx-x & 0,6714286 \\ 
+-xxx-x-x & 0,6714286 \\ 
+xx---xxx & 0,6678571 \\ 
+x-x-x-xx & 0,6678571 \\ 
+x--xxx-x & 0,6678571 \\ 
+-xxx--xx & 0,6678571 \\ 
+-xx-xx-x & 0,6678571 \\ 
+x-x--xxx & 0,6642857 \\ 
+x--xx-xx & 0,6642857 \\ 
+-xx-x-xx & 0,6642857 \\ 
+-x-xxx-x & 0,6642857 \\ 
+x--x-xxx & 0,6607143 \\ 
+-xx--xxx & 0,6607143 \\ 
+-x-xx-xx & 0,6607143 \\ 
+--xxxx-x & 0,6607143 \\ 
+x---xxxx & 0,6571429 \\ 
+-x-x-xxx & 0,6571429 \\ 
+--xxx-xx & 0,6571429 \\ 
+-x--xxxx & 0,6535714 \\ 
+--xx-xxx & 0,6535714 \\ 
+--x-xxxx & 0,6500000 \\ 
+---xxxxx & 0,6464286 \\ 
+xxx----x & 0,5785714 \\ 
+xx-x---x & 0,5750000 \\ 
+xx--x--x & 0,5714286 \\ 
+x-xx---x & 0,5714286 \\ 
+xx---x-x & 0,5678571 \\ 
+x-x-x--x & 0,5678571 \\ 
+-xxx---x & 0,5678571 \\ 
+xx----xx & 0,5642857 \\ 
+x-x--x-x & 0,5642857 \\ 
+x--xx--x & 0,5642857 \\ 
+-xx-x--x & 0,5642857 \\ 
+x-x---xx & 0,5607143 \\ 
+x--x-x-x & 0,5607143 \\ 
+-xx--x-x & 0,5607143 \\ 
+-x-xx--x & 0,5607143 \\ 
+x--x--xx & 0,5571429 \\ 
+x---xx-x & 0,5571429 \\ 
+-xx---xx & 0,5571429 \\ 
+-x-x-x-x & 0,5571429 \\ 
+--xxx--x & 0,5571429 \\ 
+x---x-xx & 0,5535714 \\ 
+-x-x--xx & 0,5535714 \\ 
+-x--xx-x & 0,5535714 \\ 
+--xx-x-x & 0,5535714 \\ 
+x----xxx & 0,5500000 \\ 
+-x--x-xx & 0,5500000 \\ 
+--xx--xx & 0,5500000 \\ 
+--x-xx-x & 0,5500000 \\ 
+-x---xxx & 0,5464286 \\ 
+--x-x-xx & 0,5464286 \\ 
+---xxx-x & 0,5464286 \\ 
+--x--xxx & 0,5428571 \\ 
+---xx-xx & 0,5428571 \\ 
+---x-xxx & 0,5392857 \\ 
+----xxxx & 0,5357143 \\ 
+xx-----x & 0,4642857 \\ 
+x-x----x & 0,4607143 \\ 
+x--x---x & 0,4571429 \\ 
+-xx----x & 0,4571429 \\ 
+x---x--x & 0,4535714 \\ 
+-x-x---x & 0,4535714 \\ 
+x----x-x & 0,4500000 \\ 
+-x--x--x & 0,4500000 \\ 
+--xx---x & 0,4500000 \\ 
+x-----xx & 0,4464286 \\ 
+-x---x-x & 0,4464286 \\ 
+--x-x--x & 0,4464286 \\ 
+-x----xx & 0,4428571 \\ 
+--x--x-x & 0,4428571 \\ 
+---xx--x & 0,4428571 \\ 
+--x---xx & 0,4392857 \\ 
+---x-x-x & 0,4392857 \\ 
+---x--xx & 0,4357143 \\ 
+----xx-x & 0,4357143 \\ 
+----x-xx & 0,4321429 \\ 
+-----xxx & 0,4285714 \\ 
+x------x & 0,3464286 \\ 
+-x-----x & 0,3428571 \\ 
+--x----x & 0,3392857 \\ 
+---x---x & 0,3357143 \\ 
+----x--x & 0,3321429 \\ 
+-----x-x & 0,3285714 \\ 
+------xx & 0,3250000 \\ 
+-------x & 0,2250000 \\ 
+\bottomrule
+\end{longtable*}
 
 Perceba que pode haver empates: \texttt{xxxx-\/-xx} e \texttt{xxx-xx-x}
 têm o mesmo valor de $s$. É razoável achar que estes dois
@@ -966,120 +954,66 @@ $p$}{Comparando rankings com valores diferentes de }}\label{comparando-rankings-
 Como a lista é dada e fixa, só faz sentido, na prática, comparar
 \emph{rankings} com o mesmo valor de $k$.
 
-Vamos examinar, para uma lista com $k = 15$, os \emph{rankings}
-possíveis com $p$ variando de $15$ a $20$.
+Vamos examinar, para uma lista com $k = 2$, os \emph{rankings} possíveis
+com $p$ variando de $2$ a $10$.
 
-São $15.504$ \emph{rankings}. Eis os $100$ melhores:
+São $45$ \emph{rankings}:
 
-\begin{verbatim}
-# A tibble: 100 x 4
-    ranking ranking_str           s     p
-    <list>  <chr>             <dbl> <int>
-  1 <rk>    xxxxxxxxxxxxxxx   1        15
-  2 <rk>    xxxxxxxxxxxxxx-x  0.95     16
-  3 <rk>    xxxxxxxxxxxxx-xx  0.949    16
-  4 <rk>    xxxxxxxxxxxx-xxx  0.948    16
-  5 <rk>    xxxxxxxxxxx-xxxx  0.948    16
-  6 <rk>    xxxxxxxxxx-xxxxx  0.947    16
-  7 <rk>    xxxxxxxxx-xxxxxx  0.946    16
-  8 <rk>    xxxxxxxx-xxxxxxx  0.945    16
-  9 <rk>    xxxxxxx-xxxxxxxx  0.944    16
- 10 <rk>    xxxxxx-xxxxxxxxx  0.943    16
- 11 <rk>    xxxxx-xxxxxxxxxx  0.942    16
- 12 <rk>    xxxx-xxxxxxxxxxx  0.942    16
- 13 <rk>    xxx-xxxxxxxxxxxx  0.941    16
- 14 <rk>    xx-xxxxxxxxxxxxx  0.94     16
- 15 <rk>    x-xxxxxxxxxxxxxx  0.939    16
- 16 <rk>    -xxxxxxxxxxxxxxx  0.938    16
- 17 <rk>    xxxxxxxxxxxxxx--x 0.905    17
- 18 <rk>    xxxxxxxxxxxxx-x-x 0.904    17
- 19 <rk>    xxxxxxxxxxxxx--xx 0.904    17
- 20 <rk>    xxxxxxxxxxxx-xx-x 0.904    17
- 21 <rk>    xxxxxxxxxxxx-x-xx 0.903    17
- 22 <rk>    xxxxxxxxxxx-xxx-x 0.903    17
- 23 <rk>    xxxxxxxxxxxx--xxx 0.902    17
- 24 <rk>    xxxxxxxxxxx-xx-xx 0.902    17
- 25 <rk>    xxxxxxxxxx-xxxx-x 0.902    17
- 26 <rk>    xxxxxxxxxxx-x-xxx 0.901    17
- 27 <rk>    xxxxxxxxxx-xxx-xx 0.901    17
- 28 <rk>    xxxxxxxxx-xxxxx-x 0.901    17
- 29 <rk>    xxxxxxxxxxx--xxxx 0.901    17
- 30 <rk>    xxxxxxxxxx-xx-xxx 0.901    17
- 31 <rk>    xxxxxxxxx-xxxx-xx 0.901    17
- 32 <rk>    xxxxxxxx-xxxxxx-x 0.901    17
- 33 <rk>    xxxxxxxxxx-x-xxxx 0.9      17
- 34 <rk>    xxxxxxxxx-xxx-xxx 0.9      17
- 35 <rk>    xxxxxxxx-xxxxx-xx 0.9      17
- 36 <rk>    xxxxxxx-xxxxxxx-x 0.9      17
- 37 <rk>    xxxxxxxxxx--xxxxx 0.899    17
- 38 <rk>    xxxxxxxxx-xx-xxxx 0.899    17
- 39 <rk>    xxxxxxxx-xxxx-xxx 0.899    17
- 40 <rk>    xxxxxxx-xxxxxx-xx 0.899    17
- 41 <rk>    xxxxxx-xxxxxxxx-x 0.899    17
- 42 <rk>    xxxxxxxxx-x-xxxxx 0.899    17
- 43 <rk>    xxxxxxxx-xxx-xxxx 0.899    17
- 44 <rk>    xxxxxxx-xxxxx-xxx 0.899    17
- 45 <rk>    xxxxxx-xxxxxxx-xx 0.899    17
- 46 <rk>    xxxxx-xxxxxxxxx-x 0.899    17
- 47 <rk>    xxxxxxxxx--xxxxxx 0.898    17
- 48 <rk>    xxxxxxxx-xx-xxxxx 0.898    17
- 49 <rk>    xxxxxxx-xxxx-xxxx 0.898    17
- 50 <rk>    xxxxxx-xxxxxx-xxx 0.898    17
- 51 <rk>    xxxxx-xxxxxxxx-xx 0.898    17
- 52 <rk>    xxxx-xxxxxxxxxx-x 0.898    17
- 53 <rk>    xxxxxxxx-x-xxxxxx 0.897    17
- 54 <rk>    xxxxxxx-xxx-xxxxx 0.897    17
- 55 <rk>    xxxxxx-xxxxx-xxxx 0.897    17
- 56 <rk>    xxxxx-xxxxxxx-xxx 0.897    17
- 57 <rk>    xxxx-xxxxxxxxx-xx 0.897    17
- 58 <rk>    xxx-xxxxxxxxxxx-x 0.897    17
- 59 <rk>    xxxxxxxx--xxxxxxx 0.896    17
- 60 <rk>    xxxxxxx-xx-xxxxxx 0.896    17
- 61 <rk>    xxxxxx-xxxx-xxxxx 0.896    17
- 62 <rk>    xxxxx-xxxxxx-xxxx 0.896    17
- 63 <rk>    xxxx-xxxxxxxx-xxx 0.896    17
- 64 <rk>    xxx-xxxxxxxxxx-xx 0.896    17
- 65 <rk>    xx-xxxxxxxxxxxx-x 0.896    17
- 66 <rk>    xxxxxxx-x-xxxxxxx 0.896    17
- 67 <rk>    xxxxxx-xxx-xxxxxx 0.896    17
- 68 <rk>    xxxxx-xxxxx-xxxxx 0.896    17
- 69 <rk>    xxxx-xxxxxxx-xxxx 0.896    17
- 70 <rk>    xxx-xxxxxxxxx-xxx 0.896    17
- 71 <rk>    xx-xxxxxxxxxxx-xx 0.896    17
- 72 <rk>    x-xxxxxxxxxxxxx-x 0.896    17
- 73 <rk>    xxxxxxx--xxxxxxxx 0.895    17
- 74 <rk>    xxxxxx-xx-xxxxxxx 0.895    17
- 75 <rk>    xxxxx-xxxx-xxxxxx 0.895    17
- 76 <rk>    xxxx-xxxxxx-xxxxx 0.895    17
- 77 <rk>    xxx-xxxxxxxx-xxxx 0.895    17
- 78 <rk>    xx-xxxxxxxxxx-xxx 0.895    17
- 79 <rk>    x-xxxxxxxxxxxx-xx 0.895    17
- 80 <rk>    -xxxxxxxxxxxxxx-x 0.895    17
- 81 <rk>    xxxxxx-x-xxxxxxxx 0.894    17
- 82 <rk>    xxxxx-xxx-xxxxxxx 0.894    17
- 83 <rk>    xxxx-xxxxx-xxxxxx 0.894    17
- 84 <rk>    xxx-xxxxxxx-xxxxx 0.894    17
- 85 <rk>    xx-xxxxxxxxx-xxxx 0.894    17
- 86 <rk>    x-xxxxxxxxxxx-xxx 0.894    17
- 87 <rk>    -xxxxxxxxxxxxx-xx 0.894    17
- 88 <rk>    xxxxxx--xxxxxxxxx 0.893    17
- 89 <rk>    xxxxx-xx-xxxxxxxx 0.893    17
- 90 <rk>    xxxx-xxxx-xxxxxxx 0.893    17
- 91 <rk>    xxx-xxxxxx-xxxxxx 0.893    17
- 92 <rk>    xx-xxxxxxxx-xxxxx 0.893    17
- 93 <rk>    x-xxxxxxxxxx-xxxx 0.893    17
- 94 <rk>    -xxxxxxxxxxxx-xxx 0.893    17
- 95 <rk>    xxxxx-x-xxxxxxxxx 0.893    17
- 96 <rk>    xxxx-xxx-xxxxxxxx 0.893    17
- 97 <rk>    xxx-xxxxx-xxxxxxx 0.893    17
- 98 <rk>    xx-xxxxxxx-xxxxxx 0.893    17
- 99 <rk>    x-xxxxxxxxx-xxxxx 0.893    17
-100 <rk>    -xxxxxxxxxxx-xxxx 0.893    17
-\end{verbatim}
+\begin{longtable*}{lrr}
+\toprule
+ranking\_str & p & s \\ 
+\midrule\addlinespace[2.5pt]
+xx & 2 & 1,0000000 \\ 
+x-x & 3 & 0,7333333 \\ 
+-xx & 3 & 0,7000000 \\ 
+x--x & 4 & 0,5833333 \\ 
+-x-x & 4 & 0,5666667 \\ 
+--xx & 4 & 0,5500000 \\ 
+x---x & 5 & 0,4900000 \\ 
+-x--x & 5 & 0,4800000 \\ 
+--x-x & 5 & 0,4700000 \\ 
+---xx & 5 & 0,4600000 \\ 
+x----x & 6 & 0,4266667 \\ 
+-x---x & 6 & 0,4200000 \\ 
+--x--x & 6 & 0,4133333 \\ 
+---x-x & 6 & 0,4066667 \\ 
+----xx & 6 & 0,4000000 \\ 
+x-----x & 7 & 0,3809524 \\ 
+-x----x & 7 & 0,3761905 \\ 
+--x---x & 7 & 0,3714286 \\ 
+---x--x & 7 & 0,3666667 \\ 
+----x-x & 7 & 0,3619048 \\ 
+-----xx & 7 & 0,3571429 \\ 
+x------x & 8 & 0,3464286 \\ 
+-x-----x & 8 & 0,3428571 \\ 
+--x----x & 8 & 0,3392857 \\ 
+---x---x & 8 & 0,3357143 \\ 
+----x--x & 8 & 0,3321429 \\ 
+-----x-x & 8 & 0,3285714 \\ 
+------xx & 8 & 0,3250000 \\ 
+x-------x & 9 & 0,3194444 \\ 
+-x------x & 9 & 0,3166667 \\ 
+--x-----x & 9 & 0,3138889 \\ 
+---x----x & 9 & 0,3111111 \\ 
+----x---x & 9 & 0,3083333 \\ 
+-----x--x & 9 & 0,3055556 \\ 
+------x-x & 9 & 0,3027778 \\ 
+-------xx & 9 & 0,3000000 \\ 
+x--------x & 10 & 0,2977778 \\ 
+-x-------x & 10 & 0,2955556 \\ 
+--x------x & 10 & 0,2933333 \\ 
+---x-----x & 10 & 0,2911111 \\ 
+----x----x & 10 & 0,2888889 \\ 
+-----x---x & 10 & 0,2866667 \\ 
+------x--x & 10 & 0,2844444 \\ 
+-------x-x & 10 & 0,2822222 \\ 
+--------xx & 10 & 0,2800000 \\ 
+\bottomrule
+\end{longtable*}
 
 Os gráficos abaixo mostram os \emph{scores} atribuídos para todos os
-\emph{rankings} com $k = 15$ e $p$ variando de $15$ a $20$, separados
-por valores de $p$:
+\emph{rankings} com $k = 2$ e $p$ variando de $2$ a $10$, separados por
+valores de $p$:
 
 \begin{center}
 \includegraphics[width=1\textwidth,height=\textheight]{usando-posicoes_files/figure-pdf/unnamed-chunk-7-1.pdf}
@@ -1096,351 +1030,393 @@ por valores de $p$:
 \bookmarksetup{startatroot}
 
 \chapter{\texorpdfstring{O \emph{ranking} concorda com a lista?
-Correlação}{O ranking concorda com a lista? Correlação}}\label{o-ranking-concorda-com-a-lista-correlauxe7uxe3o}
+Correlações}{O ranking concorda com a lista? Correlações}}\label{o-ranking-concorda-com-a-lista-correlauxe7uxf5es}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xxx{-}x\textquotesingle{}}\NormalTok{)}
-\FunctionTok{s}\NormalTok{(r)}
-\end{Highlighting}
-\end{Shaded}
+\section{Spearman}\label{spearman}
 
-\begin{verbatim}
-[1] 0,9
-\end{verbatim}
+Uma idéia seria ???
 
-Para $p = 8$, alguns exemplos:
+Como são dois vetores de \emph{ranks}, o coeficiente de correlação de
+Spearman é igual ao de Pearson.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{s}\NormalTok{(}
-  \FunctionTok{list}\NormalTok{(}
-    \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xxxxxxxx\textquotesingle{}}\NormalTok{),}
-    \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}xxxxxx{-}x\textquotesingle{}}\NormalTok{),}
-    \FunctionTok{rk}\NormalTok{(}\StringTok{\textquotesingle{}{-}xxxxxxx\textquotesingle{}}\NormalTok{)}
-\NormalTok{  )}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-[1] 1,0000000 0,9761905 0,3333333
-\end{verbatim}
-
-Eis todos os \emph{rankings} de comprimento $8$, com suas pontuações:
-
-\begin{verbatim}
-# A tibble: 128 x 3
-    ranking ranking_str       s
-    <list>  <chr>         <dbl>
-  1 <rk>    xxxxxxxx     1     
-  2 <rk>    xxxxxx-x     0.976 
-  3 <rk>    xxxxx-xx     0.929 
-  4 <rk>    xxxxx--x     0.922 
-  5 <rk>    xxxx-x-x     0.862 
-  6 <rk>    xxxx-xxx     0.857 
-  7 <rk>    xxxx---x     0.830 
-  8 <rk>    xxxx--xx     0.802 
-  9 <rk>    xxx-xx-x     0.778 
- 10 <rk>    xxx-xxxx     0.762 
- 11 <rk>    xxx-x--x     0.756 
- 12 <rk>    xxx-x-xx     0.719 
- 13 <rk>    xxx----x     0.685 
- 14 <rk>    xxx--x-x     0.683 
- 15 <rk>    xx-xxx-x     0.671 
- 16 <rk>    xx-xx--x     0.659 
- 17 <rk>    xx-xxxxx     0.643 
- 18 <rk>    xxx--xxx     0.635 
- 19 <rk>    xx-xx-xx     0.611 
- 20 <rk>    xxx---xx     0.610 
- 21 <rk>    xx-x---x     0.596 
- 22 <rk>    xx-x-x-x     0.586 
- 23 <rk>    x-xxxx-x     0.539 
- 24 <rk>    x-xxx--x     0.537 
- 25 <rk>    xx-x-xxx     0.527 
- 26 <rk>    xx-x--xx     0.512 
- 27 <rk>    xx--x--x     0.507 
- 28 <rk>    x-xxxxxx     0.5   
- 29 <rk>    xx--xx-x     0.488 
- 30 <rk>    x-xx---x     0.482 
- 31 <rk>    x-xxx-xx     0.479 
- 32 <rk>    xx-----x     0.464 
- 33 <rk>    x-xx-x-x     0.464 
- 34 <rk>    xx--xxxx     0.419 
- 35 <rk>    xx---x-x     0.419 
- 36 <rk>    xx--x-xx     0.415 
- 37 <rk>    x-xx-xxx     0.395 
- 38 <rk>    x-x-x--x     0.393 
- 39 <rk>    x-xx--xx     0.390 
- 40 <rk>    -xxxx--x     0.390 
- 41 <rk>    -xxxxx-x     0.383 
- 42 <rk>    x-x-xx-x     0.366 
- 43 <rk>    x-x----x     0.355 
- 44 <rk>    -xxx---x     0.342 
- 45 <rk>    -xxxxxxx     0.333 
- 46 <rk>    xx----xx     0.330 
- 47 <rk>    -xxxx-xx     0.323 
- 48 <rk>    xx---xxx     0.317 
- 49 <rk>    -xxx-x-x     0.317 
- 50 <rk>    x-x--x-x     0.304 
- 51 <rk>    x-x-x-xx     0.293 
- 52 <rk>    x-x-xxxx     0.287 
- 53 <rk>    x--xx--x     0.279 
- 54 <rk>    -xx-x--x     0.254 
- 55 <rk>    x--x---x     0.245 
- 56 <rk>    x--xxx-x     0.244 
- 57 <rk>    -xxx--xx     0.244 
- 58 <rk>    -xxx-xxx     0.240 
- 59 <rk>    -xx-xx-x     0.220 
- 60 <rk>    -xx----x     0.218 
- 61 <rk>    x-x---xx     0.216 
- 62 <rk>    x-x--xxx     0.195 
- 63 <rk>    x--x-x-x     0.190 
- 64 <rk>    x--xx-xx     0.171 
- 65 <rk>    -xx--x-x     0.165 
- 66 <rk>    x--xxxxx     0.156 
- 67 <rk>    -xx-x-xx     0.146 
- 68 <rk>    -x-xx--x     0.140 
- 69 <rk>    x---x--x     0.136 
- 70 <rk>    -xx-xxxx     0.132 
- 71 <rk>    x------x     0.109 
- 72 <rk>    -x-x---x     0.109 
- 73 <rk>    x--x--xx     0.101 
- 74 <rk>    -x-xxx-x     0.0976
- 75 <rk>    x---xx-x     0.0761
- 76 <rk>    -xx---xx     0.0761
- 77 <rk>    x--x-xxx     0.0732
- 78 <rk>    -x-x-x-x     0.0507
- 79 <rk>    -xx--xxx     0.0488
- 80 <rk>    x----x-x     0.0273
- 81 <rk>    -x-xx-xx     0.0244
- 82 <rk>    -x--x--x     0     
- 83 <rk>    --xxx--x     0     
- 84 <rk>    -x-xxxxx     0     
- 85 <rk>    x---x-xx    -0.0127
- 86 <rk>    --xx---x    -0.0273
- 87 <rk>    -x-----x    -0.0312
- 88 <rk>    -x-x--xx    -0.0381
- 89 <rk>    x---xxxx    -0.0488
- 90 <rk>    --xxxx-x    -0.0488
- 91 <rk>    -x--xx-x    -0.0634
- 92 <rk>    -x-x-xxx    -0.0732
- 93 <rk>    x-----xx    -0.0818
- 94 <rk>    --xx-x-x    -0.0888
- 95 <rk>    -x---x-x    -0.109 
- 96 <rk>    --xxx-xx    -0.122 
- 97 <rk>    x----xxx    -0.127 
- 98 <rk>    --x-x--x    -0.136 
- 99 <rk>    -x--x-xx    -0.152 
-100 <rk>    --xxxxxx    -0.156 
-101 <rk>    --x----x    -0.171 
-102 <rk>    --xx--xx    -0.178 
-103 <rk>    -x--xxxx    -0.195 
-104 <rk>    --x-xx-x    -0.203 
-105 <rk>    -x----xx    -0.218 
-106 <rk>    --xx-xxx    -0.220 
-107 <rk>    --x--x-x    -0.245 
-108 <rk>    -x---xxx    -0.266 
-109 <rk>    ---xx--x    -0.273 
-110 <rk>    --x-x-xx    -0.292 
-111 <rk>    ---x---x    -0.312 
-112 <rk>    --x-xxxx    -0.342 
-113 <rk>    ---xxx-x    -0.342 
-114 <rk>    --x---xx    -0.355 
-115 <rk>    ---x-x-x    -0.382 
-116 <rk>    --x--xxx    -0.406 
-117 <rk>    ---xx-xx    -0.431 
-118 <rk>    ----x--x    -0.452 
-119 <rk>    ---xxxxx    -0.488 
-120 <rk>    ---x--xx    -0.491 
-121 <rk>    ----xx-x    -0.518 
-122 <rk>    ---x-xxx    -0.545 
-123 <rk>    -------x    -0.577 
-124 <rk>    -----x-x    -0.592 
-125 <rk>    ----x-xx    -0.627 
-126 <rk>    ----xxxx    -0.685 
-127 <rk>    ------xx    -0.733 
-128 <rk>    -----xxx    -0.764 
-\end{verbatim}
-
-Perceba que pode haver empates:
-
-\begin{verbatim}
-# A tibble: 15 x 2
-   ranking_str       s
-   <chr>         <dbl>
- 1 x-xx--xx     0.390 
- 2 -xxxx--x     0.390 
- 3 xx---xxx     0.317 
- 4 -xxx-x-x     0.317 
- 5 x--xxx-x     0.244 
- 6 -xxx--xx     0.244 
- 7 x------x     0.109 
- 8 -x-x---x     0.109 
- 9 x---xx-x     0.0761
-10 -xx---xx     0.0761
-11 -x--x--x     0     
-12 --xxx--x     0     
-13 -x-xxxxx     0     
-14 x---xxxx    -0.0488
-15 --xxxx-x    -0.0488
-\end{verbatim}
-
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-6-1.pdf}
-\end{center}
-
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-6-2.pdf}
-\end{center}
-
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-7-1.pdf}
-\end{center}
-
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-7-2.pdf}
-\end{center}
-
-\subsection{\texorpdfstring{Comparando \emph{rankings} com valores
-diferentes de
-$p$}{Comparando rankings com valores diferentes de }}\label{comparando-rankings-com-valores-diferentes-de-p-1}
+Definimos a função $s()$ para calcular este valor como \emph{score} de
+um \emph{ranking}.
 
 Como a lista é dada e fixa, só faz sentido, na prática, comparar
 \emph{rankings} com o mesmo valor de $k$.
 
-Vamos examinar, para uma lista com $k = 15$, os \emph{rankings}
-possíveis com $p$ variando de $15$ a $20$.
+A tabela abaixo mostra que usar correlação não faz sentido. Por exemplo,
+\texttt{-xx} recebe um \emph{score} muito pior ($-0{,}5$) do que
+\texttt{-x-\/-\/-\/-\/-\/-\/-x} ($-0{,}01$):
 
-São $15.504$ \emph{rankings}. Eis os $100$ melhores:
+\begin{longtable*}{lr}
+\toprule
+ranking\_str & s \\ 
+\midrule\addlinespace[2.5pt]
+xx & 1,00000000 \\ 
+x-x & 0,50000000 \\ 
+x--x & 0,31622777 \\ 
+x---x & 0,22360680 \\ 
+x----x & 0,16903085 \\ 
+x-----x & 0,13363062 \\ 
+x------x & 0,10910895 \\ 
+x-------x & 0,09128709 \\ 
+x--------x & 0,07784989 \\ 
+-x-------x & -0,01729998 \\ 
+-x------x & -0,02282177 \\ 
+-x-----x & -0,03117398 \\ 
+-x----x & -0,04454354 \\ 
+-x---x & -0,06761234 \\ 
+-x--x & -0,11180340 \\ 
+--x------x & -0,11244985 \\ 
+--x-----x & -0,13693064 \\ 
+--x----x & -0,17145691 \\ 
+---x-----x & -0,20759972 \\ 
+-x-x & -0,21081851 \\ 
+--x---x & -0,22271770 \\ 
+---x----x & -0,25103951 \\ 
+----x----x & -0,30274959 \\ 
+--x--x & -0,30425553 \\ 
+---x---x & -0,31173984 \\ 
+----x---x & -0,36514837 \\ 
+-----x---x & -0,39789946 \\ 
+---x--x & -0,40089186 \\ 
+--x-x & -0,44721360 \\ 
+----x--x & -0,45202277 \\ 
+-----x--x & -0,47925724 \\ 
+------x--x & -0,49304933 \\ 
+-xx & -0,50000000 \\ 
+---x-x & -0,54089872 \\ 
+----x-x & -0,57906602 \\ 
+-------x-x & -0,58819920 \\ 
+-----x-x & -0,59230570 \\ 
+------x-x & -0,59336610 \\ 
+--------xx & -0,68334907 \\ 
+-------xx & -0,70747497 \\ 
+------xx & -0,73258863 \\ 
+--xx & -0,73786479 \\ 
+-----xx & -0,75724019 \\ 
+----xx & -0,77754191 \\ 
+---xx & -0,78262379 \\ 
+\bottomrule
+\end{longtable*}
+
+Devemos abandonar Spearman como medida da qualidade de um
+\emph{ranking}?
+
+\subsection{Tentativa de salvar
+Spearman}\label{tentativa-de-salvar-spearman}
+
+Talvez possamos salvar a situação se colocarmos os elementos do
+\emph{ranking} que não aparecem na lista como todos empatados na posição
+$p + 1$, e não na posição $k + 1$.
+
+\begin{longtable*}{lr}
+\toprule
+ranking\_str & s \\ 
+\midrule\addlinespace[2.5pt]
+xx & 1,00000000 \\ 
+x-x & 0,50000000 \\ 
+x--x & 0,31622777 \\ 
+x---x & 0,22360680 \\ 
+x----x & 0,16903085 \\ 
+x-----x & 0,13363062 \\ 
+x------x & 0,10910895 \\ 
+x-------x & 0,09128709 \\ 
+x--------x & 0,07784989 \\ 
+-x-------x & -0,01729998 \\ 
+-x------x & -0,02282177 \\ 
+-x-----x & -0,03117398 \\ 
+-x----x & -0,04454354 \\ 
+-x---x & -0,06761234 \\ 
+-x--x & -0,11180340 \\ 
+--x------x & -0,11244985 \\ 
+--x-----x & -0,13693064 \\ 
+--x----x & -0,17145691 \\ 
+---x-----x & -0,20759972 \\ 
+-x-x & -0,21081851 \\ 
+--x---x & -0,22271770 \\ 
+---x----x & -0,25103951 \\ 
+----x----x & -0,30274959 \\ 
+--x--x & -0,30425553 \\ 
+---x---x & -0,31173984 \\ 
+----x---x & -0,36514837 \\ 
+-----x---x & -0,39789946 \\ 
+---x--x & -0,40089186 \\ 
+--x-x & -0,44721360 \\ 
+----x--x & -0,45202277 \\ 
+-----x--x & -0,47925724 \\ 
+------x--x & -0,49304933 \\ 
+-xx & -0,50000000 \\ 
+---x-x & -0,54089872 \\ 
+----x-x & -0,57906602 \\ 
+-------x-x & -0,58819920 \\ 
+-----x-x & -0,59230570 \\ 
+------x-x & -0,59336610 \\ 
+--------xx & -0,68334907 \\ 
+-------xx & -0,70747497 \\ 
+------xx & -0,73258863 \\ 
+--xx & -0,73786479 \\ 
+-----xx & -0,75724019 \\ 
+----xx & -0,77754191 \\ 
+---xx & -0,78262379 \\ 
+\bottomrule
+\end{longtable*}
+
+Nada mudou. As duas funções ordenam os \emph{rankings} da mesma maneira,
+com os mesmos \emph{scores} (!):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{identical}\NormalTok{(df1}\SpecialCharTok{$}\NormalTok{s, df2}\SpecialCharTok{$}\NormalTok{s)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{verbatim}
-# A tibble: 100 x 4
-    ranking ranking_str              s     p
-    <list>  <chr>                <dbl> <int>
-  1 <rk>    xxxxxxxxxxxxxxx      1        15
-  2 <rk>    xxxxxxxxxxxxxx-x     0.997    16
-  3 <rk>    xxxxxxxxxxxxxx--x    0.992    17
-  4 <rk>    xxxxxxxxxxxxx-xx     0.991    16
-  5 <rk>    xxxxxxxxxxxxx-x-x    0.986    17
-  6 <rk>    xxxxxxxxxxxxxx---x   0.986    18
-  7 <rk>    xxxxxxxxxxxx-xxx     0.982    16
-  8 <rk>    xxxxxxxxxxxxx--xx    0.980    17
-  9 <rk>    xxxxxxxxxxxxx-x--x   0.979    18
- 10 <rk>    xxxxxxxxxxxxxx----x  0.978    19
- 11 <rk>    xxxxxxxxxxxx-xx-x    0.977    17
- 12 <rk>    xxxxxxxxxxxxx--x-x   0.973    18
- 13 <rk>    xxxxxxxxxxxxx-x---x  0.972    19
- 14 <rk>    xxxxxxxxxxxx-x-xx    0.971    17
- 15 <rk>    xxxxxxxxxxxx-xx--x   0.971    18
- 16 <rk>    xxxxxxxxxxx-xxxx     0.971    16
- 17 <rk>    xxxxxxxxxxxxxx-----x 0.970    20
- 18 <rk>    xxxxxxxxxxxxx---xx   0.967    18
- 19 <rk>    xxxxxxxxxxx-xxx-x    0.966    17
- 20 <rk>    xxxxxxxxxxxxx--x--x  0.966    19
- 21 <rk>    xxxxxxxxxxxx-x-x-x   0.965    18
- 22 <rk>    xxxxxxxxxxxx-xx---x  0.964    19
- 23 <rk>    xxxxxxxxxxxxx-x----x 0.964    20
- 24 <rk>    xxxxxxxxxxxx--xxx    0.963    17
- 25 <rk>    xxxxxxxxxxx-xxx--x   0.961    18
- 26 <rk>    xxxxxxxxxxx-xx-xx    0.960    17
- 27 <rk>    xxxxxxxxxxxxx---x-x  0.959    19
- 28 <rk>    xxxxxxxxxxxx-x--xx   0.959    18
- 29 <rk>    xxxxxxxxxxxx-x-x--x  0.958    19
- 30 <rk>    xxxxxxxxxxxxx--x---x 0.958    20
- 31 <rk>    xxxxxxxxxxxx--xx-x   0.957    18
- 32 <rk>    xxxxxxxxxxxx-xx----x 0.956    20
- 33 <rk>    xxxxxxxxxx-xxxxx     0.956    16
- 34 <rk>    xxxxxxxxxxx-xx-x-x   0.955    18
- 35 <rk>    xxxxxxxxxxx-xxx---x  0.954    19
- 36 <rk>    xxxxxxxxxxxxx----xx  0.953    19
- 37 <rk>    xxxxxxxxxx-xxxx-x    0.953    17
- 38 <rk>    xxxxxxxxxxx-x-xxx    0.952    17
- 39 <rk>    xxxxxxxxxxxx-x--x-x  0.952    19
- 40 <rk>    xxxxxxxxxxxxx---x--x 0.952    20
- 41 <rk>    xxxxxxxxxxxx--x-xx   0.950    18
- 42 <rk>    xxxxxxxxxxxx-x-x---x 0.950    20
- 43 <rk>    xxxxxxxxxxxx--xx--x  0.950    19
- 44 <rk>    xxxxxxxxxxx-xx--xx   0.948    18
- 45 <rk>    xxxxxxxxxx-xxxx--x   0.948    18
- 46 <rk>    xxxxxxxxxxx-xx-x--x  0.948    19
- 47 <rk>    xxxxxxxxxxx-xxx----x 0.947    20
- 48 <rk>    xxxxxxxxxx-xxx-xx    0.947    17
- 49 <rk>    xxxxxxxxxxx-x-xx-x   0.946    18
- 50 <rk>    xxxxxxxxxxxxx----x-x 0.945    20
- 51 <rk>    xxxxxxxxxxxx-x---xx  0.945    19
- 52 <rk>    xxxxxxxxxxxx-x--x--x 0.944    20
- 53 <rk>    xxxxxxxxxxxx--x-x-x  0.944    19
- 54 <rk>    xxxxxxxxxx-xxxx---x  0.943    19
- 55 <rk>    xxxxxxxxxxxx--xx---x 0.942    20
- 56 <rk>    xxxxxxxxxxxx---xxx   0.942    18
- 57 <rk>    xxxxxxxxxx-xxx-x-x   0.942    18
- 58 <rk>    xxxxxxxxxxx-xx--x-x  0.942    19
- 59 <rk>    xxxxxxxxxxx-xx-x---x 0.941    20
- 60 <rk>    xxxxxxxxxxx--xxxx    0.941    17
- 61 <rk>    xxxxxxxxxxx-x-xx--x  0.940    19
- 62 <rk>    xxxxxxxxxxx-x-x-xx   0.940    18
- 63 <rk>    xxxxxxxxxxxxx-----xx 0.939    20
- 64 <rk>    xxxxxxxxx-xxxxxx     0.938    16
- 65 <rk>    xxxxxxxxxx-xx-xxx    0.938    17
- 66 <rk>    xxxxxxxxxxxx-x---x-x 0.938    20
- 67 <rk>    xxxxxxxxxxxx--x--xx  0.937    19
- 68 <rk>    xxxxxxxxx-xxxxx-x    0.937    17
- 69 <rk>    xxxxxxxxxx-xxx-x--x  0.937    19
- 70 <rk>    xxxxxxxxxxxx--x-x--x 0.936    20
- 71 <rk>    xxxxxxxxxx-xxxx----x 0.936    20
- 72 <rk>    xxxxxxxxxxx--xxx-x   0.936    18
- 73 <rk>    xxxxxxxxxx-xxx--xx   0.936    18
- 74 <rk>    xxxxxxxxxxxx---xx-x  0.936    19
- 75 <rk>    xxxxxxxxxxx-xx---xx  0.936    19
- 76 <rk>    xxxxxxxxxxx-xx--x--x 0.935    20
- 77 <rk>    xxxxxxxxxxx-x-x-x-x  0.934    19
- 78 <rk>    xxxxxxxxxx-xx-xx-x   0.934    18
- 79 <rk>    xxxxxxxxx-xxxxx--x   0.934    18
- 80 <rk>    xxxxxxxxxxx-x-xx---x 0.933    20
- 81 <rk>    xxxxxxxxxxxx-x----xx 0.932    20
- 82 <rk>    xxxxxxxxxxx-x--xxx   0.932    18
- 83 <rk>    xxxxxxxxx-xxxx-xx    0.931    17
- 84 <rk>    xxxxxxxxxxx--xxx--x  0.930    19
- 85 <rk>    xxxxxxxxxx-xxx--x-x  0.930    19
- 86 <rk>    xxxxxxxxxxxx--x--x-x 0.930    20
- 87 <rk>    xxxxxxxxxx-xxx-x---x 0.930    20
- 88 <rk>    xxxxxxxxxxx--xx-xx   0.930    18
- 89 <rk>    xxxxxxxxxxxx---x-xx  0.930    19
- 90 <rk>    xxxxxxxxx-xxxxx---x  0.930    19
- 91 <rk>    xxxxxxxxxxxx---xx--x 0.929    20
- 92 <rk>    xxxxxxxxxxx-xx---x-x 0.929    20
- 93 <rk>    xxxxxxxxxx-xx-xx--x  0.929    19
- 94 <rk>    xxxxxxxxxxx-x-x--xx  0.928    19
- 95 <rk>    xxxxxxxxxx-xx-x-xx   0.928    18
- 96 <rk>    xxxxxxxxx-xxxx-x-x   0.928    18
- 97 <rk>    xxxxxxxxxxx-x-x-x--x 0.927    20
- 98 <rk>    xxxxxxxxxx-x-xxxx    0.927    17
- 99 <rk>    xxxxxxxxxxx-x--xx-x  0.926    19
-100 <rk>    xxxxxxxxxxxx--x---xx 0.924    20
+[1] TRUE
 \end{verbatim}
 
-Os gráficos abaixo mostram os \emph{scores} atribuídos para todos os
-\emph{rankings} com $k = 15$ e $p$ variando de $15$ a $20$, separados
-por valores de $p$:
+\section{Kendall}\label{kendall}
 
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-10-1.pdf}
-\end{center}
+O coeficiente de correlação ordinal de Kendall\ldots{} ???
 
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-11-1.pdf}
-\end{center}
+No R: \emph{When there are ties, Kendall's $\tau_b$ is computed, as
+proposed by Kendall (1945).}
 
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-12-1.pdf}
-\end{center}
+\begin{longtable*}{lr}
+\toprule
+ranking\_str & s \\ 
+\midrule\addlinespace[2.5pt]
+xx & 1,00000000 \\ 
+x-x & 0,33333333 \\ 
+x--x & 0,18257419 \\ 
+x---x & 0,11952286 \\ 
+x----x & 0,08606630 \\ 
+x-----x & 0,06579517 \\ 
+x------x & 0,05241424 \\ 
+x-------x & 0,04303315 \\ 
+x--------x & 0,03615508 \\ 
+-x-------x & -0,03615508 \\ 
+-x------x & -0,04303315 \\ 
+-x-----x & -0,05241424 \\ 
+-x----x & -0,06579517 \\ 
+-x---x & -0,08606630 \\ 
+--x------x & -0,10846523 \\ 
+-x--x & -0,11952286 \\ 
+--x-----x & -0,12909944 \\ 
+--x----x & -0,15724273 \\ 
+---x-----x & -0,18077538 \\ 
+-x-x & -0,18257419 \\ 
+--x---x & -0,19738551 \\ 
+---x----x & -0,21516574 \\ 
+----x----x & -0,25308553 \\ 
+--x--x & -0,25819889 \\ 
+---x---x & -0,26207121 \\ 
+----x---x & -0,30123204 \\ 
+-----x---x & -0,32539569 \\ 
+---x--x & -0,32897585 \\ 
+-xx & -0,33333333 \\ 
+--x-x & -0,35856858 \\ 
+----x--x & -0,36689969 \\ 
+-----x--x & -0,38729833 \\ 
+------x--x & -0,39770584 \\ 
+---x-x & -0,43033148 \\ 
+----x-x & -0,46056619 \\ 
+-------x-x & -0,47001599 \\ 
+-----x-x & -0,47172818 \\ 
+------x-x & -0,47336463 \\ 
+--------xx & -0,54232614 \\ 
+--xx & -0,54772256 \\ 
+-------xx & -0,55943093 \\ 
+------xx & -0,57655666 \\ 
+-----xx & -0,59215653 \\ 
+---xx & -0,59761430 \\ 
+----xx & -0,60246408 \\ 
+\bottomrule
+\end{longtable*}
 
-Negativos:
+Existem diferenças em relação a Spearman, mas as incoerências persistem.
 
-\begin{center}
-\includegraphics[width=1\textwidth,height=\textheight]{spearman_files/figure-pdf/unnamed-chunk-13-1.pdf}
-\end{center}
+\section{Gama}\label{gama}
+
+\url{https://rstudio-pubs-static.s3.amazonaws.com/274882_577e32945b27447a98b1c2ac1dd02adf.html}
+
+\begin{longtable*}{lr}
+\toprule
+ranking\_str & s \\ 
+\midrule\addlinespace[2.5pt]
+xx & 1,00000000 \\ 
+x-x & 0,33333333 \\ 
+x--x & 0,20000000 \\ 
+x---x & 0,14285714 \\ 
+x----x & 0,11111111 \\ 
+x-----x & 0,09090909 \\ 
+x------x & 0,07692308 \\ 
+x-------x & 0,06666667 \\ 
+x--------x & 0,05882353 \\ 
+-x-------x & -0,05882353 \\ 
+-x------x & -0,06666667 \\ 
+-x-----x & -0,07692308 \\ 
+-x----x & -0,09090909 \\ 
+-x---x & -0,11111111 \\ 
+-x--x & -0,14285714 \\ 
+--x------x & -0,17647059 \\ 
+-x-x & -0,20000000 \\ 
+--x-----x & -0,20000000 \\ 
+--x----x & -0,23076923 \\ 
+--x---x & -0,27272727 \\ 
+---x-----x & -0,29411765 \\ 
+-xx & -0,33333333 \\ 
+--x--x & -0,33333333 \\ 
+---x----x & -0,33333333 \\ 
+---x---x & -0,38461538 \\ 
+----x----x & -0,41176471 \\ 
+--x-x & -0,42857143 \\ 
+---x--x & -0,45454545 \\ 
+----x---x & -0,46666667 \\ 
+-----x---x & -0,52941176 \\ 
+----x--x & -0,53846154 \\ 
+---x-x & -0,55555556 \\ 
+--xx & -0,60000000 \\ 
+-----x--x & -0,60000000 \\ 
+----x-x & -0,63636364 \\ 
+------x--x & -0,64705882 \\ 
+-----x-x & -0,69230769 \\ 
+---xx & -0,71428571 \\ 
+------x-x & -0,73333333 \\ 
+-------x-x & -0,76470588 \\ 
+----xx & -0,77777778 \\ 
+-----xx & -0,81818182 \\ 
+------xx & -0,84615385 \\ 
+-------xx & -0,86666667 \\ 
+--------xx & -0,88235294 \\ 
+\bottomrule
+\end{longtable*}
+
+Nada feito.
+
+\section{Covariância das
+posições}\label{covariuxe2ncia-das-posiuxe7uxf5es}
+
+Não divide pelo produto dos desvios-padrão.
+
+\begin{longtable*}{lr}
+\toprule
+ranking\_str & s \\ 
+\midrule\addlinespace[2.5pt]
+xx & 0,5000000 \\ 
+x-x & 0,5000000 \\ 
+x--x & 0,5000000 \\ 
+x---x & 0,5000000 \\ 
+x----x & 0,5000000 \\ 
+x-----x & 0,5000000 \\ 
+x------x & 0,5000000 \\ 
+x-------x & 0,5000000 \\ 
+x--------x & 0,5000000 \\ 
+-x-------x & -0,1111111 \\ 
+-x------x & -0,1250000 \\ 
+-x-----x & -0,1428571 \\ 
+-x----x & -0,1666667 \\ 
+-x---x & -0,2000000 \\ 
+-x--x & -0,2500000 \\ 
+-x-x & -0,3333333 \\ 
+-xx & -0,5000000 \\ 
+--x------x & -0,7222222 \\ 
+--x-----x & -0,7500000 \\ 
+--x----x & -0,7857143 \\ 
+--x---x & -0,8333333 \\ 
+--x--x & -0,9000000 \\ 
+--x-x & -1,0000000 \\ 
+--xx & -1,1666667 \\ 
+---x-----x & -1,3333333 \\ 
+---x----x & -1,3750000 \\ 
+---x---x & -1,4285714 \\ 
+---x--x & -1,5000000 \\ 
+---x-x & -1,6000000 \\ 
+---xx & -1,7500000 \\ 
+----x----x & -1,9444444 \\ 
+----x---x & -2,0000000 \\ 
+----x--x & -2,0714286 \\ 
+----x-x & -2,1666667 \\ 
+----xx & -2,3000000 \\ 
+-----x---x & -2,5555556 \\ 
+-----x--x & -2,6250000 \\ 
+-----x-x & -2,7142857 \\ 
+-----xx & -2,8333333 \\ 
+------x--x & -3,1666667 \\ 
+------x-x & -3,2500000 \\ 
+------xx & -3,3571429 \\ 
+-------x-x & -3,7777778 \\ 
+-------xx & -3,8750000 \\ 
+--------xx & -4,3888889 \\ 
+\bottomrule
+\end{longtable*}
+
+Nada feito também.
+
+\section{Covariância, com empates mais para
+trás}\label{covariuxe2ncia-com-empates-mais-para-truxe1s}
+
+\begin{longtable*}{lr}
+\toprule
+ranking\_str & s \\ 
+\midrule\addlinespace[2.5pt]
+xx & 0,5000000 \\ 
+x-x & 0,5000000 \\ 
+x--x & 0,5000000 \\ 
+x---x & 0,5000000 \\ 
+x----x & 0,5000000 \\ 
+x-----x & 0,5000000 \\ 
+x------x & 0,5000000 \\ 
+x-------x & 0,5000000 \\ 
+x--------x & 0,5000000 \\ 
+-x-------x & -0,1111111 \\ 
+-x------x & -0,1250000 \\ 
+-x-----x & -0,1428571 \\ 
+-x----x & -0,1666667 \\ 
+-x---x & -0,2000000 \\ 
+-x--x & -0,2500000 \\ 
+-x-x & -0,3333333 \\ 
+-xx & -0,5000000 \\ 
+--x------x & -0,7222222 \\ 
+--x-----x & -0,7500000 \\ 
+--x----x & -0,7857143 \\ 
+--x---x & -0,8333333 \\ 
+--x--x & -0,9000000 \\ 
+--x-x & -1,0000000 \\ 
+--xx & -1,1666667 \\ 
+---x-----x & -1,3333333 \\ 
+---x----x & -1,3750000 \\ 
+---x---x & -1,4285714 \\ 
+---x--x & -1,5000000 \\ 
+---x-x & -1,6000000 \\ 
+---xx & -1,7500000 \\ 
+----x----x & -1,9444444 \\ 
+----x---x & -2,0000000 \\ 
+----x--x & -2,0714286 \\ 
+----x-x & -2,1666667 \\ 
+----xx & -2,3000000 \\ 
+-----x---x & -2,5555556 \\ 
+-----x--x & -2,6250000 \\ 
+-----x-x & -2,7142857 \\ 
+-----xx & -2,8333333 \\ 
+------x--x & -3,1666667 \\ 
+------x-x & -3,2500000 \\ 
+------xx & -3,3571429 \\ 
+-------x-x & -3,7777778 \\ 
+-------xx & -3,8750000 \\ 
+--------xx & -4,3888889 \\ 
+\bottomrule
+\end{longtable*}
+
+Também não.
+
+\section{Conclusão (?)}\label{conclusuxe3o}
+
+Talvez o problema esteja na maneira como estou acomodando os elementos
+no final da lista.
+
+Pensar a respeito.
 
 
 

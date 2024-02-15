@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./spearman.html" rel="next">
+<link href="./usando-cor.html" rel="next">
 <link href="./gerar-listas-e-rankings.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -203,8 +203,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spearman.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlação</span></span></a>
+  <a href="./usando-cor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlações</span></span></a>
   </div>
 </li>
     </ul>
@@ -347,10 +347,966 @@ s(r)
 <p>Eis todos os <em>rankings</em> de comprimento <span class="math inline">\(8\)</span>, com suas pontuações:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]},{"label":["s"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"<S3: rk>","2":"xxxxxxxx","3":"1,0000000"},{"1":"<S3: rk>","2":"xxxxxx-x","3":"0,9000000"},{"1":"<S3: rk>","2":"xxxxx-xx","3":"0,8964286"},{"1":"<S3: rk>","2":"xxxx-xxx","3":"0,8928571"},{"1":"<S3: rk>","2":"xxx-xxxx","3":"0,8892857"},{"1":"<S3: rk>","2":"xx-xxxxx","3":"0,8857143"},{"1":"<S3: rk>","2":"x-xxxxxx","3":"0,8821429"},{"1":"<S3: rk>","2":"-xxxxxxx","3":"0,8785714"},{"1":"<S3: rk>","2":"xxxxx--x","3":"0,7964286"},{"1":"<S3: rk>","2":"xxxx-x-x","3":"0,7928571"},{"1":"<S3: rk>","2":"xxxx--xx","3":"0,7892857"},{"1":"<S3: rk>","2":"xxx-xx-x","3":"0,7892857"},{"1":"<S3: rk>","2":"xxx-x-xx","3":"0,7857143"},{"1":"<S3: rk>","2":"xx-xxx-x","3":"0,7857143"},{"1":"<S3: rk>","2":"xxx--xxx","3":"0,7821429"},{"1":"<S3: rk>","2":"xx-xx-xx","3":"0,7821429"},{"1":"<S3: rk>","2":"x-xxxx-x","3":"0,7821429"},{"1":"<S3: rk>","2":"xx-x-xxx","3":"0,7785714"},{"1":"<S3: rk>","2":"x-xxx-xx","3":"0,7785714"},{"1":"<S3: rk>","2":"-xxxxx-x","3":"0,7785714"},{"1":"<S3: rk>","2":"xx--xxxx","3":"0,7750000"},{"1":"<S3: rk>","2":"x-xx-xxx","3":"0,7750000"},{"1":"<S3: rk>","2":"-xxxx-xx","3":"0,7750000"},{"1":"<S3: rk>","2":"x-x-xxxx","3":"0,7714286"},{"1":"<S3: rk>","2":"-xxx-xxx","3":"0,7714286"},{"1":"<S3: rk>","2":"x--xxxxx","3":"0,7678571"},{"1":"<S3: rk>","2":"-xx-xxxx","3":"0,7678571"},{"1":"<S3: rk>","2":"-x-xxxxx","3":"0,7642857"},{"1":"<S3: rk>","2":"--xxxxxx","3":"0,7607143"},{"1":"<S3: rk>","2":"xxxx---x","3":"0,6892857"},{"1":"<S3: rk>","2":"xxx-x--x","3":"0,6857143"},{"1":"<S3: rk>","2":"xxx--x-x","3":"0,6821429"},{"1":"<S3: rk>","2":"xx-xx--x","3":"0,6821429"},{"1":"<S3: rk>","2":"xxx---xx","3":"0,6785714"},{"1":"<S3: rk>","2":"xx-x-x-x","3":"0,6785714"},{"1":"<S3: rk>","2":"x-xxx--x","3":"0,6785714"},{"1":"<S3: rk>","2":"xx-x--xx","3":"0,6750000"},{"1":"<S3: rk>","2":"xx--xx-x","3":"0,6750000"},{"1":"<S3: rk>","2":"x-xx-x-x","3":"0,6750000"},{"1":"<S3: rk>","2":"-xxxx--x","3":"0,6750000"},{"1":"<S3: rk>","2":"xx--x-xx","3":"0,6714286"},{"1":"<S3: rk>","2":"x-xx--xx","3":"0,6714286"},{"1":"<S3: rk>","2":"x-x-xx-x","3":"0,6714286"},{"1":"<S3: rk>","2":"-xxx-x-x","3":"0,6714286"},{"1":"<S3: rk>","2":"xx---xxx","3":"0,6678571"},{"1":"<S3: rk>","2":"x-x-x-xx","3":"0,6678571"},{"1":"<S3: rk>","2":"x--xxx-x","3":"0,6678571"},{"1":"<S3: rk>","2":"-xxx--xx","3":"0,6678571"},{"1":"<S3: rk>","2":"-xx-xx-x","3":"0,6678571"},{"1":"<S3: rk>","2":"x-x--xxx","3":"0,6642857"},{"1":"<S3: rk>","2":"x--xx-xx","3":"0,6642857"},{"1":"<S3: rk>","2":"-xx-x-xx","3":"0,6642857"},{"1":"<S3: rk>","2":"-x-xxx-x","3":"0,6642857"},{"1":"<S3: rk>","2":"x--x-xxx","3":"0,6607143"},{"1":"<S3: rk>","2":"-xx--xxx","3":"0,6607143"},{"1":"<S3: rk>","2":"-x-xx-xx","3":"0,6607143"},{"1":"<S3: rk>","2":"--xxxx-x","3":"0,6607143"},{"1":"<S3: rk>","2":"x---xxxx","3":"0,6571429"},{"1":"<S3: rk>","2":"-x-x-xxx","3":"0,6571429"},{"1":"<S3: rk>","2":"--xxx-xx","3":"0,6571429"},{"1":"<S3: rk>","2":"-x--xxxx","3":"0,6535714"},{"1":"<S3: rk>","2":"--xx-xxx","3":"0,6535714"},{"1":"<S3: rk>","2":"--x-xxxx","3":"0,6500000"},{"1":"<S3: rk>","2":"---xxxxx","3":"0,6464286"},{"1":"<S3: rk>","2":"xxx----x","3":"0,5785714"},{"1":"<S3: rk>","2":"xx-x---x","3":"0,5750000"},{"1":"<S3: rk>","2":"xx--x--x","3":"0,5714286"},{"1":"<S3: rk>","2":"x-xx---x","3":"0,5714286"},{"1":"<S3: rk>","2":"xx---x-x","3":"0,5678571"},{"1":"<S3: rk>","2":"x-x-x--x","3":"0,5678571"},{"1":"<S3: rk>","2":"-xxx---x","3":"0,5678571"},{"1":"<S3: rk>","2":"xx----xx","3":"0,5642857"},{"1":"<S3: rk>","2":"x-x--x-x","3":"0,5642857"},{"1":"<S3: rk>","2":"x--xx--x","3":"0,5642857"},{"1":"<S3: rk>","2":"-xx-x--x","3":"0,5642857"},{"1":"<S3: rk>","2":"x-x---xx","3":"0,5607143"},{"1":"<S3: rk>","2":"x--x-x-x","3":"0,5607143"},{"1":"<S3: rk>","2":"-xx--x-x","3":"0,5607143"},{"1":"<S3: rk>","2":"-x-xx--x","3":"0,5607143"},{"1":"<S3: rk>","2":"x--x--xx","3":"0,5571429"},{"1":"<S3: rk>","2":"x---xx-x","3":"0,5571429"},{"1":"<S3: rk>","2":"-xx---xx","3":"0,5571429"},{"1":"<S3: rk>","2":"-x-x-x-x","3":"0,5571429"},{"1":"<S3: rk>","2":"--xxx--x","3":"0,5571429"},{"1":"<S3: rk>","2":"x---x-xx","3":"0,5535714"},{"1":"<S3: rk>","2":"-x-x--xx","3":"0,5535714"},{"1":"<S3: rk>","2":"-x--xx-x","3":"0,5535714"},{"1":"<S3: rk>","2":"--xx-x-x","3":"0,5535714"},{"1":"<S3: rk>","2":"x----xxx","3":"0,5500000"},{"1":"<S3: rk>","2":"-x--x-xx","3":"0,5500000"},{"1":"<S3: rk>","2":"--xx--xx","3":"0,5500000"},{"1":"<S3: rk>","2":"--x-xx-x","3":"0,5500000"},{"1":"<S3: rk>","2":"-x---xxx","3":"0,5464286"},{"1":"<S3: rk>","2":"--x-x-xx","3":"0,5464286"},{"1":"<S3: rk>","2":"---xxx-x","3":"0,5464286"},{"1":"<S3: rk>","2":"--x--xxx","3":"0,5428571"},{"1":"<S3: rk>","2":"---xx-xx","3":"0,5428571"},{"1":"<S3: rk>","2":"---x-xxx","3":"0,5392857"},{"1":"<S3: rk>","2":"----xxxx","3":"0,5357143"},{"1":"<S3: rk>","2":"xx-----x","3":"0,4642857"},{"1":"<S3: rk>","2":"x-x----x","3":"0,4607143"},{"1":"<S3: rk>","2":"x--x---x","3":"0,4571429"},{"1":"<S3: rk>","2":"-xx----x","3":"0,4571429"},{"1":"<S3: rk>","2":"x---x--x","3":"0,4535714"},{"1":"<S3: rk>","2":"-x-x---x","3":"0,4535714"},{"1":"<S3: rk>","2":"x----x-x","3":"0,4500000"},{"1":"<S3: rk>","2":"-x--x--x","3":"0,4500000"},{"1":"<S3: rk>","2":"--xx---x","3":"0,4500000"},{"1":"<S3: rk>","2":"x-----xx","3":"0,4464286"},{"1":"<S3: rk>","2":"-x---x-x","3":"0,4464286"},{"1":"<S3: rk>","2":"--x-x--x","3":"0,4464286"},{"1":"<S3: rk>","2":"-x----xx","3":"0,4428571"},{"1":"<S3: rk>","2":"--x--x-x","3":"0,4428571"},{"1":"<S3: rk>","2":"---xx--x","3":"0,4428571"},{"1":"<S3: rk>","2":"--x---xx","3":"0,4392857"},{"1":"<S3: rk>","2":"---x-x-x","3":"0,4392857"},{"1":"<S3: rk>","2":"---x--xx","3":"0,4357143"},{"1":"<S3: rk>","2":"----xx-x","3":"0,4357143"},{"1":"<S3: rk>","2":"----x-xx","3":"0,4321429"},{"1":"<S3: rk>","2":"-----xxx","3":"0,4285714"},{"1":"<S3: rk>","2":"x------x","3":"0,3464286"},{"1":"<S3: rk>","2":"-x-----x","3":"0,3428571"},{"1":"<S3: rk>","2":"--x----x","3":"0,3392857"},{"1":"<S3: rk>","2":"---x---x","3":"0,3357143"},{"1":"<S3: rk>","2":"----x--x","3":"0,3321429"},{"1":"<S3: rk>","2":"-----x-x","3":"0,3285714"},{"1":"<S3: rk>","2":"------xx","3":"0,3250000"},{"1":"<S3: rk>","2":"-------x","3":"0,2250000"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
+<div id="yrzkcyccot" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yrzkcyccot table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#yrzkcyccot thead, #yrzkcyccot tbody, #yrzkcyccot tfoot, #yrzkcyccot tr, #yrzkcyccot td, #yrzkcyccot th {
+  border-style: none;
+}
+
+#yrzkcyccot p {
+  margin: 0;
+  padding: 0;
+}
+
+#yrzkcyccot .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#yrzkcyccot .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yrzkcyccot .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yrzkcyccot .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yrzkcyccot .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yrzkcyccot .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yrzkcyccot .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yrzkcyccot .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yrzkcyccot .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#yrzkcyccot .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#yrzkcyccot .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yrzkcyccot .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yrzkcyccot .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yrzkcyccot .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yrzkcyccot .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yrzkcyccot .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#yrzkcyccot .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#yrzkcyccot .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#yrzkcyccot .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yrzkcyccot .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#yrzkcyccot .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yrzkcyccot .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yrzkcyccot .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yrzkcyccot .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yrzkcyccot .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yrzkcyccot .gt_left {
+  text-align: left;
+}
+
+#yrzkcyccot .gt_center {
+  text-align: center;
+}
+
+#yrzkcyccot .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yrzkcyccot .gt_font_normal {
+  font-weight: normal;
+}
+
+#yrzkcyccot .gt_font_bold {
+  font-weight: bold;
+}
+
+#yrzkcyccot .gt_font_italic {
+  font-style: italic;
+}
+
+#yrzkcyccot .gt_super {
+  font-size: 65%;
+}
+
+#yrzkcyccot .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#yrzkcyccot .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#yrzkcyccot .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#yrzkcyccot .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#yrzkcyccot .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#yrzkcyccot .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#yrzkcyccot .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="ranking_str" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">ranking_str</th>
+<th id="s" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">s</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxxxxxxx</td>
+<td class="gt_row gt_right" headers="s">1,0000000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xxxxxx-x</td>
+<td class="gt_row gt_right" headers="s">0,9000000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxxxx-xx</td>
+<td class="gt_row gt_right" headers="s">0,8964286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xxxx-xxx</td>
+<td class="gt_row gt_right" headers="s">0,8928571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxx-xxxx</td>
+<td class="gt_row gt_right" headers="s">0,8892857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx-xxxxx</td>
+<td class="gt_row gt_right" headers="s">0,8857143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-xxxxxx</td>
+<td class="gt_row gt_right" headers="s">0,8821429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xxxxxxx</td>
+<td class="gt_row gt_right" headers="s">0,8785714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxxxx--x</td>
+<td class="gt_row gt_right" headers="s">0,7964286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xxxx-x-x</td>
+<td class="gt_row gt_right" headers="s">0,7928571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxxx--xx</td>
+<td class="gt_row gt_right" headers="s">0,7892857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xxx-xx-x</td>
+<td class="gt_row gt_right" headers="s">0,7892857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxx-x-xx</td>
+<td class="gt_row gt_right" headers="s">0,7857143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx-xxx-x</td>
+<td class="gt_row gt_right" headers="s">0,7857143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxx--xxx</td>
+<td class="gt_row gt_right" headers="s">0,7821429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx-xx-xx</td>
+<td class="gt_row gt_right" headers="s">0,7821429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-xxxx-x</td>
+<td class="gt_row gt_right" headers="s">0,7821429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx-x-xxx</td>
+<td class="gt_row gt_right" headers="s">0,7785714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-xxx-xx</td>
+<td class="gt_row gt_right" headers="s">0,7785714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xxxxx-x</td>
+<td class="gt_row gt_right" headers="s">0,7785714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx--xxxx</td>
+<td class="gt_row gt_right" headers="s">0,7750000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-xx-xxx</td>
+<td class="gt_row gt_right" headers="s">0,7750000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xxxx-xx</td>
+<td class="gt_row gt_right" headers="s">0,7750000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-x-xxxx</td>
+<td class="gt_row gt_right" headers="s">0,7714286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xxx-xxx</td>
+<td class="gt_row gt_right" headers="s">0,7714286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x--xxxxx</td>
+<td class="gt_row gt_right" headers="s">0,7678571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xx-xxxx</td>
+<td class="gt_row gt_right" headers="s">0,7678571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x-xxxxx</td>
+<td class="gt_row gt_right" headers="s">0,7642857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--xxxxxx</td>
+<td class="gt_row gt_right" headers="s">0,7607143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xxxx---x</td>
+<td class="gt_row gt_right" headers="s">0,6892857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxx-x--x</td>
+<td class="gt_row gt_right" headers="s">0,6857143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xxx--x-x</td>
+<td class="gt_row gt_right" headers="s">0,6821429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx-xx--x</td>
+<td class="gt_row gt_right" headers="s">0,6821429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xxx---xx</td>
+<td class="gt_row gt_right" headers="s">0,6785714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx-x-x-x</td>
+<td class="gt_row gt_right" headers="s">0,6785714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-xxx--x</td>
+<td class="gt_row gt_right" headers="s">0,6785714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx-x--xx</td>
+<td class="gt_row gt_right" headers="s">0,6750000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx--xx-x</td>
+<td class="gt_row gt_right" headers="s">0,6750000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-xx-x-x</td>
+<td class="gt_row gt_right" headers="s">0,6750000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xxxx--x</td>
+<td class="gt_row gt_right" headers="s">0,6750000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx--x-xx</td>
+<td class="gt_row gt_right" headers="s">0,6714286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-xx--xx</td>
+<td class="gt_row gt_right" headers="s">0,6714286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-x-xx-x</td>
+<td class="gt_row gt_right" headers="s">0,6714286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xxx-x-x</td>
+<td class="gt_row gt_right" headers="s">0,6714286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx---xxx</td>
+<td class="gt_row gt_right" headers="s">0,6678571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-x-x-xx</td>
+<td class="gt_row gt_right" headers="s">0,6678571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x--xxx-x</td>
+<td class="gt_row gt_right" headers="s">0,6678571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xxx--xx</td>
+<td class="gt_row gt_right" headers="s">0,6678571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xx-xx-x</td>
+<td class="gt_row gt_right" headers="s">0,6678571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-x--xxx</td>
+<td class="gt_row gt_right" headers="s">0,6642857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x--xx-xx</td>
+<td class="gt_row gt_right" headers="s">0,6642857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xx-x-xx</td>
+<td class="gt_row gt_right" headers="s">0,6642857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x-xxx-x</td>
+<td class="gt_row gt_right" headers="s">0,6642857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x--x-xxx</td>
+<td class="gt_row gt_right" headers="s">0,6607143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xx--xxx</td>
+<td class="gt_row gt_right" headers="s">0,6607143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x-xx-xx</td>
+<td class="gt_row gt_right" headers="s">0,6607143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--xxxx-x</td>
+<td class="gt_row gt_right" headers="s">0,6607143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x---xxxx</td>
+<td class="gt_row gt_right" headers="s">0,6571429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x-x-xxx</td>
+<td class="gt_row gt_right" headers="s">0,6571429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--xxx-xx</td>
+<td class="gt_row gt_right" headers="s">0,6571429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x--xxxx</td>
+<td class="gt_row gt_right" headers="s">0,6535714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--xx-xxx</td>
+<td class="gt_row gt_right" headers="s">0,6535714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x-xxxx</td>
+<td class="gt_row gt_right" headers="s">0,6500000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---xxxxx</td>
+<td class="gt_row gt_right" headers="s">0,6464286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xxx----x</td>
+<td class="gt_row gt_right" headers="s">0,5785714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx-x---x</td>
+<td class="gt_row gt_right" headers="s">0,5750000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx--x--x</td>
+<td class="gt_row gt_right" headers="s">0,5714286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-xx---x</td>
+<td class="gt_row gt_right" headers="s">0,5714286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx---x-x</td>
+<td class="gt_row gt_right" headers="s">0,5678571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-x-x--x</td>
+<td class="gt_row gt_right" headers="s">0,5678571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xxx---x</td>
+<td class="gt_row gt_right" headers="s">0,5678571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx----xx</td>
+<td class="gt_row gt_right" headers="s">0,5642857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-x--x-x</td>
+<td class="gt_row gt_right" headers="s">0,5642857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x--xx--x</td>
+<td class="gt_row gt_right" headers="s">0,5642857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xx-x--x</td>
+<td class="gt_row gt_right" headers="s">0,5642857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-x---xx</td>
+<td class="gt_row gt_right" headers="s">0,5607143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x--x-x-x</td>
+<td class="gt_row gt_right" headers="s">0,5607143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xx--x-x</td>
+<td class="gt_row gt_right" headers="s">0,5607143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x-xx--x</td>
+<td class="gt_row gt_right" headers="s">0,5607143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x--x--xx</td>
+<td class="gt_row gt_right" headers="s">0,5571429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x---xx-x</td>
+<td class="gt_row gt_right" headers="s">0,5571429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-xx---xx</td>
+<td class="gt_row gt_right" headers="s">0,5571429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x-x-x-x</td>
+<td class="gt_row gt_right" headers="s">0,5571429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--xxx--x</td>
+<td class="gt_row gt_right" headers="s">0,5571429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x---x-xx</td>
+<td class="gt_row gt_right" headers="s">0,5535714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x-x--xx</td>
+<td class="gt_row gt_right" headers="s">0,5535714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x--xx-x</td>
+<td class="gt_row gt_right" headers="s">0,5535714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--xx-x-x</td>
+<td class="gt_row gt_right" headers="s">0,5535714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x----xxx</td>
+<td class="gt_row gt_right" headers="s">0,5500000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x--x-xx</td>
+<td class="gt_row gt_right" headers="s">0,5500000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--xx--xx</td>
+<td class="gt_row gt_right" headers="s">0,5500000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--x-xx-x</td>
+<td class="gt_row gt_right" headers="s">0,5500000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x---xxx</td>
+<td class="gt_row gt_right" headers="s">0,5464286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--x-x-xx</td>
+<td class="gt_row gt_right" headers="s">0,5464286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">---xxx-x</td>
+<td class="gt_row gt_right" headers="s">0,5464286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--x--xxx</td>
+<td class="gt_row gt_right" headers="s">0,5428571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">---xx-xx</td>
+<td class="gt_row gt_right" headers="s">0,5428571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---x-xxx</td>
+<td class="gt_row gt_right" headers="s">0,5392857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">----xxxx</td>
+<td class="gt_row gt_right" headers="s">0,5357143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">xx-----x</td>
+<td class="gt_row gt_right" headers="s">0,4642857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-x----x</td>
+<td class="gt_row gt_right" headers="s">0,4607143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x--x---x</td>
+<td class="gt_row gt_right" headers="s">0,4571429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xx----x</td>
+<td class="gt_row gt_right" headers="s">0,4571429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x---x--x</td>
+<td class="gt_row gt_right" headers="s">0,4535714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x-x---x</td>
+<td class="gt_row gt_right" headers="s">0,4535714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x----x-x</td>
+<td class="gt_row gt_right" headers="s">0,4500000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x--x--x</td>
+<td class="gt_row gt_right" headers="s">0,4500000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--xx---x</td>
+<td class="gt_row gt_right" headers="s">0,4500000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-----xx</td>
+<td class="gt_row gt_right" headers="s">0,4464286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x---x-x</td>
+<td class="gt_row gt_right" headers="s">0,4464286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x-x--x</td>
+<td class="gt_row gt_right" headers="s">0,4464286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x----xx</td>
+<td class="gt_row gt_right" headers="s">0,4428571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x--x-x</td>
+<td class="gt_row gt_right" headers="s">0,4428571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---xx--x</td>
+<td class="gt_row gt_right" headers="s">0,4428571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x---xx</td>
+<td class="gt_row gt_right" headers="s">0,4392857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---x-x-x</td>
+<td class="gt_row gt_right" headers="s">0,4392857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">---x--xx</td>
+<td class="gt_row gt_right" headers="s">0,4357143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">----xx-x</td>
+<td class="gt_row gt_right" headers="s">0,4357143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">----x-xx</td>
+<td class="gt_row gt_right" headers="s">0,4321429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-----xxx</td>
+<td class="gt_row gt_right" headers="s">0,4285714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x------x</td>
+<td class="gt_row gt_right" headers="s">0,3464286</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x-----x</td>
+<td class="gt_row gt_right" headers="s">0,3428571</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x----x</td>
+<td class="gt_row gt_right" headers="s">0,3392857</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---x---x</td>
+<td class="gt_row gt_right" headers="s">0,3357143</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">----x--x</td>
+<td class="gt_row gt_right" headers="s">0,3321429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-----x-x</td>
+<td class="gt_row gt_right" headers="s">0,3285714</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">------xx</td>
+<td class="gt_row gt_right" headers="s">0,3250000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-------x</td>
+<td class="gt_row gt_right" headers="s">0,2250000</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -358,18 +1314,688 @@ s(r)
 </section><section id="comparando-rankings-com-valores-diferentes-de-p" class="level3"><h3 class="anchored" data-anchor-id="comparando-rankings-com-valores-diferentes-de-p">Comparando <em>rankings</em> com valores diferentes de <span class="math inline">\(p\)</span>
 </h3>
 <p>Como a lista é dada e fixa, só faz sentido, na prática, comparar <em>rankings</em> com o mesmo valor de <span class="math inline">\(k\)</span>.</p>
-<p>Vamos examinar, para uma lista com <span class="math inline">\(k = 15\)</span>, os <em>rankings</em> possíveis com <span class="math inline">\(p\)</span> variando de <span class="math inline">\(15\)</span> a <span class="math inline">\(20\)</span>.</p>
-<p>São <span class="math inline">\(15.504\)</span> <em>rankings</em>. Eis os <span class="math inline">\(100\)</span> melhores:</p>
+<p>Vamos examinar, para uma lista com <span class="math inline">\(k = 2\)</span>, os <em>rankings</em> possíveis com <span class="math inline">\(p\)</span> variando de <span class="math inline">\(2\)</span> a <span class="math inline">\(10\)</span>.</p>
+<p>São <span class="math inline">\(45\)</span> <em>rankings</em>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]},{"label":["s"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"<S3: rk>","2":"xxxxxxxxxxxxxxx","3":"1,0000000","4":"15"},{"1":"<S3: rk>","2":"xxxxxxxxxxxxxx-x","3":"0,9500000","4":"16"},{"1":"<S3: rk>","2":"xxxxxxxxxxxxx-xx","3":"0,9491667","4":"16"},{"1":"<S3: rk>","2":"xxxxxxxxxxxx-xxx","3":"0,9483333","4":"16"},{"1":"<S3: rk>","2":"xxxxxxxxxxx-xxxx","3":"0,9475000","4":"16"},{"1":"<S3: rk>","2":"xxxxxxxxxx-xxxxx","3":"0,9466667","4":"16"},{"1":"<S3: rk>","2":"xxxxxxxxx-xxxxxx","3":"0,9458333","4":"16"},{"1":"<S3: rk>","2":"xxxxxxxx-xxxxxxx","3":"0,9450000","4":"16"},{"1":"<S3: rk>","2":"xxxxxxx-xxxxxxxx","3":"0,9441667","4":"16"},{"1":"<S3: rk>","2":"xxxxxx-xxxxxxxxx","3":"0,9433333","4":"16"},{"1":"<S3: rk>","2":"xxxxx-xxxxxxxxxx","3":"0,9425000","4":"16"},{"1":"<S3: rk>","2":"xxxx-xxxxxxxxxxx","3":"0,9416667","4":"16"},{"1":"<S3: rk>","2":"xxx-xxxxxxxxxxxx","3":"0,9408333","4":"16"},{"1":"<S3: rk>","2":"xx-xxxxxxxxxxxxx","3":"0,9400000","4":"16"},{"1":"<S3: rk>","2":"x-xxxxxxxxxxxxxx","3":"0,9391667","4":"16"},{"1":"<S3: rk>","2":"-xxxxxxxxxxxxxxx","3":"0,9383333","4":"16"},{"1":"<S3: rk>","2":"xxxxxxxxxxxxxx--x","3":"0,9051471","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxxxx-x-x","3":"0,9044118","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxxxx--xx","3":"0,9036765","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxxx-xx-x","3":"0,9036765","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxxx-x-xx","3":"0,9029412","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxx-xxx-x","3":"0,9029412","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxxx--xxx","3":"0,9022059","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxx-xx-xx","3":"0,9022059","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxx-xxxx-x","3":"0,9022059","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxx-x-xxx","3":"0,9014706","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxx-xxx-xx","3":"0,9014706","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxx-xxxxx-x","3":"0,9014706","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxxx--xxxx","3":"0,9007353","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxx-xx-xxx","3":"0,9007353","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxx-xxxx-xx","3":"0,9007353","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxx-xxxxxx-x","3":"0,9007353","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxx-x-xxxx","3":"0,9000000","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxx-xxx-xxx","3":"0,9000000","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxx-xxxxx-xx","3":"0,9000000","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx-xxxxxxx-x","3":"0,9000000","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxxx--xxxxx","3":"0,8992647","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxx-xx-xxxx","3":"0,8992647","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxx-xxxx-xxx","3":"0,8992647","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx-xxxxxx-xx","3":"0,8992647","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-xxxxxxxx-x","3":"0,8992647","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxx-x-xxxxx","3":"0,8985294","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxx-xxx-xxxx","3":"0,8985294","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx-xxxxx-xxx","3":"0,8985294","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-xxxxxxx-xx","3":"0,8985294","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xxxxxxxxx-x","3":"0,8985294","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxxx--xxxxxx","3":"0,8977941","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxx-xx-xxxxx","3":"0,8977941","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx-xxxx-xxxx","3":"0,8977941","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-xxxxxx-xxx","3":"0,8977941","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xxxxxxxx-xx","3":"0,8977941","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxxxxxxxxx-x","3":"0,8977941","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxx-x-xxxxxx","3":"0,8970588","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx-xxx-xxxxx","3":"0,8970588","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-xxxxx-xxxx","3":"0,8970588","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xxxxxxx-xxx","3":"0,8970588","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxxxxxxxx-xx","3":"0,8970588","4":"17"},{"1":"<S3: rk>","2":"xxx-xxxxxxxxxxx-x","3":"0,8970588","4":"17"},{"1":"<S3: rk>","2":"xxxxxxxx--xxxxxxx","3":"0,8963235","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx-xx-xxxxxx","3":"0,8963235","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-xxxx-xxxxx","3":"0,8963235","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xxxxxx-xxxx","3":"0,8963235","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxxxxxxx-xxx","3":"0,8963235","4":"17"},{"1":"<S3: rk>","2":"xxx-xxxxxxxxxx-xx","3":"0,8963235","4":"17"},{"1":"<S3: rk>","2":"xx-xxxxxxxxxxxx-x","3":"0,8963235","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx-x-xxxxxxx","3":"0,8955882","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-xxx-xxxxxx","3":"0,8955882","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xxxxx-xxxxx","3":"0,8955882","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxxxxxx-xxxx","3":"0,8955882","4":"17"},{"1":"<S3: rk>","2":"xxx-xxxxxxxxx-xxx","3":"0,8955882","4":"17"},{"1":"<S3: rk>","2":"xx-xxxxxxxxxxx-xx","3":"0,8955882","4":"17"},{"1":"<S3: rk>","2":"x-xxxxxxxxxxxxx-x","3":"0,8955882","4":"17"},{"1":"<S3: rk>","2":"xxxxxxx--xxxxxxxx","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-xx-xxxxxxx","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xxxx-xxxxxx","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxxxxx-xxxxx","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"xxx-xxxxxxxx-xxxx","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"xx-xxxxxxxxxx-xxx","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"x-xxxxxxxxxxxx-xx","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"-xxxxxxxxxxxxxx-x","3":"0,8948529","4":"17"},{"1":"<S3: rk>","2":"xxxxxx-x-xxxxxxxx","3":"0,8941176","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xxx-xxxxxxx","3":"0,8941176","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxxxx-xxxxxx","3":"0,8941176","4":"17"},{"1":"<S3: rk>","2":"xxx-xxxxxxx-xxxxx","3":"0,8941176","4":"17"},{"1":"<S3: rk>","2":"xx-xxxxxxxxx-xxxx","3":"0,8941176","4":"17"},{"1":"<S3: rk>","2":"x-xxxxxxxxxxx-xxx","3":"0,8941176","4":"17"},{"1":"<S3: rk>","2":"-xxxxxxxxxxxxx-xx","3":"0,8941176","4":"17"},{"1":"<S3: rk>","2":"xxxxxx--xxxxxxxxx","3":"0,8933824","4":"17"},{"1":"<S3: rk>","2":"xxxxx-xx-xxxxxxxx","3":"0,8933824","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxxx-xxxxxxx","3":"0,8933824","4":"17"},{"1":"<S3: rk>","2":"xxx-xxxxxx-xxxxxx","3":"0,8933824","4":"17"},{"1":"<S3: rk>","2":"xx-xxxxxxxx-xxxxx","3":"0,8933824","4":"17"},{"1":"<S3: rk>","2":"x-xxxxxxxxxx-xxxx","3":"0,8933824","4":"17"},{"1":"<S3: rk>","2":"-xxxxxxxxxxxx-xxx","3":"0,8933824","4":"17"},{"1":"<S3: rk>","2":"xxxxx-x-xxxxxxxxx","3":"0,8926471","4":"17"},{"1":"<S3: rk>","2":"xxxx-xxx-xxxxxxxx","3":"0,8926471","4":"17"},{"1":"<S3: rk>","2":"xxx-xxxxx-xxxxxxx","3":"0,8926471","4":"17"},{"1":"<S3: rk>","2":"xx-xxxxxxx-xxxxxx","3":"0,8926471","4":"17"},{"1":"<S3: rk>","2":"x-xxxxxxxxx-xxxxx","3":"0,8926471","4":"17"},{"1":"<S3: rk>","2":"-xxxxxxxxxxx-xxxx","3":"0,8926471","4":"17"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
+<div id="tvizdycvws" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tvizdycvws table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#tvizdycvws thead, #tvizdycvws tbody, #tvizdycvws tfoot, #tvizdycvws tr, #tvizdycvws td, #tvizdycvws th {
+  border-style: none;
+}
+
+#tvizdycvws p {
+  margin: 0;
+  padding: 0;
+}
+
+#tvizdycvws .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#tvizdycvws .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tvizdycvws .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tvizdycvws .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tvizdycvws .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tvizdycvws .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tvizdycvws .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tvizdycvws .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tvizdycvws .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#tvizdycvws .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#tvizdycvws .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tvizdycvws .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tvizdycvws .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tvizdycvws .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tvizdycvws .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvizdycvws .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#tvizdycvws .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#tvizdycvws .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#tvizdycvws .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvizdycvws .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#tvizdycvws .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvizdycvws .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tvizdycvws .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvizdycvws .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tvizdycvws .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tvizdycvws .gt_left {
+  text-align: left;
+}
+
+#tvizdycvws .gt_center {
+  text-align: center;
+}
+
+#tvizdycvws .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tvizdycvws .gt_font_normal {
+  font-weight: normal;
+}
+
+#tvizdycvws .gt_font_bold {
+  font-weight: bold;
+}
+
+#tvizdycvws .gt_font_italic {
+  font-style: italic;
+}
+
+#tvizdycvws .gt_super {
+  font-size: 65%;
+}
+
+#tvizdycvws .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#tvizdycvws .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#tvizdycvws .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#tvizdycvws .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#tvizdycvws .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#tvizdycvws .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#tvizdycvws .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="ranking_str" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">ranking_str</th>
+<th id="p" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p</th>
+<th id="s" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">s</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">xx</td>
+<td class="gt_row gt_right" headers="p">2</td>
+<td class="gt_row gt_right" headers="s">1,0000000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-x</td>
+<td class="gt_row gt_right" headers="p">3</td>
+<td class="gt_row gt_right" headers="s">0,7333333</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-xx</td>
+<td class="gt_row gt_right" headers="p">3</td>
+<td class="gt_row gt_right" headers="s">0,7000000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x--x</td>
+<td class="gt_row gt_right" headers="p">4</td>
+<td class="gt_row gt_right" headers="s">0,5833333</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x-x</td>
+<td class="gt_row gt_right" headers="p">4</td>
+<td class="gt_row gt_right" headers="s">0,5666667</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--xx</td>
+<td class="gt_row gt_right" headers="p">4</td>
+<td class="gt_row gt_right" headers="s">0,5500000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x---x</td>
+<td class="gt_row gt_right" headers="p">5</td>
+<td class="gt_row gt_right" headers="s">0,4900000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x--x</td>
+<td class="gt_row gt_right" headers="p">5</td>
+<td class="gt_row gt_right" headers="s">0,4800000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x-x</td>
+<td class="gt_row gt_right" headers="p">5</td>
+<td class="gt_row gt_right" headers="s">0,4700000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---xx</td>
+<td class="gt_row gt_right" headers="p">5</td>
+<td class="gt_row gt_right" headers="s">0,4600000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x----x</td>
+<td class="gt_row gt_right" headers="p">6</td>
+<td class="gt_row gt_right" headers="s">0,4266667</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x---x</td>
+<td class="gt_row gt_right" headers="p">6</td>
+<td class="gt_row gt_right" headers="s">0,4200000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x--x</td>
+<td class="gt_row gt_right" headers="p">6</td>
+<td class="gt_row gt_right" headers="s">0,4133333</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---x-x</td>
+<td class="gt_row gt_right" headers="p">6</td>
+<td class="gt_row gt_right" headers="s">0,4066667</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">----xx</td>
+<td class="gt_row gt_right" headers="p">6</td>
+<td class="gt_row gt_right" headers="s">0,4000000</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x-----x</td>
+<td class="gt_row gt_right" headers="p">7</td>
+<td class="gt_row gt_right" headers="s">0,3809524</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x----x</td>
+<td class="gt_row gt_right" headers="p">7</td>
+<td class="gt_row gt_right" headers="s">0,3761905</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--x---x</td>
+<td class="gt_row gt_right" headers="p">7</td>
+<td class="gt_row gt_right" headers="s">0,3714286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">---x--x</td>
+<td class="gt_row gt_right" headers="p">7</td>
+<td class="gt_row gt_right" headers="s">0,3666667</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">----x-x</td>
+<td class="gt_row gt_right" headers="p">7</td>
+<td class="gt_row gt_right" headers="s">0,3619048</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-----xx</td>
+<td class="gt_row gt_right" headers="p">7</td>
+<td class="gt_row gt_right" headers="s">0,3571429</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">x------x</td>
+<td class="gt_row gt_right" headers="p">8</td>
+<td class="gt_row gt_right" headers="s">0,3464286</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-x-----x</td>
+<td class="gt_row gt_right" headers="p">8</td>
+<td class="gt_row gt_right" headers="s">0,3428571</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">--x----x</td>
+<td class="gt_row gt_right" headers="p">8</td>
+<td class="gt_row gt_right" headers="s">0,3392857</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">---x---x</td>
+<td class="gt_row gt_right" headers="p">8</td>
+<td class="gt_row gt_right" headers="s">0,3357143</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">----x--x</td>
+<td class="gt_row gt_right" headers="p">8</td>
+<td class="gt_row gt_right" headers="s">0,3321429</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">-----x-x</td>
+<td class="gt_row gt_right" headers="p">8</td>
+<td class="gt_row gt_right" headers="s">0,3285714</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">------xx</td>
+<td class="gt_row gt_right" headers="p">8</td>
+<td class="gt_row gt_right" headers="s">0,3250000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x-------x</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3194444</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x------x</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3166667</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x-----x</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3138889</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---x----x</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3111111</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">----x---x</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3083333</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-----x--x</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3055556</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">------x-x</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3027778</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-------xx</td>
+<td class="gt_row gt_right" headers="p">9</td>
+<td class="gt_row gt_right" headers="s">0,3000000</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">x--------x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2977778</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-x-------x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2955556</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--x------x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2933333</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">---x-----x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2911111</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">----x----x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2888889</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-----x---x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2866667</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">------x--x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2844444</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="ranking_str">-------x-x</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2822222</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="ranking_str">--------xx</td>
+<td class="gt_row gt_right" headers="p">10</td>
+<td class="gt_row gt_right" headers="s">0,2800000</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
-<p>Os gráficos abaixo mostram os <em>scores</em> atribuídos para todos os <em>rankings</em> com <span class="math inline">\(k = 15\)</span> e <span class="math inline">\(p\)</span> variando de <span class="math inline">\(15\)</span> a <span class="math inline">\(20\)</span>, separados por valores de <span class="math inline">\(p\)</span>:</p>
+<p>Os gráficos abaixo mostram os <em>scores</em> atribuídos para todos os <em>rankings</em> com <span class="math inline">\(k = 2\)</span> e <span class="math inline">\(p\)</span> variando de <span class="math inline">\(2\)</span> a <span class="math inline">\(10\)</span>, separados por valores de <span class="math inline">\(p\)</span>:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -861,8 +2487,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./spearman.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>O *ranking* concorda com a lista? Correlação</span>">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlação</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./usando-cor.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>O *ranking* concorda com a lista? Correlações</span>">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlações</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Código fonte</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -873,257 +2499,253 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="in">source('rankings.R')</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="in">library(gghalves)</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="in">library(glue)</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lag', 'dplyr')</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lead', 'dplyr')</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu"># O *ranking* concorda com a lista? Posições</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ como medida de concordância {#usando-p}</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que incluem os $k$ elementos da lista).</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>Uma pergunta natural sobre a qualidade do *ranking* produzido é</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Quantas posições do *ranking* são necessárias para incluir todos os $k$ elementos da lista?</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>A resposta é $p$, a posição, no *ranking*, do elemento da lista com pior classificação.</span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>Aliás, é por isso que convencionamos, no capítulo anterior, que nossos *rankings* sempre terminam com um elemento da lista.</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>Um exemplo:</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A lista contém $k = 5$ elementos.</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_1$ é <span class="in">`xx-x-xx`</span>, com $p = 7$.</span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_2$ é <span class="in">`-xxxxx`</span>, com $p = 6$.</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>Ou seja, quanto menor o valor de $p$, melhor o *ranking*.</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>Embora comparar *rankings* através de seus valores de $p$ seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>Por exemplo, é discutível se os dois rankings <span class="in">`xx---x`</span> e <span class="in">`---xxx`</span> devem ser considerados igualmente bons; no entanto, ambos têm $p = 6$.</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="in">library(gt)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lag', 'dplyr')</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="in">conflict_prefer('lead', 'dplyr')</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu"># O *ranking* concorda com a lista? Posições</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ como medida de concordância {#usando-p}</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>Imagine que a lista de $k$ elementos foi definida por uma autoridade, usando critérios que não conhecemos.</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>Em uma tentativa de descobrir esses critérios, construímos um modelo para avaliar todos os elementos da população (que incluem os $k$ elementos da lista).</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>Nosso modelo produz um *ranking* de todos os elementos. Para facilitar, vamos supor que não há empates no *ranking*.</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>Uma pergunta natural sobre a qualidade do *ranking* produzido é</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Quantas posições do *ranking* são necessárias para incluir todos os $k$ elementos da lista?</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>A resposta é $p$, a posição, no *ranking*, do elemento da lista com pior classificação.</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>Aliás, é por isso que convencionamos, no capítulo anterior, que nossos *rankings* sempre terminam com um elemento da lista.</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>Um exemplo:</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A lista contém $k = 5$ elementos.</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_1$ é <span class="in">`xx-x-xx`</span>, com $p = 7$.</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>O *ranking* $r_2$ é <span class="in">`-xxxxx`</span>, com $p = 6$.</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>Segundo a medida proposta aqui, $r_2$ é melhor que $r_1$.</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>Ou seja, quanto menor o valor de $p$, melhor o *ranking*.</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>Embora comparar *rankings* através de seus valores de $p$ seja simples, podemos examinar medidas alternativas, que sejam mais finas que esta.</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>Por exemplo, é discutível se os dois rankings <span class="in">`xx---x`</span> e <span class="in">`---xxx`</span> devem ser considerados igualmente bons; no entanto, ambos têm $p = 6$.</span>
 <span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ e as posições dos elementos da lista</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contando posições `-`</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ --- $s$ de *score* --- com as seguintes características:</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Se $r$ não contiver "<span class="in">`-`</span>", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, <span class="in">`xxxxx`</span>). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma</span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac k p + \cdots</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>  onde as reticências representam uma parcela que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir a parcela restante para que seja igual a zero.</span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A parcela restante deve ter valor maior quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "<span class="in">`-`</span>", melhor ele será. Uma quantidade natural seria</span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{\sum_{i = 1, p}i} </span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p + 1) / 2}</span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p + 1)}</span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>  onde $\operatorname{soma<span class="sc">\_</span>}$ é a soma das posições ocupadas por "<span class="in">`_`</span>" em $r$.</span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>  Como queríamos, quando $r$ for um *ranking* perfeito, $\operatorname{soma<span class="sc">\_</span>} = 0$, e então $s(r) = 1$.</span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mas também queremos que somente *rankings* perfeitos tenham $s(r) = 1$. Para isso, considere que um *ranking* mais próximo do perfeito é da forma</span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>  <span class="in">`x...x-x`</span></span>
-<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>  Ou seja, $k = p - 1$ e $\operatorname{soma<span class="sc">\_</span>} = p - 1$.</span>
-<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>  Vamos multiplicar a segunda parcela por $\alpha$ de forma que $s(r) &lt; 1$ para este *ranking* quase perfeito:</span>
-<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha</span>
-<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>  Então</span>
-<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
-<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>    s(r) &lt; 1 </span>
-<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha &lt; \frac1p <span class="sc">\\</span></span>
-<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>    &amp;\iff 2 \alpha (p - 1) &lt; p + 1 <span class="sc">\\</span></span>
-<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha &lt; \frac12 \cdot \frac{p + 1}{p - 1} <span class="sc">\\</span></span>
-<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2)</span>
-<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
-<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>  o que dá</span>
-<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
-<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>  s(r) </span>
-<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot \alpha <span class="sc">\\</span></span>
-<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot </span>
-<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>    \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2) <span class="sc">\\</span></span>
-<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
-<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>    \frac1m &amp; (m &gt; 2) <span class="sc">\\</span></span>
-<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
-<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>    \frac2m &amp; (m &gt; 2)</span>
-<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
-<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>  $$</span>
-<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>  Dependendo do valor de $m &gt; 2$ escolhido, teremos medidas diferentes.</span>
-<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>  A função que implementamos usa o *default* de $m = 10$, mas valores diferentes podem ser passados.</span>
-<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="cf">function</span>(um_rk, m) {</span>
-<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> um_rk<span class="sc">$</span>p</span>
-<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> um_rk<span class="sc">$</span>k</span>
-<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>  soma_ <span class="ot">&lt;-</span> <span class="fu">sum</span>(um_rk<span class="sc">$</span>no)</span>
-<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>  (k <span class="sc">/</span> p) <span class="sc">+</span> ((<span class="dv">2</span> <span class="sc">*</span> soma_) <span class="sc">/</span> (m <span class="sc">*</span> p <span class="sc">*</span> (p <span class="sc">-</span> <span class="dv">1</span>)))</span>
-<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="cf">function</span>(rk, <span class="at">m =</span> <span class="dv">10</span>) {</span>
-<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.rk</span>(rk)) {</span>
-<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>    <span class="fu">s1</span>(rk, m)</span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>    rk <span class="sc">%&gt;%</span> <span class="fu">map_dbl</span>(s1, m)</span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- rk('xxx-x')</span></span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a><span class="in">s(r)</span></span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>Para $p = 8$, alguns exemplos:</span>
-<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="in">s(</span></span>
-<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a><span class="in">  list(</span></span>
-<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="in">    rk('xxxxxxxx'),</span></span>
-<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a><span class="in">    rk('xxxxxx-x'),</span></span>
-<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a><span class="in">    rk('-xxxxxxx')</span></span>
-<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>Eis todos os *rankings* de comprimento $8$, com suas pontuações:</span>
-<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-163"><a href="#cb5-163" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">criar_df_rankings</span>(<span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">s</span>(ranking)</span>
-<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(s))</span>
-<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a>df</span>
-<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>Perceba que pode haver empates: <span class="in">`xxxx--xx`</span> e <span class="in">`xxx-xx-x`</span> têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.</span>
-<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Usando $p$ e as posições dos elementos da lista</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contando posições `-`</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>Dado um *ranking* $r$ com $k$ e $p$, queremos definir uma função $s(r)$ --- $s$ de *score* --- com as seguintes características:</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Se $r$ não contiver "<span class="in">`-`</span>", então $s(r) = 1$. Neste caso, $r$ é um *ranking* perfeito, que coincide com a lista (por exempĺo, <span class="in">`xxxxx`</span>). Em casos assim, $k = p$. Vamos definir $s$ como sendo da forma</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac k p + \cdots</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  onde as reticências representam uma parcela que ainda vamos definir. Se $r$ for um *ranking* perfeito, a parcela $k/p$ será $1$, e vamos definir a parcela restante para que seja igual a zero.</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>A parcela restante deve ter valor maior quanto melhor for o *ranking*. Quanto mais próximos do fim do *ranking* estiverem os caracteres "<span class="in">`-`</span>", melhor ele será. Uma quantidade natural seria</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{\sum_{i = 1, p}i} </span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p + 1) / 2}</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>  \quad=\quad </span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>  \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p + 1)}</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>  onde $\operatorname{soma<span class="sc">\_</span>}$ é a soma das posições ocupadas por "<span class="in">`_`</span>" em $r$.</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>  Como queríamos, quando $r$ for um *ranking* perfeito, $\operatorname{soma<span class="sc">\_</span>} = 0$, e então $s(r) = 1$.</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Mas também queremos que somente *rankings* perfeitos tenham $s(r) = 1$. Para isso, considere que um *ranking* mais próximo do perfeito é da forma</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>  <span class="in">`x...x-x`</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>  Ou seja, $k = p - 1$ e $\operatorname{soma<span class="sc">\_</span>} = p - 1$.</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>  Vamos multiplicar a segunda parcela por $\alpha$ de forma que $s(r) &lt; 1$ para este *ranking* quase perfeito:</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>  s(r) = \frac{p-1}{p} + \frac{2(p-1)}{p(p+1)} \cdot \alpha</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  Então</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>    s(r) &lt; 1 </span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \frac{2(p-1)}{p(p+1)} \cdot \alpha &lt; \frac1p <span class="sc">\\</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    &amp;\iff 2 \alpha (p - 1) &lt; p + 1 <span class="sc">\\</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha &lt; \frac12 \cdot \frac{p + 1}{p - 1} <span class="sc">\\</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>    &amp;\iff \alpha = \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2)</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>  o que dá</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>  \begin{aligned}</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>  s(r) </span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot \alpha <span class="sc">\\</span></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p+1)} \cdot </span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>    \frac1m \cdot \frac{p + 1}{p - 1} &amp; (m &gt; 2) <span class="sc">\\</span></span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{2\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>    \frac1m &amp; (m &gt; 2) <span class="sc">\\</span></span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>  &amp;= \frac{k}{p} + \frac{\operatorname{soma<span class="sc">\_</span>}}{p(p-1)} \cdot </span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>    \frac2m &amp; (m &gt; 2)</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>  \end{aligned}</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>  $$</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  Dependendo do valor de $m &gt; 2$ escolhido, teremos medidas diferentes.</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>  A função que implementamos usa o *default* de $m = 10$, mas valores diferentes podem ser passados.</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="cf">function</span>(um_rk, m) {</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> um_rk<span class="sc">$</span>p</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> um_rk<span class="sc">$</span>k</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a>  soma_ <span class="ot">&lt;-</span> <span class="fu">sum</span>(um_rk<span class="sc">$</span>no)</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>  (k <span class="sc">/</span> p) <span class="sc">+</span> ((<span class="dv">2</span> <span class="sc">*</span> soma_) <span class="sc">/</span> (m <span class="sc">*</span> p <span class="sc">*</span> (p <span class="sc">-</span> <span class="dv">1</span>)))</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="cf">function</span>(rk, <span class="at">m =</span> <span class="dv">10</span>) {</span>
+<span id="cb5-133"><a href="#cb5-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.rk</span>(rk)) {</span>
+<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a>    <span class="fu">s1</span>(rk, m)</span>
+<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>    rk <span class="sc">%&gt;%</span> <span class="fu">map_dbl</span>(s1, m)</span>
+<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a><span class="in">r &lt;- rk('xxx-x')</span></span>
+<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a><span class="in">s(r)</span></span>
+<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-148"><a href="#cb5-148" aria-hidden="true" tabindex="-1"></a>Para $p = 8$, alguns exemplos:</span>
+<span id="cb5-149"><a href="#cb5-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-150"><a href="#cb5-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a><span class="in">s(</span></span>
+<span id="cb5-152"><a href="#cb5-152" aria-hidden="true" tabindex="-1"></a><span class="in">  list(</span></span>
+<span id="cb5-153"><a href="#cb5-153" aria-hidden="true" tabindex="-1"></a><span class="in">    rk('xxxxxxxx'),</span></span>
+<span id="cb5-154"><a href="#cb5-154" aria-hidden="true" tabindex="-1"></a><span class="in">    rk('xxxxxx-x'),</span></span>
+<span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a><span class="in">    rk('-xxxxxxx')</span></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>Eis todos os *rankings* de comprimento $8$, com suas pontuações:</span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-164"><a href="#cb5-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-165"><a href="#cb5-165" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">criar_df_rankings</span>(<span class="dv">8</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-166"><a href="#cb5-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-167"><a href="#cb5-167" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">s</span>(ranking)</span>
+<span id="cb5-168"><a href="#cb5-168" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-169"><a href="#cb5-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(s))</span>
+<span id="cb5-170"><a href="#cb5-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-171"><a href="#cb5-171" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-172"><a href="#cb5-172" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ranking_str, s) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-173"><a href="#cb5-173" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span>
+<span id="cb5-174"><a href="#cb5-174" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb5-175"><a href="#cb5-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparando *rankings* com valores diferentes de $p$ </span></span>
+<span id="cb5-176"><a href="#cb5-176" aria-hidden="true" tabindex="-1"></a>Perceba que pode haver empates: <span class="in">`xxxx--xx`</span> e <span class="in">`xxx-xx-x`</span> têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.</span>
 <span id="cb5-177"><a href="#cb5-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a>Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.</span>
-<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-183"><a href="#cb5-183" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">20</span></span>
-<span id="cb5-184"><a href="#cb5-184" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">15</span></span>
-<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">map</span>(p, <span class="sc">~</span> <span class="fu">criar_df_rankings</span>(.x, k)) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">s</span>(ranking),</span>
-<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> ranking <span class="sc">%&gt;%</span> <span class="fu">map_int</span>(<span class="sc">~</span> .<span class="sc">$</span>p)</span>
-<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(s))</span>
-<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>Vamos examinar, para uma lista com $k = 15$, os *rankings* possíveis com $p$ variando de $15$ a $20$. </span>
-<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>São $<span class="in">`r nrow(df)`</span>$ *rankings*. Eis os $100$ melhores:</span>
-<span id="cb5-198"><a href="#cb5-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">100</span>)</span>
-<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a>Os gráficos abaixo mostram os *scores* atribuídos para todos os *rankings* com $k = 15$ e $p$ variando de $15$ a $20$, separados por valores de $p$:</span>
-<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-209"><a href="#cb5-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(</span>
-<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> s, <span class="at">group =</span> p, <span class="at">fill =</span> <span class="fu">factor</span>(p)),</span>
-<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>      <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
-<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
-<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 15,  p = 15 a 20'</span>,</span>
-<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span></span>
-<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p <span class="sc">&lt;</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(p) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(s) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
-<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(id, s, <span class="at">color =</span> <span class="fu">factor</span>(p)),</span>
-<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">2</span></span>
-<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(breaks = NULL) +</span></span>
-<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(.<span class="dv">875</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">'p'</span>,</span>
-<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">'ranking'</span>,</span>
-<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span>,</span>
-<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
-<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 15,  p = 15 a 17'</span></span>
-<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p <span class="sc">&gt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(p) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(s) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
-<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(id, s, <span class="at">color =</span> <span class="fu">factor</span>(p)),</span>
-<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">2</span></span>
-<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(breaks = NULL) +</span></span>
-<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(.<span class="dv">75</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
-<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">'p'</span>,</span>
-<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">'ranking'</span>,</span>
-<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span>,</span>
-<span id="cb5-269"><a href="#cb5-269" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
-<span id="cb5-270"><a href="#cb5-270" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 15,  p = 18 a 20'</span></span>
-<span id="cb5-271"><a href="#cb5-271" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-272"><a href="#cb5-272" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-178"><a href="#cb5-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-179"><a href="#cb5-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Comparando *rankings* com valores diferentes de $p$ </span></span>
+<span id="cb5-180"><a href="#cb5-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-181"><a href="#cb5-181" aria-hidden="true" tabindex="-1"></a>Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.</span>
+<span id="cb5-182"><a href="#cb5-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-185"><a href="#cb5-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-186"><a href="#cb5-186" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">criar_df_rankings</span>(<span class="at">k =</span> <span class="dv">2</span>, <span class="at">maxp =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-187"><a href="#cb5-187" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-188"><a href="#cb5-188" aria-hidden="true" tabindex="-1"></a>    <span class="at">s =</span> <span class="fu">s</span>(ranking),</span>
+<span id="cb5-189"><a href="#cb5-189" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> ranking <span class="sc">%&gt;%</span> <span class="fu">map_int</span>(<span class="sc">~</span> .<span class="sc">$</span>p)</span>
+<span id="cb5-190"><a href="#cb5-190" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(s))</span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>Vamos examinar, para uma lista com $k = 2$, os *rankings* possíveis com $p$ variando de $2$ a $10$. </span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>São $<span class="in">`r nrow(df)`</span>$ *rankings*:</span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-200"><a href="#cb5-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-201"><a href="#cb5-201" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb5-202"><a href="#cb5-202" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ranking_str, p, s) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-203"><a href="#cb5-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span>
+<span id="cb5-204"><a href="#cb5-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-205"><a href="#cb5-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-206"><a href="#cb5-206" aria-hidden="true" tabindex="-1"></a>Os gráficos abaixo mostram os *scores* atribuídos para todos os *rankings* com $k = 2$ e $p$ variando de $2$ a $10$, separados por valores de $p$:</span>
+<span id="cb5-207"><a href="#cb5-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-210"><a href="#cb5-210" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-211"><a href="#cb5-211" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb5-212"><a href="#cb5-212" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p <span class="sc">&lt;=</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-213"><a href="#cb5-213" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-214"><a href="#cb5-214" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(</span>
+<span id="cb5-215"><a href="#cb5-215" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> s, <span class="at">group =</span> p, <span class="at">fill =</span> <span class="fu">factor</span>(p)),</span>
+<span id="cb5-216"><a href="#cb5-216" aria-hidden="true" tabindex="-1"></a>      <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-217"><a href="#cb5-217" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-218"><a href="#cb5-218" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb5-219"><a href="#cb5-219" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb5-220"><a href="#cb5-220" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
+<span id="cb5-221"><a href="#cb5-221" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 2,  p = 2 a 5'</span>,</span>
+<span id="cb5-222"><a href="#cb5-222" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span></span>
+<span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(</span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(<span class="at">x =</span> p, <span class="at">y =</span> s, <span class="at">group =</span> p, <span class="at">fill =</span> <span class="fu">factor</span>(p)),</span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>      <span class="at">show.legend =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">+</span></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 2,  p = 6 a 10'</span>,</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span></span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-248"><a href="#cb5-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(p) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-249"><a href="#cb5-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(s) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-250"><a href="#cb5-250" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-251"><a href="#cb5-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-252"><a href="#cb5-252" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-253"><a href="#cb5-253" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb5-254"><a href="#cb5-254" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(id, s, <span class="at">color =</span> <span class="fu">factor</span>(p)),</span>
+<span id="cb5-255"><a href="#cb5-255" aria-hidden="true" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">2</span></span>
+<span id="cb5-256"><a href="#cb5-256" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-257"><a href="#cb5-257" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(</span>
+<span id="cb5-258"><a href="#cb5-258" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aes</span>(id, s, <span class="at">color =</span> <span class="fu">factor</span>(p))</span>
+<span id="cb5-259"><a href="#cb5-259" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-260"><a href="#cb5-260" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb5-261"><a href="#cb5-261" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb5-262"><a href="#cb5-262" aria-hidden="true" tabindex="-1"></a>      <span class="at">color =</span> <span class="st">'p'</span>,</span>
+<span id="cb5-263"><a href="#cb5-263" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">'ranking'</span>,</span>
+<span id="cb5-264"><a href="#cb5-264" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">'score'</span>,</span>
+<span id="cb5-265"><a href="#cb5-265" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">'Scores de todos os rankings'</span>,</span>
+<span id="cb5-266"><a href="#cb5-266" aria-hidden="true" tabindex="-1"></a>      <span class="at">subtitle =</span> <span class="st">'com k = 2  p = 2 a 10'</span></span>
+<span id="cb5-267"><a href="#cb5-267" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-268"><a href="#cb5-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

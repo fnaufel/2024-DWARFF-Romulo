@@ -203,8 +203,8 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spearman.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlação</span></span></a>
+  <a href="./usando-cor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Correlações</span></span></a>
   </div>
 </li>
     </ul>
@@ -1239,19 +1239,12 @@ Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 </div>
 </div>
 <p>A função <code>plot</code> pode receber um argumento <code>fun</code>, opcional, especificando uma função para calcular o <em>score</em> deste <em>ranking</em> (i.e., alguma forma de correlação entre o <em>ranking</em> e a lista). O <em>score</em> vai ser mostrado no título do gráfico.</p>
-<p>A função passada em <code>fun</code> deve receber, como único argumento, uma <em>tibble</em> com uma linha para cada elemento, e as colunas</p>
-<ul>
-<li>
-<code>nome</code>: um vetor de caracteres contendo ‘<code>x</code>’ e ‘<code>-</code>’.</li>
-<li>
-<code>pos_lista</code>: um vetor numérico com a posição de cada elemento na lista, sendo que elementos do <em>ranking</em> que não pertencem à lista são adicionados à lista todos empatados no final.</li>
-<li>
-<code>pos_ranking</code>: um vetor numérico com a posição de cada elemento no <em>ranking</em>.</li>
-</ul>
+<p>A função passada em <code>fun</code> deve receber um objeto <code>rk</code> e retornar o <em>score</em> numérico.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">r</span>, </span>
-<span>  fun <span class="op">=</span> \<span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">{</span> </span>
+<span>  fun <span class="op">=</span> \<span class="op">(</span><span class="va">r</span><span class="op">)</span> <span class="op">{</span> </span>
+<span>    <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">as_tibble</span><span class="op">(</span><span class="va">r</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pos_lista</span>, <span class="va">df</span><span class="op">$</span><span class="va">pos_ranking</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> </span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1933,45 +1926,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a>A função <span class="in">`plot`</span> pode receber um argumento <span class="in">`fun`</span>, opcional, especificando uma função para calcular o *score* deste *ranking* (i.e., alguma forma de correlação entre o *ranking* e a lista). O *score* vai ser mostrado no título do gráfico.</span>
 <span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a>A função passada em <span class="in">`fun`</span> deve receber, como único argumento, uma *tibble* com uma linha para cada elemento, e as colunas </span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a>A função passada em <span class="in">`fun`</span> deve receber um objeto <span class="in">`rk`</span> e retornar o *score* numérico.</span>
 <span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`nome`</span>: um vetor de caracteres contendo '<span class="in">`x`</span>' e '<span class="in">`-`</span>'.</span>
-<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`pos_lista`</span>: um vetor numérico com a posição de cada elemento na lista, sendo que elementos do *ranking* que não pertencem à lista são adicionados à lista todos empatados no final.</span>
-<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span><span class="in">`pos_ranking`</span>: um vetor numérico com a posição de cada elemento no *ranking*.</span>
-<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="in">plot(</span></span>
-<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="in">  r, </span></span>
-<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a><span class="in">  fun = \(df) { </span></span>
-<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a><span class="in">    cor(df$pos_lista, df$pos_ranking) %&gt;% round(2) </span></span>
-<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
-<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
-<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a><span class="in">plot(</span></span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a><span class="in">  r, </span></span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a><span class="in">  fun = \(r) { </span></span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="in">    df &lt;- as_tibble(r)</span></span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="in">    cor(df$pos_lista, df$pos_ranking) %&gt;% round(2) </span></span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="in">  }</span></span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criando uma *tibble* com todos os *rankings*</span></span>
 <span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a><span class="fu">### Criando uma *tibble* com todos os *rankings*</span></span>
-<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a>Dados valores de $p$ e $k$ (nesta ordem), a função <span class="in">`criar_df_rankings()`</span> retorna uma *tibble* com todos os $\binom{p - 1}{k - 1}$ *rankings* possíveis, como objetos (S3) e como *strings*.</span>
-<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 8$ e $k = 5$:</span>
-<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(8, 5)</span></span>
-<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-190"><a href="#cb21-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a>Se for passado apenas o valor de $p$, a função retorna uma *tibble* com todos os *rankings* possíveis de comprimento $p$ (com $k$ variando de $1$ até $p$). Exercício: quantos são?</span>
-<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 5$:</span>
-<span id="cb21-194"><a href="#cb21-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-195"><a href="#cb21-195" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb21-196"><a href="#cb21-196" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(5)</span></span>
-<span id="cb21-197"><a href="#cb21-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-198"><a href="#cb21-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-199"><a href="#cb21-199" aria-hidden="true" tabindex="-1"></a>Se você quiser a representação em *string* usando unicode, basta passar o argumento <span class="in">`unicode = TRUE`</span>:</span>
-<span id="cb21-200"><a href="#cb21-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-201"><a href="#cb21-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
-<span id="cb21-202"><a href="#cb21-202" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(5, unicode = TRUE)</span></span>
-<span id="cb21-203"><a href="#cb21-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a>Dados valores de $p$ e $k$ (nesta ordem), a função <span class="in">`criar_df_rankings()`</span> retorna uma *tibble* com todos os $\binom{p - 1}{k - 1}$ *rankings* possíveis, como objetos (S3) e como *strings*.</span>
+<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 8$ e $k = 5$:</span>
+<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(8, 5)</span></span>
+<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a>Se for passado apenas o valor de $p$, a função retorna uma *tibble* com todos os *rankings* possíveis de comprimento $p$ (com $k$ variando de $1$ até $p$). Exercício: quantos são?</span>
+<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-190"><a href="#cb21-190" aria-hidden="true" tabindex="-1"></a>Todos os *rankings* com $p = 5$:</span>
+<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(5)</span></span>
+<span id="cb21-194"><a href="#cb21-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-195"><a href="#cb21-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-196"><a href="#cb21-196" aria-hidden="true" tabindex="-1"></a>Se você quiser a representação em *string* usando unicode, basta passar o argumento <span class="in">`unicode = TRUE`</span>:</span>
+<span id="cb21-197"><a href="#cb21-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-198"><a href="#cb21-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r echo=TRUE}</span></span>
+<span id="cb21-199"><a href="#cb21-199" aria-hidden="true" tabindex="-1"></a><span class="in">criar_df_rankings(5, unicode = TRUE)</span></span>
+<span id="cb21-200"><a href="#cb21-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

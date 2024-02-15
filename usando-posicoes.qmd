@@ -6,6 +6,7 @@ source('_setup.R')
 source('rankings.R')
 library(gghalves)
 library(glue)
+library(gt)
 conflict_prefer('lag', 'dplyr')
 conflict_prefer('lead', 'dplyr')
 ```
@@ -164,7 +165,9 @@ df <- criar_df_rankings(8) %>%
   ) %>% 
   arrange(desc(s))
 
-df
+df %>% 
+  select(ranking_str, s) %>% 
+  gt()
 ```
 
 Perceba que pode haver empates: `xxxx--xx` e `xxx-xx-x` têm o mesmo valor de $s$. É razoável achar que estes dois *rankings* têm a mesma qualidade.
@@ -175,11 +178,7 @@ Perceba que pode haver empates: `xxxx--xx` e `xxx-xx-x` têm o mesmo valor de $s
 Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.
 
 ```{r}
-p <- 15:20
-k <- 15
-
-df <- map(p, ~ criar_df_rankings(.x, k)) %>% 
-  bind_rows() %>% 
+df <- criar_df_rankings(k = 2, maxp = 10) %>% 
   mutate(
     s = s(ranking),
     p = ranking %>% map_int(~ .$p)
@@ -187,34 +186,52 @@ df <- map(p, ~ criar_df_rankings(.x, k)) %>%
   arrange(desc(s))
 ```
 
-Vamos examinar, para uma lista com $k = 15$, os *rankings* possíveis com $p$ variando de $15$ a $20$. 
+Vamos examinar, para uma lista com $k = 2$, os *rankings* possíveis com $p$ variando de $2$ a $10$. 
 
-São $`r nrow(df)`$ *rankings*. Eis os $100$ melhores:
-
-```{r}
-df %>% head(100)
-```
-
-Os gráficos abaixo mostram os *scores* atribuídos para todos os *rankings* com $k = 15$ e $p$ variando de $15$ a $20$, separados por valores de $p$:
+São $`r nrow(df)`$ *rankings*:
 
 ```{r}
 df %>%
+  select(ranking_str, p, s) %>% 
+  gt()
+```
+
+Os gráficos abaixo mostram os *scores* atribuídos para todos os *rankings* com $k = 2$ e $p$ variando de $2$ a $10$, separados por valores de $p$:
+
+```{r}
+df %>%
+  filter(p <= 5) %>% 
   ggplot() +
     geom_boxplot(
       aes(x = p, y = s, group = p, fill = factor(p)),
       show.legend = FALSE
     ) +
-    scale_x_continuous(breaks = 15:20) +
+    scale_x_continuous(breaks = 2:10) +
     labs(
       title = 'Scores de todos os rankings',
-      subtitle = 'com k = 15,  p = 15 a 20',
+      subtitle = 'com k = 2,  p = 2 a 5',
+      y = 'score'
+    )
+```
+
+```{r}
+df %>%
+  filter(p > 5) %>% 
+  ggplot() +
+    geom_boxplot(
+      aes(x = p, y = s, group = p, fill = factor(p)),
+      show.legend = FALSE
+    ) +
+    scale_x_continuous(breaks = 2:10) +
+    labs(
+      title = 'Scores de todos os rankings',
+      subtitle = 'com k = 2,  p = 6 a 10',
       y = 'score'
     )
 ```
 
 ```{r}
 df %>% 
-  filter(p < 18) %>% 
   group_by(p) %>% 
   arrange(s) %>% 
   mutate(id = 1:n()) %>% 
@@ -224,36 +241,16 @@ df %>%
       aes(id, s, color = factor(p)),
       size = 2
     ) +
-    # scale_x_continuous(breaks = NULL) +
-    scale_y_continuous(limits = c(.875, NA)) +
+    geom_line(
+      aes(id, s, color = factor(p))
+    ) +
+    scale_x_continuous(breaks = NULL) +
     labs(
       color = 'p',
       x = 'ranking',
       y = 'score',
       title = 'Scores de todos os rankings',
-      subtitle = 'com k = 15,  p = 15 a 17'
+      subtitle = 'com k = 2  p = 2 a 10'
     )
 ```
 
-```{r}
-df %>% 
-  filter(p >= 18) %>% 
-  group_by(p) %>% 
-  arrange(s) %>% 
-  mutate(id = 1:n()) %>% 
-  ungroup() %>% 
-  ggplot() +
-    geom_point(
-      aes(id, s, color = factor(p)),
-      size = 2
-    ) +
-    # scale_x_continuous(breaks = NULL) +
-    scale_y_continuous(limits = c(.75, NA)) +
-    labs(
-      color = 'p',
-      x = 'ranking',
-      y = 'score',
-      title = 'Scores de todos os rankings',
-      subtitle = 'com k = 15,  p = 18 a 20'
-    )
-```

@@ -134,7 +134,7 @@ plot.rk <- function(x, y = NULL, fun = NULL, reta = TRUE, ... ) {
       )
   
   if (!is.null(fun)) {
-    score <- do.call(fun, list(df))
+    score <- do.call(fun, list(x))
     grafico <- grafico + labs(subtitle = paste0('Score = ', score))
   }
   
@@ -186,28 +186,42 @@ as_tibble.rk <- function(x, ...) {
 
 # Gerar todos os rankings com p e k ---------------------------------------
 
-criar_df_rankings <- function(p, k = NULL, unicode = FALSE) {
+criar_df_rankings <- function(
+    p = NULL, k = NULL, unicode = FALSE, maxp = 2*k
+) {
+
+  if (is.null(k) & is.null(p)) {
+    stop('\np ou k devem ser especificados.') 
+  }
   
-  if (!is.null(k)) {
+  # Se k e p foram especificados
+  if (!is.null(k) & !is.null(p)) {
     stopifnot(
       '\np deve ser maior ou igual a k' = p >= k
     )
+    return(gerar_df_para_um_k(p, k, unicode))
   }
   
-  # Se k foi especificado, usar
-  if (!is.null(k)) {
-    rv <- gerar_df_para_um_k(p, k, unicode)
-  } else {
-    # Senão, gerar com todos os valores de k entre 1 e p
+  # Se só p foi especificado, variar k de 1 a p
+  if (!is.null(p) ) {
     rv <- 1:p %>% 
       map(
         ~ gerar_df_para_um_k(p, .x, unicode)
       ) %>% 
         bind_rows()
+    return(rv)
   }
-  
-  rv
-  
+
+  # Se só k foi especificado, variar p de 1 a maxp
+  if (!is.null(k) ) {
+    rv <- k:maxp %>% 
+      map(
+        ~ gerar_df_para_um_k(.x, k, unicode)
+      ) %>% 
+        bind_rows()
+    return(rv)
+  }
+    
 }
 
 
