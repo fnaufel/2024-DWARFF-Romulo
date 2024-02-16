@@ -46,9 +46,9 @@ calcular_pos_empate_depois_k(rk('x--x-x'))
 ```
 
 
-### No final, na ordem inversa
+### No final, em ordem
 
-Elementos do *ranking* que não estão na lista ficam no fim da lista, na mesma ordem em que aparecem no *ranking*
+Elementos do *ranking* que não estão na lista ficam no fim da lista, na mesma ordem em que aparecem no *ranking*.
 
 ```{r}
 calcular_pos_em_ordem_depois_k <- function(um_rk) {
@@ -61,7 +61,7 @@ calcular_pos_em_ordem_depois_k <- function(um_rk) {
   
   if (p > k) {
   
-    pos_lista <- c(pos_lista,  p:(k + 1))
+    pos_lista <- c(pos_lista,  (k + 1):p)
     pos_ranking <- c(pos_ranking, um_rk$no)
     
   }
@@ -106,7 +106,10 @@ Definimos a função $s()$ para calcular este valor como *score* de um *ranking*
 sp1 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
-  cor(pos_lista, pos_ranking, method = 'spearman')
+  k <- um_rk$k
+  p <- um_rk$p
+  
+  (cor(pos_lista, pos_ranking, method = 'spearman') + 1) * k / (2 * p)
 
 }
 
@@ -122,8 +125,6 @@ sp <- function(rk) {
 ```
 
 Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.
-
-A tabela abaixo mostra que usar correlação não faz sentido. Por exemplo, `-xx` recebe um *score* muito pior ($-0{,}5$) do que `-x-------x` ($-0{,}01$):
 
 ```{r}
 exemplos_s(
@@ -142,7 +143,10 @@ Devemos abandonar Spearman como medida da qualidade de um *ranking*?
 sp2 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
-  cor(pos_lista, pos_ranking, method = 'spearman')
+  k <- um_rk$k
+  p <- um_rk$p
+  
+  (cor(pos_lista, pos_ranking, method = 'spearman') + 1) * k / (2 * p)
 
 }
 
@@ -184,7 +188,9 @@ No R: *When there are ties, Kendall's $\tau_b$ is computed, as proposed by Kenda
 k1 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
-  cor(pos_lista, pos_ranking, method = 'kendall')
+  k <- um_rk$k
+  p <- um_rk$p
+  (cor(pos_lista, pos_ranking, method = 'kendall') + 1) * k / (2 * p)
 
 }
 
@@ -221,7 +227,9 @@ No R: *When there are ties, Kendall's $\tau_b$ is computed, as proposed by Kenda
 k2 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
-  cor(pos_lista, pos_ranking, method = 'kendall')
+  k <- um_rk$k
+  p <- um_rk$p
+  (cor(pos_lista, pos_ranking, method = 'kendall') + 1) * k / (2 * p)
 
 }
 
@@ -261,7 +269,9 @@ library(Hmisc)
 g1 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
-  rcorr.cens(pos_lista, pos_ranking, outx = TRUE)[[2]]
+  k <- um_rk$k
+  p <- um_rk$p
+  (rcorr.cens(pos_lista, pos_ranking, outx = TRUE)[[2]] + 1) * k / (2 * p)
 
 }
 
@@ -294,7 +304,9 @@ Nada feito.
 g2 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
-  rcorr.cens(pos_lista, pos_ranking, outx = TRUE)[[2]]
+  k <- um_rk$k
+  p <- um_rk$p
+  (rcorr.cens(pos_lista, pos_ranking, outx = TRUE)[[2]] + 1) * k / (2 * p)
 
 }
 
@@ -330,7 +342,9 @@ Não divide pelo produto dos desvios-padrão.
 cov1 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
-  cov(pos_lista, pos_ranking, method = 'spearman')
+  k <- um_rk$k
+  p <- um_rk$p
+  (cov(pos_lista, pos_ranking, method = 'spearman') + 1) * k / (2 * p)
 
 }
 
@@ -363,7 +377,9 @@ Nada feito também.
 cov2 <- function(um_rk) {
   
   c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
-  cov(pos_lista, pos_ranking, method = 'spearman')
+  k <- um_rk$k
+  p <- um_rk$p
+  (cov(pos_lista, pos_ranking, method = 'spearman') + 1)  * k / (2 * p)
 
 }
 
