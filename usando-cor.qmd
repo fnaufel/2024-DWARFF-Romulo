@@ -9,16 +9,14 @@ library(gt)
 
 # O *ranking* concorda com a lista? Correlações
 
-## Spearman
+## Incluindo elementos do *ranking* na lista
 
-Uma idéia seria ???
+### Empatados no final
 
-Como são dois vetores de *ranks*, o coeficiente de correlação de Spearman é igual ao de Pearson.
-
-Definimos a função $s()$ para calcular este valor como *score* de um *ranking*.
+Elementos do *ranking* que não estão na lista ficam todos empatados no fim da lista.
 
 ```{r}
-s1 <- function(um_rk) {
+calcular_pos_empate_depois_k <- function(um_rk) {
   
   p <- um_rk$p
   k <- um_rk$k
@@ -32,17 +30,92 @@ s1 <- function(um_rk) {
     pos_ranking <- c(pos_ranking, um_rk$no)
     
   }
+
+  list(
+    pos_lista = pos_lista, 
+    pos_ranking = pos_ranking
+  )
   
+}
+```
+
+Exemplo:
+
+```{r echo=TRUE}
+calcular_pos_empate_depois_k(rk('x--x-x'))
+```
+
+
+### No final, na ordem inversa
+
+Elementos do *ranking* que não estão na lista ficam no fim da lista, na mesma ordem em que aparecem no *ranking*
+
+```{r}
+calcular_pos_em_ordem_depois_k <- function(um_rk) {
+  
+  p <- um_rk$p
+  k <- um_rk$k
+  
+  pos_lista = 1:k
+  pos_ranking = um_rk$yes
+  
+  if (p > k) {
+  
+    pos_lista <- c(pos_lista,  p:(k + 1))
+    pos_ranking <- c(pos_ranking, um_rk$no)
+    
+  }
+
+  list(
+    pos_lista = pos_lista, 
+    pos_ranking = pos_ranking
+  )
+  
+}
+```
+
+Exemplo:
+
+```{r echo=TRUE}
+calcular_pos_em_ordem_depois_k(rk('x--x-x'))
+```
+
+```{r}
+exemplos_s <- function(k, maxp, score) {
+  
+  criar_df_rankings(k = k, maxp = maxp) %>% 
+    mutate(s = score(ranking)) %>% 
+    arrange(desc(s)) %>% 
+    select(ranking_str, s)
+  
+}
+```
+
+
+## Spearman
+
+### Empatados no final
+
+Uma idéia seria ???
+
+Como são dois vetores de *ranks*, o coeficiente de correlação de Spearman é igual ao de Pearson.
+
+Definimos a função $s()$ para calcular este valor como *score* de um *ranking*.
+
+```{r}
+sp1 <- function(um_rk) {
+  
+  c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
   cor(pos_lista, pos_ranking, method = 'spearman')
 
 }
 
-s <- function(rk) {
+sp <- function(rk) {
 
   if (is.rk(rk)) {
-    s1(rk)
+    sp1(rk)
   } else {
-    rk %>% map_dbl(s1)
+    rk %>% map_dbl(sp1)
   }
 
 }
@@ -53,121 +126,130 @@ Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* c
 A tabela abaixo mostra que usar correlação não faz sentido. Por exemplo, `-xx` recebe um *score* muito pior ($-0{,}5$) do que `-x-------x` ($-0{,}01$):
 
 ```{r}
-df1 <- criar_df_rankings(k = 2, maxp = 10) %>% 
-  mutate(s = s(ranking)) %>% 
-  arrange(desc(s)) %>% 
-  select(ranking_str, s) 
-
-df1 %>% gt()
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = sp
+) %>% 
+  gt()
 ```
 
 Devemos abandonar Spearman como medida da qualidade de um *ranking*?
 
-
-### Tentativa de salvar Spearman
-
-Talvez possamos salvar a situação se colocarmos os elementos do *ranking* que não aparecem na lista como todos empatados na posição $p + 1$, e não na posição $k + 1$. 
+### Em ordem no final
 
 ```{r}
-s2 <- function(um_rk) {
+sp2 <- function(um_rk) {
   
-  p <- um_rk$p
-  k <- um_rk$k
-  
-  pos_lista = 1:k
-  pos_ranking = um_rk$yes
-  
-  if (p > k) {
-  
-    pos_lista <- 
-      c(
-        pos_lista, 
-        rep((sum((p + 1):(p + length(um_rk$no))) / (p - k)) , p - k)
-      )
-    pos_ranking <- c(pos_ranking, um_rk$no)
-    
-  }
-  
+  c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
   cor(pos_lista, pos_ranking, method = 'spearman')
 
 }
 
-s <- function(rk) {
+sp_em_ordem <- function(rk) {
 
   if (is.rk(rk)) {
-    s2(rk)
+    sp2(rk)
   } else {
-    rk %>% map_dbl(s2)
+    rk %>% map_dbl(sp2)
   }
 
 }
 ```
 
+Como a lista é dada e fixa, só faz sentido, na prática, comparar *rankings* com o mesmo valor de $k$.
+
+A tabela abaixo mostra que usar correlação não faz sentido. Por exemplo, `-xx` recebe um *score* muito pior ($-0{,}5$) do que `-x-------x` ($-0{,}01$):
+
 ```{r}
-df2 <- criar_df_rankings(k = 2, maxp = 10) %>% 
-  mutate(s = s(ranking)) %>% 
-  arrange(desc(s)) %>% 
-  select(ranking_str, s) 
-
-df2 %>% gt()
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = sp_em_ordem
+) %>% 
+  gt()
 ```
 
-Nada mudou. As duas funções ordenam os *rankings* da mesma maneira, com os mesmos *scores* (!):
 
-```{r echo=TRUE}
-identical(df1$s, df2$s)
-```
 
 ## Kendall
+
+### Empatados no final
 
 O coeficiente de correlação ordinal de Kendall... ???
 
 No R: *When there are ties, Kendall's $\tau_b$ is computed, as proposed by Kendall (1945).*
 
 ```{r}
-s3 <- function(um_rk) {
+k1 <- function(um_rk) {
   
-  p <- um_rk$p
-  k <- um_rk$k
-  
-  pos_lista = 1:k
-  pos_ranking = um_rk$yes
-  
-  if (p > k) {
-  
-    pos_lista <- c(pos_lista,  rep((sum((k+1):p) / (p - k)) , p - k))
-    pos_ranking <- c(pos_ranking, um_rk$no)
-    
-  }
-  
+  c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
   cor(pos_lista, pos_ranking, method = 'kendall')
 
 }
 
-s <- function(rk) {
+kendall <- function(rk) {
 
   if (is.rk(rk)) {
-    s3(rk)
+    k1(rk)
   } else {
-    rk %>% map_dbl(s3)
+    rk %>% map_dbl(k1)
   }
 
 }
 ```
 
 ```{r}
-df3 <- criar_df_rankings(k = 2, maxp = 10) %>% 
-  mutate(s = s(ranking)) %>% 
-  arrange(desc(s)) %>% 
-  select(ranking_str, s) 
-
-df3 %>% gt()
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = kendall
+) %>% 
+  gt()
 ```
 
 Existem diferenças em relação a Spearman, mas as incoerências persistem.
 
 
+### Em ordem no final
+
+O coeficiente de correlação ordinal de Kendall... ???
+
+No R: *When there are ties, Kendall's $\tau_b$ is computed, as proposed by Kendall (1945).*
+
+```{r}
+k2 <- function(um_rk) {
+  
+  c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
+  cor(pos_lista, pos_ranking, method = 'kendall')
+
+}
+
+kendall_em_ordem <- function(rk) {
+
+  if (is.rk(rk)) {
+    k2(rk)
+  } else {
+    rk %>% map_dbl(k2)
+  }
+
+}
+```
+
+```{r}
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = kendall_em_ordem
+) %>% 
+  gt()
+```
+
+
+
 ## Gama
+
+### Empatados no final
 
 <https://rstudio-pubs-static.s3.amazonaws.com/274882_577e32945b27447a98b1c2ac1dd02adf.html>
 
@@ -176,142 +258,134 @@ library(Hmisc)
 ```
 
 ```{r}
-s4 <- function(um_rk) {
+g1 <- function(um_rk) {
   
-  p <- um_rk$p
-  k <- um_rk$k
-  
-  pos_lista = 1:k
-  pos_ranking = um_rk$yes
-  
-  if (p > k) {
-  
-    pos_lista <- c(pos_lista,  rep((sum((k+1):p) / (p - k)) , p - k))
-    pos_ranking <- c(pos_ranking, um_rk$no)
-    
-  }
-  
+  c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
   rcorr.cens(pos_lista, pos_ranking, outx = TRUE)[[2]]
 
 }
 
-s <- function(rk) {
+gama <- function(rk) {
 
   if (is.rk(rk)) {
-    s4(rk)
+    g1(rk)
   } else {
-    rk %>% map_dbl(s4)
+    rk %>% map_dbl(g1)
   }
 
 }
 ```
 
 ```{r}
-df4 <- criar_df_rankings(k = 2, maxp = 10) %>% 
-  mutate(s = s(ranking)) %>% 
-  arrange(desc(s)) %>% 
-  select(ranking_str, s) 
-
-df4 %>% gt()
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = gama
+) %>% 
+  gt()
 ```
 
 Nada feito.
 
 
-## Covariância das posições
-
-Não divide pelo produto dos desvios-padrão.
+### Em ordem no final
 
 ```{r}
-s5 <- function(um_rk) {
+g2 <- function(um_rk) {
   
-  p <- um_rk$p
-  k <- um_rk$k
-  
-  pos_lista = 1:k
-  pos_ranking = um_rk$yes
-  
-  if (p > k) {
-  
-    pos_lista <- c(pos_lista,  rep((sum((k+1):p) / (p - k)) , p - k))
-    pos_ranking <- c(pos_ranking, um_rk$no)
-    
-  }
-  
-  cov(pos_lista, pos_ranking, method = 'spearman')
+  c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
+  rcorr.cens(pos_lista, pos_ranking, outx = TRUE)[[2]]
 
 }
 
-s <- function(rk) {
+gama_em_ordem <- function(rk) {
 
   if (is.rk(rk)) {
-    s5(rk)
+    g2(rk)
   } else {
-    rk %>% map_dbl(s5)
+    rk %>% map_dbl(g2)
   }
 
 }
 ```
 
 ```{r}
-df5 <- criar_df_rankings(k = 2, maxp = 10) %>% 
-  mutate(s = s(ranking)) %>% 
-  arrange(desc(s)) %>% 
-  select(ranking_str, s) 
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = gama_em_ordem
+) %>% 
+  gt()
+```
 
-df5 %>% gt()
+
+
+## Covariância das posições
+
+### Empatados no final
+
+Não divide pelo produto dos desvios-padrão.
+
+```{r}
+cov1 <- function(um_rk) {
+  
+  c(pos_lista, pos_ranking) %<-% calcular_pos_empate_depois_k(um_rk) 
+  cov(pos_lista, pos_ranking, method = 'spearman')
+
+}
+
+scov <- function(rk) {
+
+  if (is.rk(rk)) {
+    cov1(rk)
+  } else {
+    rk %>% map_dbl(cov1)
+  }
+
+}
+```
+
+```{r}
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = scov
+) %>% 
+  gt()
 ```
 
 Nada feito também.
 
 
-## Covariância, com empates mais para trás
+### Em ordem no final
 
 ```{r}
-s6 <- function(um_rk) {
+cov2 <- function(um_rk) {
   
-  p <- um_rk$p
-  k <- um_rk$k
-  
-  pos_lista = 1:k
-  pos_ranking = um_rk$yes
-  
-  if (p > k) {
-  
-    pos_lista <- 
-      c(
-        pos_lista, 
-        rep((sum((p + 1):(p + length(um_rk$no))) / (p - k)) , p - k)
-      )
-    pos_ranking <- c(pos_ranking, um_rk$no)
-    
-  }
-  
+  c(pos_lista, pos_ranking) %<-% calcular_pos_em_ordem_depois_k(um_rk) 
   cov(pos_lista, pos_ranking, method = 'spearman')
 
 }
 
-s <- function(rk) {
+scov_em_ordem <- function(rk) {
 
   if (is.rk(rk)) {
-    s5(rk)
+    cov2(rk)
   } else {
-    rk %>% map_dbl(s5)
+    rk %>% map_dbl(cov2)
   }
 
 }
 ```
 
 ```{r}
-df6 <- criar_df_rankings(k = 2, maxp = 10) %>% 
-  mutate(s = s(ranking)) %>% 
-  arrange(desc(s)) %>% 
-  select(ranking_str, s) 
-
-df6 %>% gt()
+exemplos_s(
+  k = 2, 
+  maxp = 10, 
+  score = scov_em_ordem
+) %>% 
+  gt()
 ```
-
-Também não.
 
 
 ## Conclusão (?)
