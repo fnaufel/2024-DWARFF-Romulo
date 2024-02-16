@@ -1,0 +1,20 @@
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+source('rankings.R')
+library(gt)
+```
+
+# Correção e completude do *ranking*
+
+## Idéia geral
+
+Em @cheng10:_predic_partial_order, duas medidas são usadas para avaliar um modelo que tenta prever um *ranking*: correção e completude.
+
+No nosso problema, estamos construindo um *ranking*, na tentativa de prever um conjunto não-ordenado (a lista). Neste contexto:
+
+* **Correção** diz respeito a ???
+
+* **Completude** diz respeito a quantas posições do *ranking* foram necessárias para incluir todos os elementos da lista. Uma boa medida de completude parece ser o valor de $p$, ou talvez o valor de $p/k$.

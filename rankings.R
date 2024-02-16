@@ -231,7 +231,9 @@ gerar_df_para_um_k <- function(p, k, unicode) {
     return(
       tibble(
         ranking = list(rk(p)),
-        ranking_str = as.character(ranking[[1]], unicode = unicode)
+        ranking_str = as.character(ranking[[1]], unicode = unicode),
+        k = k,
+        p = p
       )
     ) # "-...-x"
   }
@@ -250,9 +252,11 @@ gerar_df_para_um_k <- function(p, k, unicode) {
       v = list(c_across(everything())),
       # Acrescentar 'x' na posição p (última posição de todo ranking)
       ranking = list(rk(c(v, p))),
-      ranking_str = as.character(ranking, unicode = unicode)
+      ranking_str = as.character(ranking, unicode = unicode),
+      k = k,
+      p = p
     ) %>% 
-    select(ranking, ranking_str) %>% 
+    select(ranking, ranking_str, k, p) %>% 
     ungroup()
 
 }

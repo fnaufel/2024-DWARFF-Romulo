@@ -254,3 +254,84 @@ df %>%
     )
 ```
 
+
+### Outros valores de $m$
+
+O valor de $m$ altera a função $s()$ de maneira a permitir sobreposições:
+
+Para $m = 5$:
+
+```{r}
+df <- criar_df_rankings(k = 2, maxp = 10) %>% 
+  mutate(
+    s = s(ranking, m = 5),
+    p = ranking %>% map_int(~ .$p)
+  ) %>% 
+  arrange(desc(s))
+```
+
+Vamos examinar, para uma lista com $k = 2$, os *rankings* possíveis com $p$ variando de $2$ a $10$. 
+
+São $`r nrow(df)`$ *rankings*:
+
+```{r}
+df %>%
+  select(ranking_str, p, s) %>% 
+  gt()
+```
+
+```{r}
+df %>%
+  filter(p <= 5) %>% 
+  ggplot() +
+    geom_boxplot(
+      aes(x = p, y = s, group = p, fill = factor(p)),
+      show.legend = FALSE
+    ) +
+    scale_x_continuous(breaks = 2:10) +
+    labs(
+      title = 'Scores de todos os rankings',
+      subtitle = 'com k = 2,  p = 2 a 5',
+      y = 'score'
+    )
+```
+
+```{r}
+df %>%
+  filter(p > 5) %>% 
+  ggplot() +
+    geom_boxplot(
+      aes(x = p, y = s, group = p, fill = factor(p)),
+      show.legend = FALSE
+    ) +
+    scale_x_continuous(breaks = 2:10) +
+    labs(
+      title = 'Scores de todos os rankings',
+      subtitle = 'com k = 2,  p = 6 a 10',
+      y = 'score'
+    )
+```
+
+```{r}
+df %>% 
+  group_by(p) %>% 
+  arrange(s) %>% 
+  mutate(id = 1:n()) %>% 
+  ungroup() %>% 
+  ggplot() +
+    geom_point(
+      aes(id, s, color = factor(p)),
+      size = 2
+    ) +
+    geom_line(
+      aes(id, s, color = factor(p))
+    ) +
+    scale_x_continuous(breaks = NULL) +
+    labs(
+      color = 'p',
+      x = 'ranking',
+      y = 'score',
+      title = 'Scores de todos os rankings',
+      subtitle = 'com k = 2  p = 2 a 10'
+    )
+```
