@@ -1,0 +1,118 @@
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+source('rankings.R')
+library(gt)
+```
+
+# Precisão e revocação
+
+## Contexto
+
+Precisão e revocação são métricas usadas em problemas de classificação.
+
+No nosso contexto, vamos considerar os $k$ elementos da lista como sendo aqueles cuja classe é a *positiva*, i.e., a lista nos dá a verdade fundamental (*ground truth*); todos os outros elementos do universo têm classe *negativa*.
+
+Em vez de produzir um *ranking*, nosso modelo vai produzir uma *classificação binária*, rotulando alguns elementos como positivos e alguns elementos como negativos.
+
+
+## Definições
+
+Precisão e revocação são noções ligadas a reconhecimento de padrões e recuperação de informações.
+
+Vamos usar uma tabela de contingência binária como na @fig-tab-cont, retirada de @powers07:precision_recall.
+
+![Tabela de contingência binária](images/contingency-table.png){fig-alt="tabela de contingência" #fig-tab-cont fig-align="center" width=60%}
+
+Aqui, as colunas **+R** e **-R** representam a verdade fundamental (positivos e negativos). As linhas **+P** e **-P** representam as classes previstas pelo modelo. Além disso,
+
+* `tp` = *true positives*
+* `fp` = *false positives*
+* `fn` = *false negatives*
+* `tn` = *true negatives*
+* `rp` = *real positives*
+* `rn` = *real negatives*
+* `pp` = *predicted positive*
+* `pn` = *predicted negative*
+
+As células verdes correspondem a previsões corretas, as vermelhas a previsões erradas.
+
+::: {.callout-note title="Recall"}
+
+*Recall* (ou *sensibilidade*, ou *revocação*) é a proporção de positivos verdadeiros que são previstos como positivos. Em ROC, é a taxa de positivos verdadeiros (*true positive rate*, `tpr`):
+
+$$
+\text{recall} = \texttt{tpr} = \frac{\texttt{tp}}{\texttt{rp}}
+$$
+
+*Recall* só usa informação da coluna **+R**.
+
+:::
+
+::: {.callout-note title="Precisão"}
+
+*Precisão* (ou *confiança*) é a proporção de elementos previstos como positivos que são realmente positivos. Pode ser chamada de *true positive accuracy* (`tpa`):
+
+$$
+\text{precisão} = \texttt{tpa} = \frac{\texttt{tp}}{\texttt{pp}}
+$$
+
+Em ROC, que não usa métricas envolvendo quantidades de colunas diferentes da tabela de contingência --- ver @fawcett06:_roc --- precisão não é usada.
+
+*Precisão* só usa informação da linha **+P**.
+
+:::
+
+Várias questões sobre estas duas métricas são abordadas em @powers07:precision_recall, incluindo os seus vieses. Vamos ignorar estas questões por enquanto.
+
+
+## Exemplo sem *threshold*
+
+Considere o *ranking* `xx---x-xx`, com $p = 9$ e $k = 5$.
+
+Até agora, nossos *rankings* não vêm acompanhados de um valor limite (*threshold*) acima do qual os elementos são previstos como positivos e abaixo do qual os elementos são previstos como negativos.
+
+Vamos considerar que todos os $p$ elementos representados no *string* são previstos como positivos. Isto significa que não há falsos negativos.
+
+Até agora, nossa representação para *rankings* não leva em conta o total de elementos da população. Vamos chamar este total de $n$.
+
+* Os elementos que não aparecem neste *string* são em número de $n - p = n - 9$.
+
+* Os *real positives* são em número de $\texttt{rp} = k = 5$.
+
+* Os *real negatives* são em número de $\texttt{rn} = n - k = n - 5$.
+
+* Os *true positives* são em número de $\texttt{tp} = k = 5$.
+
+* Os *predicted positive* são em número de $\texttt{pp} = p = 9$.
+
+* Os *false negatives* são $\texttt{fn} = 0$.
+
+* Os *false positives* são em número de $\texttt{fp} = p - k = 9 - 5 = 4$.
+
+A tabela fica:
+
+```{r}
+tibble(
+  ` `  = c('+P', '-P', 'Total'),
+  `+R` = c(5, 0, 5) %>% as.character(),
+  `-R` = c(4, 'n - p', 'n - k'),
+  Total = c(9, 'n - p', 'n')
+) %>% 
+  gt() %>% 
+  tab_style(
+    cell_text(align = 'right'),
+    list(cells_body(), cells_column_labels())
+  )
+```
+
+Daí, o *recall* sempre vai ser $1$, e a precisão é simplesmente
+
+$$
+\frac kp = \frac59
+$$
+
+Mas, uma vez fixado o valor de $k$, isto equivale a atribuir o mesmo *score* a todos os *rankings* com o mesmo valor de $p$. Não é interessante.
+

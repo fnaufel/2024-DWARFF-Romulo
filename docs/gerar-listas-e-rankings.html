@@ -201,6 +201,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">O <em>ranking</em> concorda com a lista? Posições</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./usando-precision-recall.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Precisão e revocação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
     </ul>
 </div>
 </nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
@@ -1258,7 +1270,7 @@ Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: rk>","2":"xxxx---x"},{"1":"<S3: rk>","2":"xxx-x--x"},{"1":"<S3: rk>","2":"xxx--x-x"},{"1":"<S3: rk>","2":"xxx---xx"},{"1":"<S3: rk>","2":"xx-xx--x"},{"1":"<S3: rk>","2":"xx-x-x-x"},{"1":"<S3: rk>","2":"xx-x--xx"},{"1":"<S3: rk>","2":"xx--xx-x"},{"1":"<S3: rk>","2":"xx--x-xx"},{"1":"<S3: rk>","2":"xx---xxx"},{"1":"<S3: rk>","2":"x-xxx--x"},{"1":"<S3: rk>","2":"x-xx-x-x"},{"1":"<S3: rk>","2":"x-xx--xx"},{"1":"<S3: rk>","2":"x-x-xx-x"},{"1":"<S3: rk>","2":"x-x-x-xx"},{"1":"<S3: rk>","2":"x-x--xxx"},{"1":"<S3: rk>","2":"x--xxx-x"},{"1":"<S3: rk>","2":"x--xx-xx"},{"1":"<S3: rk>","2":"x--x-xxx"},{"1":"<S3: rk>","2":"x---xxxx"},{"1":"<S3: rk>","2":"-xxxx--x"},{"1":"<S3: rk>","2":"-xxx-x-x"},{"1":"<S3: rk>","2":"-xxx--xx"},{"1":"<S3: rk>","2":"-xx-xx-x"},{"1":"<S3: rk>","2":"-xx-x-xx"},{"1":"<S3: rk>","2":"-xx--xxx"},{"1":"<S3: rk>","2":"-x-xxx-x"},{"1":"<S3: rk>","2":"-x-xx-xx"},{"1":"<S3: rk>","2":"-x-x-xxx"},{"1":"<S3: rk>","2":"-x--xxxx"},{"1":"<S3: rk>","2":"--xxxx-x"},{"1":"<S3: rk>","2":"--xxx-xx"},{"1":"<S3: rk>","2":"--xx-xxx"},{"1":"<S3: rk>","2":"--x-xxxx"},{"1":"<S3: rk>","2":"---xxxxx"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]},{"label":["k"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["p"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"<S3: rk>","2":"xxxx---x","3":"5","4":"8"},{"1":"<S3: rk>","2":"xxx-x--x","3":"5","4":"8"},{"1":"<S3: rk>","2":"xxx--x-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"xxx---xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"xx-xx--x","3":"5","4":"8"},{"1":"<S3: rk>","2":"xx-x-x-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"xx-x--xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"xx--xx-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"xx--x-xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"xx---xxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"x-xxx--x","3":"5","4":"8"},{"1":"<S3: rk>","2":"x-xx-x-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"x-xx--xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"x-x-xx-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"x-x-x-xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"x-x--xxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"x--xxx-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"x--xx-xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"x--x-xxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"x---xxxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"-xxxx--x","3":"5","4":"8"},{"1":"<S3: rk>","2":"-xxx-x-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"-xxx--xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"-xx-xx-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"-xx-x-xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"-xx--xxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"-x-xxx-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"-x-xx-xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"-x-x-xxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"-x--xxxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"--xxxx-x","3":"5","4":"8"},{"1":"<S3: rk>","2":"--xxx-xx","3":"5","4":"8"},{"1":"<S3: rk>","2":"--xx-xxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"--x-xxxx","3":"5","4":"8"},{"1":"<S3: rk>","2":"---xxxxx","3":"5","4":"8"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1270,7 +1282,7 @@ Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: rk>","2":"----x"},{"1":"<S3: rk>","2":"x---x"},{"1":"<S3: rk>","2":"-x--x"},{"1":"<S3: rk>","2":"--x-x"},{"1":"<S3: rk>","2":"---xx"},{"1":"<S3: rk>","2":"xx--x"},{"1":"<S3: rk>","2":"x-x-x"},{"1":"<S3: rk>","2":"x--xx"},{"1":"<S3: rk>","2":"-xx-x"},{"1":"<S3: rk>","2":"-x-xx"},{"1":"<S3: rk>","2":"--xxx"},{"1":"<S3: rk>","2":"xxx-x"},{"1":"<S3: rk>","2":"xx-xx"},{"1":"<S3: rk>","2":"x-xxx"},{"1":"<S3: rk>","2":"-xxxx"},{"1":"<S3: rk>","2":"xxxxx"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]},{"label":["k"],"name":[3],"type":["int"],"align":["right"]},{"label":["p"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"<S3: rk>","2":"----x","3":"1","4":"5"},{"1":"<S3: rk>","2":"x---x","3":"2","4":"5"},{"1":"<S3: rk>","2":"-x--x","3":"2","4":"5"},{"1":"<S3: rk>","2":"--x-x","3":"2","4":"5"},{"1":"<S3: rk>","2":"---xx","3":"2","4":"5"},{"1":"<S3: rk>","2":"xx--x","3":"3","4":"5"},{"1":"<S3: rk>","2":"x-x-x","3":"3","4":"5"},{"1":"<S3: rk>","2":"x--xx","3":"3","4":"5"},{"1":"<S3: rk>","2":"-xx-x","3":"3","4":"5"},{"1":"<S3: rk>","2":"-x-xx","3":"3","4":"5"},{"1":"<S3: rk>","2":"--xxx","3":"3","4":"5"},{"1":"<S3: rk>","2":"xxx-x","3":"4","4":"5"},{"1":"<S3: rk>","2":"xx-xx","3":"4","4":"5"},{"1":"<S3: rk>","2":"x-xxx","3":"4","4":"5"},{"1":"<S3: rk>","2":"-xxxx","3":"4","4":"5"},{"1":"<S3: rk>","2":"xxxxx","3":"5","4":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1281,7 +1293,7 @@ Valores precisam ser inteiros positivos, sem repetições.</code></pre>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"<S3: rk>","2":"••••✔"},{"1":"<S3: rk>","2":"✔•••✔"},{"1":"<S3: rk>","2":"•✔••✔"},{"1":"<S3: rk>","2":"••✔•✔"},{"1":"<S3: rk>","2":"•••✔✔"},{"1":"<S3: rk>","2":"✔✔••✔"},{"1":"<S3: rk>","2":"✔•✔•✔"},{"1":"<S3: rk>","2":"✔••✔✔"},{"1":"<S3: rk>","2":"•✔✔•✔"},{"1":"<S3: rk>","2":"•✔•✔✔"},{"1":"<S3: rk>","2":"••✔✔✔"},{"1":"<S3: rk>","2":"✔✔✔•✔"},{"1":"<S3: rk>","2":"✔✔•✔✔"},{"1":"<S3: rk>","2":"✔•✔✔✔"},{"1":"<S3: rk>","2":"•✔✔✔✔"},{"1":"<S3: rk>","2":"✔✔✔✔✔"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["ranking"],"name":[1],"type":["list"],"align":["right"]},{"label":["ranking_str"],"name":[2],"type":["chr"],"align":["left"]},{"label":["k"],"name":[3],"type":["int"],"align":["right"]},{"label":["p"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"<S3: rk>","2":"••••✔","3":"1","4":"5"},{"1":"<S3: rk>","2":"✔•••✔","3":"2","4":"5"},{"1":"<S3: rk>","2":"•✔••✔","3":"2","4":"5"},{"1":"<S3: rk>","2":"••✔•✔","3":"2","4":"5"},{"1":"<S3: rk>","2":"•••✔✔","3":"2","4":"5"},{"1":"<S3: rk>","2":"✔✔••✔","3":"3","4":"5"},{"1":"<S3: rk>","2":"✔•✔•✔","3":"3","4":"5"},{"1":"<S3: rk>","2":"✔••✔✔","3":"3","4":"5"},{"1":"<S3: rk>","2":"•✔✔•✔","3":"3","4":"5"},{"1":"<S3: rk>","2":"•✔•✔✔","3":"3","4":"5"},{"1":"<S3: rk>","2":"••✔✔✔","3":"3","4":"5"},{"1":"<S3: rk>","2":"✔✔✔•✔","3":"4","4":"5"},{"1":"<S3: rk>","2":"✔✔•✔✔","3":"4","4":"5"},{"1":"<S3: rk>","2":"✔•✔✔✔","3":"4","4":"5"},{"1":"<S3: rk>","2":"•✔✔✔✔","3":"4","4":"5"},{"1":"<S3: rk>","2":"✔✔✔✔✔","3":"5","4":"5"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
