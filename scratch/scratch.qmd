@@ -1,56 +1,11 @@
 
 ```{r setup, include=FALSE}
-source('_setup.R')
-source('rankings.R')
+source('../_setup.R')
+source('../rankings.R')
 library(gt)
 ```
 
 
-# Covariância
-
-A covariância entre duas variáveis aleatórias $X$ e $Y$ é igual a
-
-$$
-E(XY) - E(X)E(Y)
-$$
-
-Como calcular $E(XY)$?
-
-* Se $x$ e $y$ são pareados:
-
-```{r}
-cov_alt_par <- function(x, y) {
-  ex <- mean(x)
-  ey <- mean(y)
-  exy <- mean(x * y)
-  exy - ex * ey
-}
-```
-
-* Senão:
-
-```{r}
-cov_alt_naopar <- function(x, y) {
-  ex <- mean(x)
-  ey <- mean(y)
-  exy <- expand_grid(x = x, y = y) %>% 
-    mutate(xy = x * y) %>% 
-    pull(xy) %>% 
-    mean()
-  exy - ex * ey
-}
-```
-
-```{r}
-N <- 10000
-n <- 1000
-
-x <- sample(N, n, replace = TRUE)
-y <- sample(N, n, replace = TRUE)
-cov(x, y)
-cov_alt_par(x, y)
-cov_alt_naopar(x, y)
-```
 
 
 # Exemplos

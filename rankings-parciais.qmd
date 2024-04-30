@@ -1,0 +1,13 @@
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+source('rankings.R')
+conflict_prefer('lag', 'dplyr')
+conflict_prefer('lead', 'dplyr')
+```
+
+
+# *Rankings* parciais (Fagin et al)
+

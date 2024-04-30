@@ -1,0 +1,124 @@
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+source('rankings.R')
+conflict_prefer('lag', 'dplyr')
+conflict_prefer('lead', 'dplyr')
+```
+
+
+# Temporada 2022
+
+## Leitura e limpeza
+
+### Todos os jogadores
+
+```{r}
+df <- readxl::read_xlsx(
+  '/planilhas/2022_BB_DWARFF.xlsx'
+)
+```
+
+```{r}
+glimpse(df)
+```
+
+```{r}
+df_limpo <- df %>% 
+  rename(player = 'Player\n▲') %>% 
+  select(
+    -'0.0',-(média:`desvios mvp`)
+  ) %>% 
+  clean_names() %>% 
+  mutate(
+    across(
+      vorp_g:dwarff_bb,
+      ~ parse_number(
+        .x, 
+        locale = locale(decimal_mark = ",", grouping_mark = "."))
+    )
+  )
+
+```
+
+```{r}
+glimpse(df_limpo)
+```
+
+
+### Expert list
+
+```{r}
+top <- c(
+  'Nikola Jokić',
+  'Giannis Antetokounmpo',
+  'Jayson Tatum',
+  'Luka Dončić',
+  'Devin Booker',
+  'Joel Embiid',
+  'Kevin Durant',
+  'DeMar DeRozan',
+  'Ja Morant',
+  'Stephen Curry',
+  'Karl-Anthony Towns',
+  'LeBron James',
+  'Pascal Siakam',
+  'Chris Paul',
+  'Trae Young'
+)
+```
+
+```{r}
+length(top)
+```
+
+```{r}
+df_top <- df_limpo %>% 
+  mutate(
+    top = if_else(player %in% top, 'na lista', 'não na lista')
+  )
+```
+
+```{r}
+df_top %>% 
+  count(top)
+```
+
+```{r}
+glimpse(df_top)
+```
+
+
+## Boxplots por variável
+
+```{r}
+gerar_boxplot <- function(df, coluna) {
+  
+  p <- df %>% 
+    ggplot(aes(x = top, y = .data[[coluna]])) +
+      geom_boxplot(outlier.shape = NA) +
+      geom_jitter(width = 0.4, height = 0, alpha = 0.2) +
+      labs(
+        x = NULL,
+        y = NULL,
+        title = paste('Coluna:', coluna)
+      )
+  
+  print(p)
+}
+```
+
+```{r}
+colunas <- df_top %>% names() %>% magrittr::extract(4:14)
+colunas
+```
+
+Os boxplots abaixo mostram, para cada variável, quais são os valores dos jogadores escolhidos para a *expert list*.
+
+```{r}
+colunas %>% 
+  walk(~ gerar_boxplot(df_top, .x))
+```
+

@@ -19,9 +19,10 @@ book:
     - linkedin
   chapters:
     - index.qmd
+    - temporadas-2014-2023.qmd
+    - temporadas-2014-2023-logistic.qmd
     - gerar-listas-e-rankings.qmd
     - usando-posicoes.qmd
-    - usando-precision-recall.qmd
     - references.qmd
 
 bibliography: bibliography.bib
@@ -32,7 +33,7 @@ comments:
   hypothesis: true
 
 execute: 
-  echo: false
+  echo: true
   eval: true
   warning: true
   error: true

@@ -1,0 +1,112 @@
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+conflict_prefer('lag', 'dplyr')
+conflict_prefer('lead', 'dplyr')
+
+library(patchwork)
+```
+
+
+# Regressão logística (2014 a 2023)
+
+## Preditores
+
+Vamos usar apenas
+
+* g: games
+* mp: minutes played
+* vorp
+* fg: field goals
+* bpm
+* tw
+* ast_percent
+* drb
+* ft
+* blk
+
+
+## Ler csv
+
+```{r}
+df <- read_csv('dados/temporadas-2014-2023.csv')
+```
+
+
+## Correlações entre preditores
+
+```{r}
+plot_cor <- function(df, v1, v2) {
+  
+  x = df[[v1]]
+  y = df[[v2]]
+  valor_cor <- cor(x, y) %>% round(2)
+  
+  df %>% ggplot(aes(x, y)) +
+    geom_point(size = 0.3, alpha = 0.5) +
+    labs(
+      title = paste0('cor(', v1, ', ', v2, ') = ', valor_cor),
+      x = v1,
+      y = v2
+    )
+  
+}
+```
+
+```{r}
+#| fig-height: 50
+
+v <- c(
+  'g',
+  'mp',
+  'vorp',
+  'fg',
+  'bpm',
+  'tw',
+  'ast_percent',
+  'drb',
+  'ft',
+  'blk'
+)
+
+pares <- expand_grid(x = v, y = v) %>% 
+  filter(x < y) %>% 
+  arrange(x, y)
+
+v1 <- pares %>% pull(x)
+v2 <- pares %>% pull(y)
+
+plots <- map2(
+  v1, v2, ~ plot_cor(df, .x, .y)
+)
+
+plots %>% 
+  wrap_plots(
+    ncol = 2,
+    byrow = TRUE
+  )
+```
+
+```{r}
+df_cors <- 
+  map2(
+    v1, 
+    v2, 
+    ~ tibble(
+      v1 = .x, 
+      v2 = .y, 
+      valor = round(cor(df[[.x]], df[[.y]]), 2)
+    )
+  ) %>% 
+  bind_rows()
+```
+
+Colunas com correlação maior que $0{,}5$:
+
+```{r}
+df_cors %>% 
+  filter(abs(valor) > 0.5)
+```
+

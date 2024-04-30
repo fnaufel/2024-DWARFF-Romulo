@@ -1,0 +1,198 @@
+
+{{< include _math.qmd >}}
+
+```{r setup, include=FALSE}
+source('_setup.R')
+conflict_prefer('lag', 'dplyr')
+conflict_prefer('lead', 'dplyr')
+```
+
+
+# Temporadas 2019 a 2023
+
+## Ler e limpar (todos os jogadores)
+
+Uma única *tibble* com todos os anos:
+
+```{r}
+anos <- 2019:2023
+
+ler_e_limpar <- function(ano) {
+  
+  nome <- paste0('planilhas/', ano, '_BB_DWARFF.xlsx')
+  df <- readxl::read_xlsx(nome) %>% 
+    rename(player = 'Player\n▲') %>% 
+    select(
+      -'0.0',-(média:`desvios mvp`)
+    ) %>% 
+    clean_names() %>% 
+    mutate(
+      across(
+        vorp_g:dwarff_bb,
+        ~ parse_number(
+          .x, 
+          locale = locale(decimal_mark = ",", grouping_mark = "."))
+      )
+    ) %>% 
+    mutate(year = ano)
+  
+  df
+  
+}
+```
+
+```{r}
+df <- bind_rows(
+  anos %>% 
+    map(ler_e_limpar)
+) %>% 
+  select(year, everything()) %>% 
+  arrange(year, player)
+```
+
+
+## *Expert lists*
+
+Precisei entrar manualmente:
+
+```{r}
+listas <- list(
+  '2019' = c(
+    'Nikola Jokić',
+    'Giannis Antetokounmpo',
+    'Paul George',
+    'James Harden',
+    'Stephen Curry',
+    'Joel Embiid',
+    'Kevin Durant',
+    'Kawhi Leonard',
+    'Damian Lillard',
+    'Kyrie Irving',
+    'Rudy Gobert',
+    'LeBron James',
+    'Blake Griffin',
+    'Kemba Walker',
+    'Russell Westbrook'
+  ),
+  '2020' = c(
+    'Anthony Davis',
+    'Giannis Antetokounmpo',
+    'LeBron James',
+    'James Harden',
+    'Luka Dončić',
+    'Nikola Jokić',
+    'Kawhi Leonard',
+    'Pascal Siakam',
+    'Damian Lillard',
+    'Chris Paul',
+    'Rudy Gobert',
+    'Jayson Tatum',
+    'Jimmy Butler',
+    'Ben Simmons',
+    'Russell Westbrook'
+  ),
+  '2021' = c(
+    'Nikola Jokić',
+    'Giannis Antetokounmpo',
+    'Kawhi Leonard',
+    'Stephen Curry',
+    'Luka Dončić',
+    'Joel Embiid',
+    'Julius Randle',
+    'LeBron James',
+    'Chris Paul',
+    'Damian Lillard',
+    'Rudy Gobert',
+    'Jimmy Butler',
+    'Paul George',
+    'Bradley Beal',
+    'Kyrie Irving'
+  ),
+  '2022' = c(
+    'Nikola Jokić',
+    'Giannis Antetokounmpo',
+    'Jayson Tatum',
+    'Luka Dončić',
+    'Devin Booker',
+    'Joel Embiid',
+    'Kevin Durant',
+    'DeMar DeRozan',
+    'Ja Morant',
+    'Stephen Curry',
+    'Karl-Anthony Towns',
+    'LeBron James',
+    'Pascal Siakam',
+    'Chris Paul',
+    'Trae Young'
+  ),
+  '2023' = c(
+    'Joel Embiid',
+    'Giannis Antetokounmpo',
+    'Jayson Tatum',
+    'Luka Dončić',
+    'Shai Gilgeous-Alexander',
+    'Nikola Jokić',
+    'Jimmy Butler',
+    'Jaylen Brown',
+    'Donovan Mitchell',
+    'Stephen Curry',
+    'Domantas Sabonis',
+    'LeBron James',
+    'Julius Randle',
+    'De\'Aaron Fox',
+    'Damian Lillard'
+  )
+)
+```
+
+Incluir campo na *tibble*:
+
+```{r}
+incluir_top <- function(ano) {
+  
+  df %>% 
+    filter(year == ano) %>% 
+    mutate(
+      top = player %in% listas[[ano]]
+    )
+  
+}
+
+df_top <- names(listas) %>% 
+  map(incluir_top) %>% 
+  bind_rows()
+```
+
+```{r}
+df_top %>% 
+  filter(top) %>% 
+  count(year)
+```
+
+## Sumário
+
+```{r}
+df_top %>% dfSummary() %>% print(method = 'render')
+```
+
+
+## Gravar csv
+
+```{r}
+df_top %>% 
+  write_csv('dados/temporadas-2019-2023.csv')
+```
+
+
+## Problema
+
+::: {.callout-caution}
+
+Por que este jogador tem `ast_percent_g` maior que $10$?
+
+```{r}
+df_top %>% filter(ast_percent_g > 10) %>% 
+  select(year, player, pos, tm, ast_percent_g)
+```
+
+:::
